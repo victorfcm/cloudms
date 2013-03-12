@@ -45,7 +45,9 @@ class Post
     /**
      * @var integer
      * 
-     * @ORM\OneToOne(targetEntity="PostType")
+     * @ORM\Column(name="post_type_id", type="smallint")
+     * 
+     * @ORM\OneToOne(targetEntity="PostType", inversedBy="posts")
      * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
      */
     private $postTypeId;
@@ -53,8 +55,7 @@ class Post
     /**
      * @var integer
      * 
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\Column(name="user_id", type="smallint")
      */
     private $userId;
 

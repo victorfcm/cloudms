@@ -14,7 +14,7 @@ class PostType extends AbstractType
             ->add('header')
             ->add('content')
             ->add('footer')
-            ->add('posostTypeId')
+            ->add('postTypeId')
             ->add('userId')
             ->add('createdAt')
             ->add('updatedAt')

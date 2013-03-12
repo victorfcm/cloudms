@@ -5,12 +5,12 @@ namespace CMS\StoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Taxonomy
+ * Term
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Taxonomy
+class Term
 {
     /**
      * @var integer
@@ -35,6 +35,20 @@ class Taxonomy
      */
     private $description;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="taxonomy_id", type="integer")
+     */
+    private $taxonomyId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="daddy_id", type="integer")
+     */
+    private $daddyId;
+
 
     /**
      * Get id
@@ -50,7 +64,7 @@ class Taxonomy
      * Set name
      *
      * @param string $name
-     * @return Taxonomy
+     * @return Term
      */
     public function setName($name)
     {
@@ -73,7 +87,7 @@ class Taxonomy
      * Set description
      *
      * @param string $description
-     * @return Taxonomy
+     * @return Term
      */
     public function setDescription($description)
     {
@@ -90,5 +104,51 @@ class Taxonomy
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set taxonomyId
+     *
+     * @param integer $taxonomyId
+     * @return Term
+     */
+    public function setTaxonomyId($taxonomyId)
+    {
+        $this->taxonomyId = $taxonomyId;
+    
+        return $this;
+    }
+
+    /**
+     * Get taxonomyId
+     *
+     * @return integer 
+     */
+    public function getTaxonomyId()
+    {
+        return $this->taxonomyId;
+    }
+
+    /**
+     * Set daddyId
+     *
+     * @param integer $daddyId
+     * @return Term
+     */
+    public function setDaddyId($daddyId)
+    {
+        $this->daddyId = $daddyId;
+    
+        return $this;
+    }
+
+    /**
+     * Get daddyId
+     *
+     * @return integer 
+     */
+    public function getDaddyId()
+    {
+        return $this->daddyId;
     }
 }

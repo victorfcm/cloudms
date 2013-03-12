@@ -38,14 +38,16 @@ class Term
     /**
      * @var integer
      *
-     * @ORM\Column(name="taxonomy_id", type="integer")
+     * @ORM\OneToOne(targetEntity="Taxonomy")
+     * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
      */
     private $taxonomyId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="daddy_id", type="integer")
+     * @ORM\OneToOne(targetEntity="Term")
+     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
      */
     private $daddyId;
 

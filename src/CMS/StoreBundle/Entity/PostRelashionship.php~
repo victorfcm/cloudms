@@ -24,16 +24,14 @@ class PostRelashionship
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\Column(name="post_id", type="integer")
      */
     private $postId;
 
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
+     * @ORM\Column(name="daddy_id", type="integer")
      */
     private $daddyId;
 
