@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>PostTypeTaxonomyRelashionship creation</h1>
+
+    <form action="{{ path('post_type_tax_rl_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Create</button>
+        </p>
+    </form>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('post_type_tax_rl') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
