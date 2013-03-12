@@ -1,0 +1,5 @@
+cms_store:
+    resource: "@CMSStoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
