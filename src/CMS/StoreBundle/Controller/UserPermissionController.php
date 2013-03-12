@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\UserPermissionType;
 /**
  * UserPermission controller.
  *
- * @Route("/user_role")
+ * @Route("/user-role")
  */
 class UserPermissionController extends Controller
 {

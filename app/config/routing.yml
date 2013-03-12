@@ -5,5 +5,5 @@ cms_store:
     
 _welcome:
     pattern:  /
-    defaults: { _controller: CMSStoreBundle:Post:index }
+    defaults: { _controller: CMSStoreBundle:Default:index }
 

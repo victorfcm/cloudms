@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\PostRelashionshipType;
 /**
  * PostRelashionship controller.
  *
- * @Route("/post_relashionship")
+ * @Route("/post-rl")
  */
 class PostRelashionshipController extends Controller
 {
