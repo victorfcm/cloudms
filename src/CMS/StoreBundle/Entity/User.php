@@ -181,4 +181,14 @@ class User
     {
         return $this->majorRole;
     }
+    
+    /**
+     * toString
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

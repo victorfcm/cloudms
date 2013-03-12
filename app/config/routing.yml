@@ -2,4 +2,8 @@ cms_store:
     resource: "@CMSStoreBundle/Controller/"
     type:     annotation
     prefix:   /
+    
+_welcome:
+    pattern:  /
+    defaults: { _controller: CMSStoreBundle:Post:index }
 

@@ -10,7 +10,7 @@
                 <th>Header</th>
                 <th>Content</th>
                 <th>Footer</th>
-                <th>Pososttypeid</th>
+                <th>Posttypeid</th>
                 <th>Userid</th>
                 <th>Createdat</th>
                 <th>Updatedat</th>
@@ -24,10 +24,10 @@
                 <td>{{ entity.header }}</td>
                 <td>{{ entity.content }}</td>
                 <td>{{ entity.footer }}</td>
-                <td>{{ entity.posostTypeId }}</td>
+                <td>{{ entity.postTypeId }}</td>
                 <td>{{ entity.userId }}</td>
-                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>

@@ -5,30 +5,28 @@ namespace CMS\StoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType as PasswordType;
 
-class UserType extends AbstractType
+class PostAttachmentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('email')
-            ->add('login')
-            ->add('password', new PasswordType())
-            ->add('majorRole')
+            ->add('postId')
+            ->add('path')
+            ->add('fileName')
+            ->add('mime')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CMS\StoreBundle\Entity\User'
+            'data_class' => 'CMS\StoreBundle\Entity\PostAttachment'
         ));
     }
 
     public function getName()
     {
-        return 'cms_storebundle_usertype';
+        return 'cms_storebundle_postattachmenttype';
     }
 }

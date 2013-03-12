@@ -5,19 +5,20 @@ namespace CMS\StoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type as Types;
 
 class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('header')
+            ->add('title')
+            ->add('header', new Types\TextType())
             ->add('content')
-            ->add('footer')
+            ->add('footer', new Types\TextType(), array('required' => false))
             ->add('postTypeId')
             ->add('userId')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('daddyId')
         ;
     }
 

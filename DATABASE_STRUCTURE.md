@@ -51,3 +51,9 @@ TERM
 POST_TERM_RELASHIONSHIP
  - term_id (int)
  - post_id (int)
+
+POST_ATTACHMENT
+ - post_id (int)
+ - path (string)
+ - label (string)
+ - mime (string)

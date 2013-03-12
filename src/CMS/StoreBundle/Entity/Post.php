@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -24,28 +25,35 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="header", type="blob")
+     * @ORM\Column(name="header", type="text")
      */
     private $header;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="text")
+     */
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="blob")
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="footer", type="text")
+     * @ORM\Column(name="footer", type="text", nullable=true)
      */
     private $footer;
 
     /**
      * @var integer
      * 
-     * @ORM\OneToOne(targetEntity="PostType")
+     * @ORM\ManyToOne(targetEntity="PostType")
      * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
      */
     private $postTypeId;
@@ -53,25 +61,32 @@ class Post
     /**
      * @var integer
      * 
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
     /**
+     * @var integer
+     * 
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
+     */
+    private $daddyId;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
-
 
     /**
      * Get id
@@ -92,7 +107,7 @@ class Post
     public function setHeader($header)
     {
         $this->header = $header;
-    
+
         return $this;
     }
 
@@ -105,6 +120,29 @@ class Post
     {
         return $this->header;
     }
+    
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Post
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Set content
@@ -115,7 +153,7 @@ class Post
     public function setContent($content)
     {
         $this->content = $content;
-    
+
         return $this;
     }
 
@@ -138,7 +176,7 @@ class Post
     public function setFooter($footer)
     {
         $this->footer = $footer;
-    
+
         return $this;
     }
 
@@ -161,7 +199,7 @@ class Post
     public function setPostTypeId($postTypeId)
     {
         $this->postTypeId = $postTypeId;
-    
+
         return $this;
     }
 
@@ -184,7 +222,7 @@ class Post
     public function setUserId($userId)
     {
         $this->userId = $userId;
-    
+
         return $this;
     }
 
@@ -207,7 +245,7 @@ class Post
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
@@ -230,7 +268,7 @@ class Post
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
@@ -243,4 +281,53 @@ class Post
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Set daddyId
+     *
+     * @param string $daddyId
+     * @return Post
+     */
+    public function setDaddyId($daddyId)
+    {
+        $this->daddyId = $daddyId;
+
+        return $this;
+    }
+
+    /**
+     * Get daddyId
+     *
+     * @return string
+     */
+    public function getDaddyId()
+    {
+        return $this->daddyId;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
+
+        if($this->getCreatedAt() == null)
+        {
+            $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+        }
+    }
+    
+    
+    /**
+     * toString
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+    
 }
