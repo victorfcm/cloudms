@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\PostTermRelashionshipType;
 /**
  * PostTermRelashionship controller.
  *
- * @Route("/post-term")
+ * @Route("/admin/post-term")
  */
 class PostTermRelashionshipController extends Controller
 {

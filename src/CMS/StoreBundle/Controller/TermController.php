@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\TermType;
 /**
  * Term controller.
  *
- * @Route("/term")
+ * @Route("/admin/term")
  */
 class TermController extends Controller
 {

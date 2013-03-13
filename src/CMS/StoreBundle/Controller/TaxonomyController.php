@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\TaxonomyType;
 /**
  * Taxonomy controller.
  *
- * @Route("/taxonomy")
+ * @Route("/admin/taxonomy")
  */
 class TaxonomyController extends Controller
 {

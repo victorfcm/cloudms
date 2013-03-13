@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\TermTaxonomyRelashionshipType;
 /**
  * TermTaxonomyRelashionship controller.
  *
- * @Route("/term-taxonomy")
+ * @Route("/admin/term-taxonomy")
  */
 class TermTaxonomyRelashionshipController extends Controller
 {

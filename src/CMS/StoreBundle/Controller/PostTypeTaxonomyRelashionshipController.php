@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\PostTypeTaxonomyRelashionshipType;
 /**
  * PostTypeTaxonomyRelashionship controller.
  *
- * @Route("/post_type-tax-rl")
+ * @Route("/admin/post_type-taxonomy")
  */
 class PostTypeTaxonomyRelashionshipController extends Controller
 {
