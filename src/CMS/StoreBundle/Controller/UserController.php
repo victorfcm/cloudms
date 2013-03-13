@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\UserType;
 /**
  * User controller.
  *
- * @Route("/user")
+ * @Route("/admin/user")
  */
 class UserController extends Controller
 {
