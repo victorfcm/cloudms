@@ -3,6 +3,7 @@
 namespace CMS\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
@@ -19,7 +20,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -31,23 +32,9 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=100)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="login", type="string", length=20)
      */
     private $login;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=20)
-     */
-    private $password;
 
     /**
      * @var string
@@ -56,6 +43,16 @@ class User
      */
     private $majorRole = 'ROLE_USER';
 
+    
+    /**
+     * construct
+     * 
+     * @return null 
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get id
