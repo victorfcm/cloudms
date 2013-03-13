@@ -91,4 +91,14 @@ class Taxonomy
     {
         return $this->description;
     }
+    
+    /**
+     * toString
+     *  
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

@@ -54,7 +54,7 @@ class User
      *
      * @ORM\Column(name="major_role", type="string", length=20)
      */
-    private $majorRole;
+    private $majorRole = 'ROLE_USER';
 
 
     /**

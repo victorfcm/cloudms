@@ -24,7 +24,7 @@ class PostRelashionship
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $postId;
@@ -32,7 +32,7 @@ class PostRelashionship
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post")
      * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
      */
     private $daddyId;

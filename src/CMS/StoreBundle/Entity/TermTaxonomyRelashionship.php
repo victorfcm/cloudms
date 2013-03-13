@@ -5,12 +5,12 @@ namespace CMS\StoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PostTermRelashionship
+ * TermTaxonomyRelashionship
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class PostTermRelashionship
+class TermTaxonomyRelashionship
 {
     /**
      * @var integer
@@ -23,7 +23,7 @@ class PostTermRelashionship
 
     /**
      * @var integer
-     *
+     * 
      * @ORM\ManyToOne(targetEntity="Term")
      * @ORM\JoinColumn(name="term_id", referencedColumnName="id")
      */
@@ -32,10 +32,10 @@ class PostTermRelashionship
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="taxonomy")
+     * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
      */
-    private $postId;
+    private $taxonomyId;
 
 
     /**
@@ -52,7 +52,7 @@ class PostTermRelashionship
      * Set termId
      *
      * @param integer $termId
-     * @return PostTermRelashionship
+     * @return TermTaxonomyRelashionship
      */
     public function setTermId($termId)
     {
@@ -72,25 +72,25 @@ class PostTermRelashionship
     }
 
     /**
-     * Set postId
+     * Set taxonomyId
      *
-     * @param integer $postId
-     * @return PostTermRelashionship
+     * @param integer $taxonomyId
+     * @return TermTaxonomyRelashionship
      */
-    public function setPostId($postId)
+    public function setTaxonomyId($taxonomyId)
     {
-        $this->postId = $postId;
+        $this->taxonomyId = $taxonomyId;
     
         return $this;
     }
 
     /**
-     * Get postId
+     * Get taxonomyId
      *
      * @return integer 
      */
-    public function getPostId()
+    public function getTaxonomyId()
     {
-        return $this->postId;
+        return $this->taxonomyId;
     }
 }

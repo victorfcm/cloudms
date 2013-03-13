@@ -38,7 +38,7 @@ class Term
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Taxonomy")
+     * @ORM\ManyToOne(targetEntity="Taxonomy")
      * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
      */
     private $taxonomyId;
@@ -46,7 +46,7 @@ class Term
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Term")
+     * @ORM\ManyToOne(targetEntity="Term")
      * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
      */
     private $daddyId;
@@ -152,5 +152,15 @@ class Term
     public function getDaddyId()
     {
         return $this->daddyId;
+    }
+    
+    /**
+     * toString
+     *  
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

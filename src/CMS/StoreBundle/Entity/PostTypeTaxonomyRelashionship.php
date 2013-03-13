@@ -24,14 +24,16 @@ class PostTypeTaxonomyRelashionship
     /**
      * @var integer
      *
-     * @ORM\Column(name="post_type_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="PostType")
+     * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
      */
     private $postTypeId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="taxonomy_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="taxonomy")
+     * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
      */
     private $taxonomyId;
 
