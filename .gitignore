@@ -12,3 +12,9 @@ web/bundles/*
 app/config/parameters.ini
 app/config/parameters.yml
 
+# Eclipse
+.metadata/*
+.project
+.settings/*
+.buildpath
+
