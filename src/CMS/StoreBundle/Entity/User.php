@@ -25,24 +25,9 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="login", type="string", length=20)
-     */
-    private $login;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="major_role", type="string", length=20)
-     */
-    private $majorRole = 'ROLE_USER';
-
     
     /**
      * construct
