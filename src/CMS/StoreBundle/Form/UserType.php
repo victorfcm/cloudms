@@ -2,22 +2,28 @@
 
 namespace CMS\StoreBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType as PasswordType;
+use FOS\UserBundle\Form\Type\RegistrationFormType as ProfileType;
 
-class UserType extends AbstractType
+class UserType extends ProfileType
 {
+    public function __construct()
+    {
+        $class = 'User';
+        parent::__construct($class);        
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-            ->add('email')
-            ->add('username')
-            ->add('password', new PasswordType())
-            ->add('roles')
-        ;
+        $builder->add('name')->add('roles');
+        
+        parent::buildForm($builder, $options);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
