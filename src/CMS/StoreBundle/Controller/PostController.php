@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\PostType;
 /**
  * Post controller.
  *
- * @Route("/cms/post")
+ * @Route("/post")
  */
 class PostController extends Controller
 {

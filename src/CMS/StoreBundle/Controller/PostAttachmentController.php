@@ -13,7 +13,7 @@ use CMS\StoreBundle\Form\PostAttachmentType;
 /**
  * PostAttachment controller.
  *
- * @Route("/admin/attachments")
+ * @Route("/attachments")
  */
 class PostAttachmentController extends Controller
 {
