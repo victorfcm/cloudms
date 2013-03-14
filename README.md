@@ -6,10 +6,10 @@
 
 ###** Framework **###
 Symfony2 - version 2.2.0
-[http://symfony.com/](Symfony Site)
+[Symfony Site](http://symfony.com/])
 
 ###** External Bundles **###
- - [https://github.com/FriendsOfSymfony/FOSUserBundle](FOSUserBundle)
+ - [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
 
 ###** Internal Bundles **###
  - Acme (symfony2 default demo bundle)
