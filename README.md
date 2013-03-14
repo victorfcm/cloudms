@@ -5,9 +5,7 @@
  * php-composer
 
 ###** Framework **###
-Symfony2 - version 2.2.0
-
-[Symfony Site](http://symfony.com/])
+[Symfony2](http://symfony.com/]) - version 2.2.0
 
 ###** External Bundles **###
  * [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
