@@ -1,6 +1,6 @@
 #** README Tamanduá - CMS **#
 
-###** Requiriments **###
+###** Requirements **###
  - PHP 5.3+
  - php-composer
 
