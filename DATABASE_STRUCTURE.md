@@ -21,16 +21,24 @@ POST_TYPE
 
 USER
  - id
+ - username (string)
  - name (string)
  - email (string)
- - login (string)
+ - enabled (boolean)
+ - salt (string)
  - password (string)
- - major_role (string)
+ - last_login (datetime)
+ - locked (boolean)
+ - expired (boolean)
+ - expired_at (datetime)
+ - confirmation_token (string)
+ - password_requested_at (datetime)
+ - roles (longtext)
+ - credentials_expire (boolean)
+ - credentials_expire_at (datetime)
 
 USER_PERMISSION
- - id
- - user_id (int)
- - permissions (object)
+ (UNUSED)
 
 TAXONOMY
  - id
