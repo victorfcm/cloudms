@@ -42,7 +42,7 @@ class TermController extends Controller
      * @Method("POST")
      * @Template("CMSStoreBundle:Term:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $redirUrl = 'term_show')
     {
         $entity  = new Term();
         $form = $this->createForm(new TermType(), $entity);
@@ -53,7 +53,7 @@ class TermController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getId())));
         }
 
         return array(
@@ -139,7 +139,7 @@ class TermController extends Controller
      * @Method("PUT")
      * @Template("CMSStoreBundle:Term:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $redirUrl = 'term_edit')
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -157,7 +157,7 @@ class TermController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl($redirUrl, array('id' => $id)));
         }
 
         return array(
@@ -173,7 +173,7 @@ class TermController extends Controller
      * @Route("/{id}", name="term_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $id, $redirUrl = 'term')
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
@@ -190,7 +190,7 @@ class TermController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('term'));
+        return $this->redirect($this->generateUrl($redirUrl));
     }
 
     /**

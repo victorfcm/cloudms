@@ -3,13 +3,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Test Application{% endblock %}</title>
-        {% block stylesheets %}
-            {% stylesheets 'main.css' %}
-                <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
-            {% endstylesheets %}
-        {% endblock %}
     </head>
     <body>
+        <div id="sidebar">
+            {% block sidebar %}
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul>
+            {% endblock %}
+        </div>
+
         <div id="content">
             {% block body %}{% endblock %}
         </div>

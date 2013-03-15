@@ -20,7 +20,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('post_cshow', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.header }}</td>
                 <td>{{ entity.content }}</td>
                 <td>{{ entity.footer }}</td>
@@ -31,10 +31,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('post_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('post_cshow', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('post_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('post_cedit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -45,7 +45,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('post_new') }}">
+            <a href="{{ path('post_cnew') }}">
                 Create a new entry
             </a>
         </li>

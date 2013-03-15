@@ -42,17 +42,17 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('post') }}">
+        <a href="{{ path('post_cindex') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('post_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('post_cedit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
     <li>
-        <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('post_cdelete', { 'id': entity.id }) }}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>

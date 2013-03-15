@@ -2,25 +2,24 @@
 
 namespace CMS\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use CMS\StoreBundle\Controller\PostController as Controller;
+use CMS\StoreBundle\Controller\TermController as Controller;
+
 
 
 /**
- * Post controller.
+ * Term controller.
  *
- * @Route("/post")
+ * @Route("/term")
  */
-class PostController extends Controller
+class TermController extends Controller
 {
-    
     /**
-     * Lists all Post entities.
+     * Lists all Term entities.
      *
-     * @Route("/", name="post_cindex")
+     * @Route("/", name="term_tindex")
      * @Method("GET")
      * @Template()
      */
@@ -30,21 +29,21 @@ class PostController extends Controller
     }
     
     /**
-     * Creates a new Post entity.
+     * Creates a new Term entity.
      *
-     * @Route("/", name="post_ccreate")
-     * @Method("POST")
-     * @Template("CMSStoreBundle:Post:new.html.twig")
+     * @Route("/", name="term_tcreate")
+     * @Method("Post")
+     * @Template("CMSStoreBundle:Term:new.html.twig")
      */
-    public function createAction(Request $request, $redirUrl = 'post_ccreate')
+    public function createAction(Request $request, $redirUrl = 'term_tcreate')
     {
         return parent::createAction($request, $redirUrl);
     }
 
     /**
-     * Displays a form to create a new Post entity.
+     * Displays a form to create a new Term entity.
      *
-     * @Route("/new", name="post_cnew")
+     * @Route("/new", name="term_tnew")
      * @Method("GET")
      * @Template()
      */
@@ -54,9 +53,9 @@ class PostController extends Controller
     }
 
     /**
-     * Finds and displays a Post entity.
+     * Finds and displays a Term entity.
      *
-     * @Route("/{id}", name="post_cshow")
+     * @Route("/{id}", name="term_tshow")
      * @Method("GET")
      * @Template()
      */
@@ -66,9 +65,9 @@ class PostController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Post entity.
+     * Displays a form to edit an existing Term entity.
      *
-     * @Route("/{id}/edit", name="post_cedit")
+     * @Route("/{id}/edit", name="term_tedit")
      * @Method("GET")
      * @Template()
      */
@@ -78,30 +77,30 @@ class PostController extends Controller
     }
 
     /**
-     * Edits an existing Post entity.
+     * Edits an existing Term entity.
      *
-     * @Route("/{id}", name="post_cupdate")
+     * @Route("/{id}", name="term_tupdate")
      * @Method("PUT")
-     * @Template("CMSStoreBundle:Post:edit.html.twig")
+     * @Template("CMSStoreBundle:Term:edit.html.twig")
      */
-    public function updateAction(Request $request, $id, $redirUrl = 'post_cupdate')
+    public function updateAction(Request $request, $id, $redirUrl = 'term_tupdate')
     {
         return parent::updateAction($request, $id, $redirUrl);
     }
 
     /**
-     * Deletes a Post entity.
+     * Deletes a Term entity.
      *
-     * @Route("/{id}", name="post_cdelete")
+     * @Route("/{id}", name="term_tdelete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id, $redirUrl = 'post_cdelete')
+    public function deleteAction(Request $request, $id, $redirUrl = 'term_tdelete')
     {
         return parent::deleteAction($request, $id, $redirUrl);
     }
 
     /**
-     * Creates a form to delete a Post entity by id.
+     * Creates a form to delete a Term entity by id.
      *
      * @param mixed $id The entity id
      *

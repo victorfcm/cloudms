@@ -39,7 +39,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="string")
      */
     private $content;
 

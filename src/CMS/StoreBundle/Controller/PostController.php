@@ -42,7 +42,7 @@ class PostController extends Controller
      * @Method("POST")
      * @Template("CMSStoreBundle:Post:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $redirUrl = 'post_show')
     {
         $entity  = new Post();
         $form = $this->createForm(new PostType(), $entity);
@@ -53,7 +53,7 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('post_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getId())));
         }
 
         return array(
@@ -139,7 +139,7 @@ class PostController extends Controller
      * @Method("PUT")
      * @Template("CMSStoreBundle:Post:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $redirUlr = 'post_edit')
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -157,7 +157,7 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('post_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl($redirUlr, array('id' => $id)));
         }
 
         return array(
@@ -173,7 +173,7 @@ class PostController extends Controller
      * @Route("/{id}", name="post_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $id, $redirUrl = 'post')
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
@@ -190,7 +190,7 @@ class PostController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('post'));
+        return $this->redirect($this->generateUrl($redirUrl));
     }
 
     /**
