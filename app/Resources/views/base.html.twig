@@ -2,14 +2,75 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Test Application{% endblock %}</title>
+        <title>{% block title %}Painel de Administração{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets 'main.css' %}
+            {% stylesheets '@CMSStoreBundle/Resources/public/css/*' %}
                 <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
+        {% block javascripts %}
+            {% javascripts '@CMSStoreBundle/Resources/public/js/*' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </head>
     <body>
+        <div id="header">
+
+            <div id="top">
+
+                <div class="container_16">
+
+                {% block logo %}
+                    <div id="logo">
+                        Gerenciador de Conteúdo 
+                        <!--span class="creditos">Desenvolvido por <img alt="Rede D'or" src="img/logo-tamandua-min.png" /> </span-->
+                    </div>
+                {% endblock %}
+
+                    <div id="saudacao">
+                        <p>Bem-vindo, <strong> {{ app.user.username }}
+                        </strong> [ <a href="{{ path('fos_user_security_logout') }}"> {{ 'sair'|trans({}, 'FOSUserBundle') }}</a> ]</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="nav" class="container_16">
+
+                <ul class="grid_16">
+
+                    <li class="upp home"><a href="#">Painel</a></li>
+
+                    <li class="upp"><a href="#">Gestores</a>
+                        <ul>
+                            <li>&#8250; <a href="">Listar</a></li>
+                            <li>&#8250; <a href="">Adicionar Novo</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="upp"><a href="#">Telefones Úteis</a>
+                        <ul>
+                            <li>&#8250; <a href="">Listar</a></li>
+                            <li>&#8250; <a href="">Adicionar Novo</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="upp"><a href="#">Comunicação</a>
+                        <ul>
+                            <li>&#8250; <a href="">Listar</a></li>
+                            <li>&#8250; <a href="">Adicionar Nova</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div><!--/nav-->
+
+
+        </div><!--/header-->
+
         <div id="content">
             {% block body %}{% endblock %}
         </div>
