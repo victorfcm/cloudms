@@ -77,6 +77,7 @@ class PostController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'form_front' => $form
         );
     }
 

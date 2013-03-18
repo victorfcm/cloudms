@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PostType
 {
+    public static $page_type_id = 1;
+
+    public static $post_type_id = 2;
+
+    public static $news_type_id = 3;
+
     /**
      * @var integer
      *
@@ -35,7 +41,6 @@ class PostType
      */
     private $description;
 
-
     /**
      * Get id
      *
@@ -55,7 +60,7 @@ class PostType
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -78,7 +83,7 @@ class PostType
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -91,7 +96,7 @@ class PostType
     {
         return $this->description;
     }
-    
+
     /**
      * toString
      * 
@@ -101,4 +106,23 @@ class PostType
     {
         return $this->getName();
     }
+
+    public static function retriveId($name)
+    {
+        switch ($name)
+        {
+            case 'news':
+                $_r = self::$news_type_id;
+                break;
+            case 'page':
+                $_r = self::$page_type_id;
+                break;
+            case 'post':
+                $_r = self::$post_type_id;
+                break;
+        }
+
+        return $_r;
+    }
+
 }

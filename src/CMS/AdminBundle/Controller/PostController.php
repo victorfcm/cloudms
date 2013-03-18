@@ -6,7 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use CMS\StoreBundle\Entity\PostType as PostType;
 use CMS\StoreBundle\Controller\PostController as Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType as HiddenType;
 
 
 /**
@@ -44,13 +46,29 @@ class PostController extends Controller
     /**
      * Displays a form to create a new Post entity.
      *
-     * @Route("/new", name="post_cnew")
+     * @Route("/new/{type}", name="post_cnew")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($type = null)
     {
-        return parent::newAction();
+        $ar = parent::newAction();
+        $form = $ar['form_front'];
+        
+        if(null !== $type)
+        {
+            $form->remove('postTypeId');
+            $form->add('postTypeId', new HiddenType(), array('attr' => array('value' => PostType::retriveId($type))));
+        }
+        
+        $form->remove('userId');
+        $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
+        
+        $form->remove('daddyId');
+        
+        $ar['form'] = $form->createView();
+        
+        return $ar;
     }
 
     /**
