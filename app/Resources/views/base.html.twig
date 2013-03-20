@@ -9,8 +9,15 @@
             {% endstylesheets %}
         {% endblock %}
         {% block javascripts %}
-            {% javascripts '@CMSStoreBundle/Resources/public/js/*' %}
-                <script src="{{ asset_url }}"></script>
+            {% javascripts 
+                    '@CMSStoreBundle/Resources/public/js/jquery-1.7.2.min.js'
+                    '@CMSStoreBundle/Resources/public/js/jquery_ui/*'
+                    '@CMSStoreBundle/Resources/public/js/mfm/*'
+                    '@CMSStoreBundle/Resources/public/js/tiny_mce/*'
+                    '@CMSStoreBundle/Resources/public/js/highcharts.js'
+                    '@CMSStoreBundle/Resources/public/js/highcharts_init.js'
+                    '@CMSStoreBundle/Resources/public/js/effects.js' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
     </head>
@@ -24,7 +31,6 @@
                 {% block logo %}
                     <div id="logo">
                         Gerenciador de Conteúdo 
-                        <!--span class="creditos">Desenvolvido por <img alt="Rede D'or" src="img/logo-tamandua-min.png" /> </span-->
                     </div>
                 {% endblock %}
 
@@ -90,6 +96,9 @@
         {% block sidebar %}
             <div id="sidebar" class="grid_4">
 
+            {{ knp_menu_render('CMSStoreBundle:Builder:mainMenu') }}
+
+            {% block newpage %}
                 <ul id="side-nav">
 
                     <li class="new">
@@ -99,7 +108,9 @@
                     </li>
 
                 </ul>
+            {% endblock %}
 
+            {% block order %}
                 <div class="box order">
                     <a class="side-btn order" href="">Ordenar menu</a>
                     <ul class="btns">
@@ -108,6 +119,7 @@
                         <li class="msg">Salvando alteração...</li>
                     </ul>
                 </div>
+            {% endblock %}
 
             </div><!-- / sidebar -->
         {% endblock %}
