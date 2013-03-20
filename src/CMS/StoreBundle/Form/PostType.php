@@ -18,18 +18,7 @@ class PostType extends AbstractType
             ->add('content')
             ->add('postTypeId')
             ->add('userId')
-            ->add('daddyId')
-            ->add('categoria', 'entity', array( 
-                'class' => 'CMSStoreBundle:Term',
-                'query_builder' => function(EntityRepository $er)
-                {
-                    return $er->createQueryBuilder('t')
-                        ->innerJoin('t.Taxonomy', 'tax')
-                        ->andWhere("tax.id = ".Taxonomy::$id_taxonomy_categoria);
-                },
-                'expanded' => true
-                ))
-        ;
+            ->add('daddyId');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -53,7 +53,7 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\PostAttachment
      * 
-     * @ORM\OneToMany(targetEntity="PostAttachment", mappedBy="posts")
+     * @ORM\OneToMany(targetEntity="PostAttachment", mappedBy="posts", cascade={"all"})
      */
     private $attachments;
 
@@ -83,7 +83,7 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\Post
      * 
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post", cascade={"all"})
      * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
      */
     private $children;
