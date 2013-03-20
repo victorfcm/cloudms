@@ -13,7 +13,6 @@ class TermType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('taxonomyId')
             ->add('daddyId')
         ;
     }

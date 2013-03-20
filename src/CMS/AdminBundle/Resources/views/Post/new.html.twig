@@ -1,20 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Post creation</h1>
+    <div class="h_title">{{ postType }} > Criar Novo</div>
+    <h1>{# Adicionar BreadCrumbs #}</h1>
 
     <form action="{{ path('post_ccreate') }}" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
-        <p>
-            <button type="submit">Create</button>
-        </p>
+        <div class="general-btns btns">
+            <button type="submit" class="save">Salvar</button>
+            <button type="reset" class="cancel">Cancelar</button>
+        </div>
     </form>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('post') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}

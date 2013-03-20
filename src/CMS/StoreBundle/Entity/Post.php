@@ -25,7 +25,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="header", type="text")
+     * @ORM\Column(name="header", type="text", nullable=true)
      */
     private $header;
     
@@ -68,7 +68,7 @@ class Post
     /**
      * @var integer
      * 
-     * @ORM\Column(name="postTypeId", type="integer")
+     * @ORM\Column(name="postTypeId", type="integer", nullable=true)
      */
     private $postTypeId;
 
@@ -360,5 +360,20 @@ class Post
     public function getChildren()
     {
         return $this->children;
+    }
+    
+    public function getPostType()
+    {
+        return $this->postType;
+    }
+    
+    public function setChildren($child)
+    {
+        $this->children = $child;
+    }
+    
+    public function setPostType($type)
+    {
+        $this->postType = $type;
     }
 }

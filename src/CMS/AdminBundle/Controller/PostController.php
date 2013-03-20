@@ -30,7 +30,7 @@ class PostController extends Controller
     {   
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostTypeId(PostType::$news_type_id);
+        $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostType(PostType::$news_type_id);
 
         return array(
             'entities' => $entities
@@ -42,7 +42,7 @@ class PostController extends Controller
      *
      * @Route("/", name="post_ccreate")
      * @Method("POST")
-     * @Template("CMSStoreBundle:Post:new.html.twig")
+     * @Template("CMSAdminBundle:Post:new.html.twig")
      */
     public function createAction(Request $request, $redirUrl = 'post_ccreate')
     {
@@ -60,21 +60,23 @@ class PostController extends Controller
     {
         $ar = parent::newAction();
         $form = $ar['form_front'];
+        $ar['postType'] = 'Post';
         
         if(null !== $type)
         {
-            $form->remove('postTypeId');
-            $form->add('postTypeId', new HiddenType(), array('attr' => array('value' => PostType::retriveId($type))));
+            $form->remove('postType');
+            $form->add('postType', new HiddenType(), array('attr' => array('value' => PostType::retriveId($type))));
+            $ar['postType'] = $type;
         }
         
         $form->remove('userId');
         $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
         
-        $form->remove('daddyId');
+        $form->remove('children');
         
         if(null !== $daddyId)
         {
-            $form->add('daddyId', new HiddenType(), array('attr' => array('value' => $daddyId)));
+            $form->add('children', new HiddenType(), array('attr' => array('value' => $daddyId)));
         }
         
         $ar['form'] = $form->createView();
@@ -103,7 +105,11 @@ class PostController extends Controller
      */
     public function editAction($id)
     {
-        return parent::editAction($id);
+        $ar = parent::editAction($id);
+        $form = $ar['default_form'];
+        
+        $ar['edit_form'] = $form->createView();
+        return $ar;
     }
 
     /**

@@ -130,6 +130,7 @@ class PostController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'default_form' => $editForm
         );
     }
 

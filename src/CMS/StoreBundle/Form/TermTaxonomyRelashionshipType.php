@@ -11,8 +11,8 @@ class TermTaxonomyRelashionshipType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('termId')
-            ->add('taxonomyId')
+            ->add('term')
+            ->add('taxonomy')
         ;
     }
 

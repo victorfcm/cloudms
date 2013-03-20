@@ -19,7 +19,7 @@ class Builder extends ContainerAwareCommand
         $menu = $factory->createItem('root', array('depth' => 2));
         
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $qry = $em->createQuery('SELECT p FROM CMSStoreBundle:Post p WHERE p.postTypeId = :posttypeid and p.daddyId IS NULL ORDER BY p.id DESC')->setParameter('posttypeid', PostType::$page_type_id);
+        $qry = $em->createQuery('SELECT p FROM CMSStoreBundle:Post p WHERE p.postType = 1 and p.daddyId IS NULL ORDER BY p.id DESC');
         
         $itens = $qry->getResult();
         
@@ -33,7 +33,7 @@ class Builder extends ContainerAwareCommand
                     'attributes' => array('id' => $item->getId())
                     ));
             
-            $qry = $em->createQuery('SELECT p FROM CMSStoreBundle:Post p WHERE p.daddyId = :id ORDER BY p.updatedAt DESC')->setParameter('id', $item->getId());
+            $qry = $em->createQuery('SELECT p FROM CMSStoreBundle:Post p WHERE p.children = :id ORDER BY p.updatedAt DESC')->setParameter('id', $item->getId());
             $children = $qry->getResult();
             
             foreach($children as $child)
