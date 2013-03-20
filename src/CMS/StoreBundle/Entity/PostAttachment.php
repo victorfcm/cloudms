@@ -23,11 +23,18 @@ class PostAttachment
 
     /**
      * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * 
+     * @ORM\Column(name="post_id", type="integer")
      */
     private $postId;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\Post
+     * 
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="attachments")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id") 
+     */
+    private $posts;
 
     /**
      * @var string

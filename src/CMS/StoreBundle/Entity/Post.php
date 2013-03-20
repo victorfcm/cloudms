@@ -32,14 +32,14 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="text")
+     * @ORM\Column(name="title", type="string")
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string")
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
@@ -49,12 +49,26 @@ class Post
      * @ORM\Column(name="footer", type="text", nullable=true)
      */
     private $footer;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\PostAttachment
+     * 
+     * @ORM\OneToMany(targetEntity="PostAttachment", mappedBy="posts")
+     */
+    private $attachments;
 
+    /**
+     * @var \CMS\StoreBundle\Entity\PostType
+     * 
+     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="posts")
+     * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
+     */
+    private $postType;
+    
     /**
      * @var integer
      * 
-     * @ORM\ManyToOne(targetEntity="PostType")
-     * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
+     * @ORM\Column(name="postTypeId", type="integer")
      */
     private $postTypeId;
 
@@ -65,12 +79,26 @@ class Post
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
-
+    
     /**
-     * @var integer
+     * @var \CMS\StoreBundle\Entity\Post
      * 
      * @ORM\ManyToOne(targetEntity="Post")
      * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
+     */
+    private $children;
+
+    /**
+     * @var \CMS\StoreBundle\Entity\Term
+     *
+     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="post")
+     */
+    private $terms;
+    
+    /**
+     * @var integer
+     * 
+     * @ORM\Column(name="daddy_id", type="integer", nullable=true)
      */
     private $daddyId;
 
@@ -319,7 +347,6 @@ class Post
         }
     }
     
-    
     /**
      * toString
      * 
@@ -330,4 +357,8 @@ class Post
         return $this->getTitle();
     }
     
+    public function getChildren()
+    {
+        return $this->children;
+    }
 }

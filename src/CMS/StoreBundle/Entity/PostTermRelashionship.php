@@ -22,20 +22,14 @@ class PostTermRelashionship
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="Term")
-     * @ORM\JoinColumn(name="term_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Term", inversedBy="posts")
      */
-    private $termId;
+    private $term;
 
     /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="terms")
      */
-    private $postId;
+    private $post;
 
 
     /**

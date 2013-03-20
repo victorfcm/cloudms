@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use CMS\StoreBundle\Entity\PostType as PostType;
 use CMS\StoreBundle\Controller\PostController as Controller;
+use CMS\StoreBundle\Entity\PostType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType as HiddenType;
 
 
@@ -27,8 +27,14 @@ class PostController extends Controller
      * @Template()
      */
     public function indexAction()
-    {
-        return parent::indexAction();
+    {   
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostTypeId(PostType::$news_type_id);
+
+        return array(
+            'entities' => $entities
+        );
     }
     
     /**
@@ -46,11 +52,11 @@ class PostController extends Controller
     /**
      * Displays a form to create a new Post entity.
      *
-     * @Route("/new/{type}", name="post_cnew")
+     * @Route("/new/{type}/{daddyId}", name="post_cnew")
      * @Method("GET")
      * @Template()
      */
-    public function newAction($type = null)
+    public function newAction($daddyId = null, $type = null)
     {
         $ar = parent::newAction();
         $form = $ar['form_front'];
@@ -65,6 +71,11 @@ class PostController extends Controller
         $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
         
         $form->remove('daddyId');
+        
+        if(null !== $daddyId)
+        {
+            $form->add('daddyId', new HiddenType(), array('attr' => array('value' => $daddyId)));
+        }
         
         $ar['form'] = $form->createView();
         
@@ -86,7 +97,7 @@ class PostController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id}/edit", name="post_cedit")
+     * @Route("/edit/{id}", name="post_cedit")
      * @Method("GET")
      * @Template()
      */
@@ -110,7 +121,7 @@ class PostController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}", name="post_cdelete")
+     * @Route("/delete/{id}", name="post_cdelete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id, $redirUrl = 'post_cdelete')

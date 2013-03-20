@@ -14,7 +14,7 @@
 
 {% block addsubpage %}
 <li style="">
- <a class="side-btn add" href="">Adicionar Subpágina</a>
+    <a class="side-btn add" href="{{ path('post_cnew' , {'type' : 'page', 'daddyId' : item.attributes.id }) }}">Adicionar Subpágina</a>
 </li>
 {% endblock %}
 
@@ -24,10 +24,8 @@
 {% endblock %}
 
 {% block list %}
-{% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
-    <ul id='side-nav' class='ui-sortable'>
+{% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}   
             {{ block('children') }}
-    </ul>
 {% endif %}
 {% endblock %}
 
@@ -38,19 +36,22 @@
 {% endblock %}
 
 {% block children %}
-{# save current variables #}
-{% set currentOptions = options %}
-{% set currentItem = item %}
-{# update the depth for children #}
-{% if options.depth is not none %}
-{% set options = currentOptions|merge({'depth': currentOptions.depth - 1}) %}
-{% endif %}
-{% for item in currentItem.children %}
-    {{ block('item') }}
-{% endfor %}
-{# restore current variables #}
-{% set item = currentItem %}
-{% set options = currentOptions %}
+    {# save current variables #}
+    {% set currentOptions = options %}
+    {% set currentItem = item %}
+
+    {# update the depth for children #}
+    {% if options.depth is not none %}
+        {% set options = currentOptions|merge({'depth': currentOptions.depth - 1}) %}
+    {% endif %}
+
+    {% for item in currentItem.children %}
+        {{ block('item') }}
+    {% endfor %}
+
+    {# restore current variables #}
+    {% set item = currentItem %}
+    {% set options = currentOptions %}
 {% endblock %}
 
 {% block sub_children %}
@@ -70,43 +71,47 @@
 {% endblock %}
 
 {% block item %}
-{% if item.displayed %}
-{# building the class of the item #}
-    {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
-    {%- if item.current %}
-        {%- set classes = classes|merge([options.currentClass]) %}
-    {%- elseif item.currentAncestor %}
-        {%- set classes = classes|merge([options.ancestorClass]) %}
-    {%- endif %}
-    {%- if item.actsLikeFirst %}
-        {%- set classes = classes|merge([options.firstClass]) %}
-    {%- endif %}
-    {%- if item.actsLikeLast %}
-        {%- set classes = classes|merge([options.lastClass]) %}
-    {%- endif %}
-    {%- set attributes = item.attributes %}
-    {%- if classes is not empty %}
-        {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
-    {%- endif %}
-{# displaying the item #}
-    <li>
-        <p class='title type-pg'>
-            {%- if item.uri is not empty and (not item.current or options.currentAsLink) %}
-            {{ block('linkElement') }}
-            {%- else %}
-            {{ block('spanElement') }}
-            {%- endif %}
+    {% if item.displayed %}
+    {# building the class of the item #}
+        {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+        {%- if item.current %}
+            {%- set classes = classes|merge([options.currentClass]) %}
+        {%- elseif item.currentAncestor %}
+            {%- set classes = classes|merge([options.ancestorClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeFirst %}
+            {%- set classes = classes|merge([options.firstClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeLast %}
+            {%- set classes = classes|merge([options.lastClass]) %}
+        {%- endif %}
+        {%- set attributes = item.attributes %}
+        {%- if classes is not empty %}
+            {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+        {%- endif %}
+    {# displaying the item #}
+<li>
+    <p class='title type-pg'>
+                {#- if item.uri is not empty and (not item.current or options.currentAsLink) %}
+                {{ block('linkElement') }}
+                {%- else %}
+                {%- endif #}
+            
+                {{ block('spanElement') }}
+            <span class="icons-actions">
+                <a class="edit" href="{{ path('post_cedit', {'id': item.attributes.id}) }}" title="Editar">Editar</a>
+            </span>
         </p>
-{# render the list of children#}
-        {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
-        {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
-        {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
-        {{ block('sub_list') }}
+    {# render the list of children#}
+            {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+            {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
+            {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
         <ul style='display:none' class='ui-sortable'>
-            {{ block('addsubpage') }}
-        </ul>
-    </li>
-{% endif %}
+                    {{ block('sub_list') }}
+                    {{ block('addsubpage') }}
+            </ul>
+        </li>
+    {% endif %}
 {% endblock %}
 
 {% block sub_item %}
@@ -129,22 +134,22 @@
         {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
     {%- endif %}
 {# displaying the item #}
-    <li class='pg'>
+        <li class='pg'>
             {%- if item.uri is not empty and (not item.current or options.currentAsLink) %}
             {{ block('linkElement') }}
             {%- else %}
             {{ block('spanElement') }}
             {%- endif %}
-            <span class='icons-actions'>
-                <a href="#" class="edit">Editar</a>
-                <a href="#" class="excluir">Excluir</a>
-            </span>
+                <span class='icons-actions'>
+                    <a href="{{ path('post_cedit', { 'id': item.attributes.id }) }}" class="edit">Editar</a>
+                    <a href="{{ path('post_cdelete', { 'id': item.attributes.id }) }}" class="delete">Excluir</a>
+                </span>
 {# render the list of children#}
         {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
         {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
         {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
         {{ block('sub_list') }}
-    </li>
+            </li>
 {% endif %}
 {% endblock %}
 

@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Taxonomy
 {
+    public static $id_taxonomy_categoria = 1;
+    
     /**
      * @var integer
      *
@@ -34,6 +36,20 @@ class Taxonomy
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\TermTaxonomyRelashionship
+     *
+     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="taxonomy")
+     */
+    private $terms;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
+     *
+     * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="taxonomy")
+     */
+    private $postTypes;
 
 
     /**

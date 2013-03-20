@@ -1,32 +1,33 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Post list</h1>
+<div class="h_title">
+    Notícias <!-- &#8250; Listar -->
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>taxonomy</th>
-                <th>Atualização</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="btns">
+        <a class="btn add" href="{{ path('post_cnew', {'type': 'news'}) }}">Nova Notícia</a>
+        <!--a class="btn archive" href="#">Categorias</a -->
+    </div>
+</div>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th style="width:50%; text-align:left">Título</th>
+            <th style="width:20%">Categoria</th>
+            <th style="width:20%">Atualização</th>
+            <th style="width:10%">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('post_cshow', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                 <td>{{ entity.postTypeId }}</td>
                 <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d/m/Y H:i') }}{% endif %}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('post_cshow', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('post_cedit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <a class="table-icon edit" title="Editar" href="{{ path('post_cedit', { 'id': entity.id }) }}"></a>
+                    <a class="table-icon delete" title="Deletar" href="{{ path('post_cdelete', { 'id': entity.id }) }}"></a>
                 </td>
             </tr>
         {% endfor %}

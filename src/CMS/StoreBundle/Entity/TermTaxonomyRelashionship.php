@@ -3,6 +3,8 @@
 namespace CMS\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use CMS\StoreBundle\Entity\Taxonomy;
+use CMS\StoreBundle\Entity\Term;
 
 /**
  * TermTaxonomyRelashionship
@@ -22,20 +24,14 @@ class TermTaxonomyRelashionship
     private $id;
 
     /**
-     * @var integer
-     * 
-     * @ORM\ManyToOne(targetEntity="Term")
-     * @ORM\JoinColumn(name="term_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Term", inversedBy="taxonomys")
      */
-    private $termId;
+    private $term;
 
     /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="taxonomy")
-     * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="terms")
      */
-    private $taxonomyId;
+    private $taxonomy;
 
 
     /**
@@ -49,48 +45,53 @@ class TermTaxonomyRelashionship
     }
 
     /**
-     * Set termId
-     *
-     * @param integer $termId
-     * @return TermTaxonomyRelashionship
+     * Get Taxonomy 
+     * 
+     * @return collection
      */
-    public function setTermId($termId)
+    public function getTaxonomy()
     {
-        $this->termId = $termId;
+        return $this->taxonomy;
+    }
     
-        return $this;
-    }
-
     /**
-     * Get termId
-     *
-     * @return integer 
+     * Get Term
+     * 
+     * @return collection
      */
-    public function getTermId()
+    public function getTerm()
     {
-        return $this->termId;
+        return $this->term;
     }
-
-    /**
-     * Set taxonomyId
-     *
-     * @param integer $taxonomyId
-     * @return TermTaxonomyRelashionship
-     */
-    public function setTaxonomyId($taxonomyId)
-    {
-        $this->taxonomyId = $taxonomyId;
     
-        return $this;
-    }
-
     /**
-     * Get taxonomyId
-     *
-     * @return integer 
+     * Get Terms
+     * 
+     * @return collection 
      */
-    public function getTaxonomyId()
+    public function getTerms()
     {
-        return $this->taxonomyId;
+        return $this->terms;
     }
+    
+    /**
+     * Set Taxonomy
+     * 
+     * @return null
+     */
+    public function setTaxonomy(Taxonomy $taxonomy)
+    {
+        $this->taxonomy = $taxonomy;
+    }
+    
+    /**
+     * Set Term
+     * 
+     * @return null
+     */
+    public function setTerm(Term $term)
+    {
+        $this->term = $term;
+    }
+    
 }

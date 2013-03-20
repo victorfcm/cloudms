@@ -40,6 +40,20 @@ class PostType
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\Post
+     * 
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="postType")
+     */
+    private $posts;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
+     *
+     * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="postType")
+     */
+    private $taxonomys;
 
     /**
      * Get id
@@ -109,6 +123,8 @@ class PostType
 
     public static function retriveId($name)
     {
+        $_r = '';
+        
         switch ($name)
         {
             case 'news':

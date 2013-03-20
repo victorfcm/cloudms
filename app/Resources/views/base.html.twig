@@ -4,8 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Painel de Administração{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets 'bundles/cmsstore/css/*' filter='cssrewrite' %}
-                <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+            {% stylesheets 'bundles/cmsstore/css/style.css'
+                           'bundles/cmsstore/css/navi.css' filter='cssrewrite' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
         {% block javascripts %}
@@ -17,7 +18,7 @@
                     '@CMSStoreBundle/Resources/public/js/highcharts.js'
                     '@CMSStoreBundle/Resources/public/js/highcharts_init.js'
                     '@CMSStoreBundle/Resources/public/js/effects.js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
     </head>
@@ -36,7 +37,7 @@
 
                     <div id="saudacao">
                         <p>Bem-vindo, <strong> {{ app.user.username }}
-                        </strong> [ <a href="{{ path('fos_user_security_logout') }}"> {{ 'sair'|trans({}, 'FOSUserBundle') }}</a> ]</p>
+                            </strong> [ <a href="{{ path('fos_user_security_logout') }}"> {{ 'sair'|trans({}, 'FOSUserBundle') }}</a> ]</p>
                     </div>
 
                 </div>
@@ -44,66 +45,67 @@
             </div>
 
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <div id="nav" class="container_16">
+            <div id="nav" class="container_16">
 
-                    <ul class="grid_16">
+                <ul class="grid_16">
 
-                        <li class="upp home"><a href="{{ path('post') }}">Posts</a>
-                            <ul>
-                                <li>&#8250; <a href="{{ path('post') }}">Listar</a></li>
-                                <li>&#8250; <a href="{{ path('post_new') }}">Adicionar Novo</a></li>
-                            </ul>
-                        </li>
+                    <li class="upp home"><a href="{{ path('post') }}">Posts</a>
+                        <ul>
+                            <li>&#8250; <a href="{{ path('post') }}">Listar</a></li>
+                            <li>&#8250; <a href="{{ path('post_new') }}">Adicionar Novo</a></li>
+                        </ul>
+                    </li>
 
-                        <li class="upp"><a href="{{ path('post_type') }}">Tipos de Post</a>
-                            <ul>
-                                <li>&#8250; <a href="{{ path('post_type') }}">Listar</a></li>
-                                <li>&#8250; <a href="{{ path('post_type_new') }}">Adicionar Novo</a></li>
-                            </ul>
-                        </li>
+                    <li class="upp"><a href="{{ path('post_type') }}">Tipos de Post</a>
+                        <ul>
+                            <li>&#8250; <a href="{{ path('post_type') }}">Listar</a></li>
+                            <li>&#8250; <a href="{{ path('post_type_new') }}">Adicionar Novo</a></li>
+                        </ul>
+                    </li>
 
-                        <li class="upp"><a href="{{ path('taxonomy') }}">Taxonomia</a>
-                            <ul>
-                                <li>&#8250; <a href="{{ path('taxonomy') }}">Listar</a></li>
-                                <li>&#8250; <a href="{{ path('taxonomy_new') }}">Adicionar Novo</a></li>
-                            </ul>
-                        </li>
+                    <li class="upp"><a href="{{ path('taxonomy') }}">Taxonomia</a>
+                        <ul>
+                            <li>&#8250; <a href="{{ path('taxonomy') }}">Listar</a></li>
+                            <li>&#8250; <a href="{{ path('taxonomy_new') }}">Adicionar Novo</a></li>
+                        </ul>
+                    </li>
 
-                        <li class="upp"><a href="{{ path('term') }}">Termos</a>
-                            <ul>
-                                <li>&#8250; <a href="{{ path('term') }}">Listar</a></li>
-                                <li>&#8250; <a href="{{ path('term_new') }}">Adicionar Nova</a></li>
-                            </ul>
-                        </li>
+                    <li class="upp"><a href="{{ path('term') }}">Termos</a>
+                        <ul>
+                            <li>&#8250; <a href="{{ path('term') }}">Listar</a></li>
+                            <li>&#8250; <a href="{{ path('term_new') }}">Adicionar Nova</a></li>
+                        </ul>
+                    </li>
 
-                        <li class="upp"><a href="{{ path('user') }}">Usuários</a>
-                            <ul>
-                                <li>&#8250; <a href="{{ path('user') }}">Listar</a></li>
-                                <li>&#8250; <a href="{{ path('user_new') }}">Adicionar Novo</a></li>
-                            </ul>
-                        </li>
+                    <li class="upp"><a href="{{ path('user') }}">Usuários</a>
+                        <ul>
+                            <li>&#8250; <a href="{{ path('user') }}">Listar</a></li>
+                            <li>&#8250; <a href="{{ path('user_new') }}">Adicionar Novo</a></li>
+                        </ul>
+                    </li>
 
-                    </ul>
+                </ul>
 
-                </div><!--/nav-->
+            </div><!--/nav-->
              {% endif %}
 
 
         </div><!--/header-->
 
-        <div id="content">
+        <div id="content" class="container_16">
 
         {% block sidebar %}
             <div id="sidebar" class="grid_4">
 
-            {{ knp_menu_render('CMSStoreBundle:Builder:mainMenu') }}
 
             {% block newpage %}
-                <ul id="side-nav">
+                <ul id="side-nav" class="ui-sortable">
+
+                    {{ knp_menu_render('CMSStoreBundle:Builder:mainMenu') }}
 
                     <li class="new">
                         <p class="title">
-                            <a class="side-btn add" href="{{ path('post_cnew') }}">Adicionar Página</a>
+                            <a class="side-btn add" href="{{ path('post_cnew', { 'type': 'page' }) }}">Adicionar Página</a>
                         </p>
                     </li>
 
@@ -111,20 +113,26 @@
             {% endblock %}
 
             {% block order %}
-                <div class="box order">
+                <!-- div class="box order">
                     <a class="side-btn order" href="">Ordenar menu</a>
                     <ul class="btns">
                         <li><button class="save">Salvar</button></li>
                         <li><button class="cancel">Cancelar</button></li>
                         <li class="msg">Salvando alteração...</li>
                     </ul>
-                </div>
+                </div -->
             {% endblock %}
 
             </div><!-- / sidebar -->
         {% endblock %}
 
-            {% block body %}{% endblock %}
+            {% block main %}
+                <div id="main" class="grid_12">
+                    <div class="full_w">
+                {% block body %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
         </div>
     </body>
 </html>

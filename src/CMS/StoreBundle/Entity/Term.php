@@ -36,20 +36,26 @@ class Term
     private $description;
 
     /**
-     * @var integer
+     * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\ManyToOne(targetEntity="Taxonomy")
-     * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="term")
      */
-    private $taxonomyId;
+    private $taxonomys;
 
     /**
-     * @var integer
+     * @var \CMS\StoreBundle\Entity\Term
      *
      * @ORM\ManyToOne(targetEntity="Term")
      * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
      */
     private $daddyId;
+    
+    /**
+     * @var \CMS\StoreBundle\Entity\Post
+     *
+     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="term")
+     */
+    private $posts;
 
 
     /**
