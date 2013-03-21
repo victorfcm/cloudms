@@ -132,9 +132,9 @@ class Term
      *
      * @return integer 
      */
-    public function getTaxonomyId()
+    public function getTaxonomys()
     {
-        return $this->taxonomyId;
+        return $this->taxonomys;
     }
 
     /**

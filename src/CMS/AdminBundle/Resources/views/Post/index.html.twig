@@ -2,10 +2,10 @@
 
 {% block body -%}
 <div class="h_title">
-    Notícias <!-- &#8250; Listar -->
+    {{ postType }} <!-- &#8250; Listar -->
 
     <div class="btns">
-        <a class="btn add" href="{{ path('post_cnew', {'type': 'news'}) }}">Nova Notícia</a>
+        <a class="btn add" href="{{ path('post_cnew', {'type': postType|lower }) }}">Adicionar {{ postType }}</a>
         <!--a class="btn archive" href="#">Categorias</a -->
     </div>
 </div>

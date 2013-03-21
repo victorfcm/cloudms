@@ -22,18 +22,23 @@ class PostController extends Controller
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="post_cindex")
+     * @Route("/list/{typeId}", name="post_cindex")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($typeId = null)
     {   
+        if(null === $typeId) 
+            $typeId = PostType::$news_type_id;
+        
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostType(PostType::$news_type_id);
+        $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
+        $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneById($typeId);
 
         return array(
-            'entities' => $entities
+            'entities' => $entities,
+            'postType' => $postType->getName()
         );
     }
     
@@ -44,7 +49,7 @@ class PostController extends Controller
      * @Method("POST")
      * @Template("CMSAdminBundle:Post:new.html.twig")
      */
-    public function createAction(Request $request, $redirUrl = 'post_ccreate')
+    public function createAction(Request $request, $redirUrl = 'post_cindex')
     {
         return parent::createAction($request, $redirUrl);
     }
@@ -62,11 +67,14 @@ class PostController extends Controller
         $form = $ar['form_front'];
         $ar['postType'] = 'Post';
         
-        if(null !== $type)
+        $em = $this->getDoctrine()->getManager();
+        $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneByName($type);
+        
+        if(null !== $type && $postType)
         {
             $form->remove('postType');
-            $form->add('postType', new HiddenType(), array('attr' => array('value' => PostType::retriveId($type))));
-            $ar['postType'] = $type;
+            $form->add('postType', new HiddenType(), array('attr' => array('value' => $postType->getId())));
+            $ar['postType'] = $postType->getName();
         }
         
         $form->remove('userId');

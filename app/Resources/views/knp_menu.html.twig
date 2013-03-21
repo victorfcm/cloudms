@@ -71,6 +71,7 @@
 {% endblock %}
 
 {% block item %}
+    {% set diff_styles = ['postType'] %}
     {% if item.displayed %}
     {# building the class of the item #}
         {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
@@ -91,25 +92,34 @@
         {%- endif %}
     {# displaying the item #}
 <li>
-    <p class='title type-pg'>
+    <p class='title {{ (item.attributes.style in diff_styles) ? 'type-tax' : 'type-pg' }}'>
                 {#- if item.uri is not empty and (not item.current or options.currentAsLink) %}
                 {{ block('linkElement') }}
                 {%- else %}
                 {%- endif #}
-            
                 {{ block('spanElement') }}
-            <span class="icons-actions">
-                <a class="edit" href="{{ path('post_cedit', {'id': item.attributes.id}) }}" title="Editar">Editar</a>
-            </span>
+            
+            {% if (item.attributes.style not in diff_styles) %}
+                <span class="icons-actions">
+                    <a class="edit" href="{{ path('post_cedit', {'id': item.attributes.id}) }}" title="Editar">Editar</a>
+                </span>
+            {% endif %}
         </p>
     {# render the list of children#}
             {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
             {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
             {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
-        <ul style='display:none' class='ui-sortable'>
-                    {{ block('sub_list') }}
-                    {{ block('addsubpage') }}
-            </ul>
+            {% if (item.attributes.style not in diff_styles) %}
+                <ul style='display:none' class='ui-sortable'>
+                        {{ block('sub_list') }}
+                        {{ block('addsubpage') }}
+                </ul>
+            {% else %}
+                <ul style='display:none' class='ui-sortable'>
+                    <li class="b1" style=""><a class="icon page" href="{{ path('post_cindex', {'typeId' : item.attributes.id}) }}">Listar {{ item.label }}</a></li>
+                    <li style=""><a class="side-btn add" href="{{ path('post_cnew', {'type' : item.attributes.type}) }}">Adicionar {{ item.label }}</a></li>
+                </ul>
+            {% endif %}
         </li>
     {% endif %}
 {% endblock %}

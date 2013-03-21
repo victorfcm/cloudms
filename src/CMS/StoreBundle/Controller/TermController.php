@@ -77,6 +77,7 @@ class TermController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'default_form' => $form
         );
     }
 
