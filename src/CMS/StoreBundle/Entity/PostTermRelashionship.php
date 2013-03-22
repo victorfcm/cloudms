@@ -41,50 +41,24 @@ class PostTermRelashionship
     {
         return $this->id;
     }
-
-    /**
-     * Set termId
-     *
-     * @param integer $termId
-     * @return PostTermRelashionship
-     */
-    public function setTermId($termId)
-    {
-        $this->termId = $termId;
     
-        return $this;
-    }
-
-    /**
-     * Get termId
-     *
-     * @return integer 
-     */
-    public function getTermId()
+    public function getTerm()
     {
-        return $this->termId;
+        return $this->term;
     }
-
-    /**
-     * Set postId
-     *
-     * @param integer $postId
-     * @return PostTermRelashionship
-     */
-    public function setPostId($postId)
-    {
-        $this->postId = $postId;
     
-        return $this;
-    }
-
-    /**
-     * Get postId
-     *
-     * @return integer 
-     */
-    public function getPostId()
+    public function getPost()
     {
-        return $this->postId;
+        return $this->post;
+    }
+    
+    public function setTerm($term)
+    {
+        $this->term = $term;
+    }
+    
+    public function setPost($post)
+    {
+        $this->post = $post;
     }
 }

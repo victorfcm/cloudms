@@ -43,48 +43,48 @@ class PostTypeTaxonomyRelashionship
     }
 
     /**
-     * Set postTypeId
+     * Set postType
      *
-     * @param integer $postTypeId
+     * @param integer $postType
      * @return PostTypeTaxonomyRelashionship
      */
-    public function setPostTypeId($postTypeId)
+    public function setPostType($postType)
     {
-        $this->postTypeId = $postTypeId;
+        $this->postType = $postType;
     
         return $this;
     }
 
     /**
-     * Get postTypeId
+     * Get postType
      *
      * @return integer 
      */
-    public function getPostTypeId()
+    public function getPostType()
     {
-        return $this->postTypeId;
+        return $this->postType;
     }
 
     /**
-     * Set taxonomyId
+     * Set taxonomy
      *
-     * @param integer $taxonomyId
+     * @param integer $taxonomy
      * @return PostTypeTaxonomyRelashionship
      */
-    public function setTaxonomyId($taxonomyId)
+    public function setTaxonomy($taxonomy)
     {
-        $this->taxonomyId = $taxonomyId;
+        $this->taxonomy = $taxonomy;
     
         return $this;
     }
 
     /**
-     * Get taxonomyId
+     * Get taxonomy
      *
      * @return integer 
      */
-    public function getTaxonomyId()
+    public function getTaxonomy()
     {
-        return $this->taxonomyId;
+        return $this->taxonomy;
     }
 }

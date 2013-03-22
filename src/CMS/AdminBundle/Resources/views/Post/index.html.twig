@@ -6,7 +6,7 @@
 
     <div class="btns">
         <a class="btn add" href="{{ path('post_cnew', {'type': postType|lower }) }}">Adicionar {{ postType }}</a>
-        <!--a class="btn archive" href="#">Categorias</a -->
+        <a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
     </div>
 </div>
 
@@ -14,7 +14,9 @@
     <thead>
         <tr>
             <th style="width:50%; text-align:left">Título</th>
-            <th style="width:20%">Categoria</th>
+            {% if taxonomy %}
+                <th style="width:20%">{{ taxonomy.name }}</th>
+            {% endif %}
             <th style="width:20%">Atualização</th>
             <th style="width:10%">Ações</th>
         </tr>
@@ -23,7 +25,14 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('post_cshow', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                <td>{{ entity.postTypeId }}</td>
+                <td>
+                    {% for term in entity.terms %}
+                        {{ term.term.name }} 
+                            {% if not loop.last %}
+                        <span>, </span>
+                            {% endif %}
+                    {% endfor %}
+               </td>
                 <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d/m/Y H:i') }}{% endif %}</td>
                 <td>
                     <a class="table-icon edit" title="Editar" href="{{ path('post_cedit', { 'id': entity.id }) }}"></a>

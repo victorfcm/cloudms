@@ -16,8 +16,8 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('post_type_tax_rl_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.postTypeId }}</td>
-                <td>{{ entity.taxonomyId }}</td>
+                <td>{{ entity.postType }}</td>
+                <td>{{ entity.taxonomy }}</td>
                 <td>
                 <ul>
                     <li>

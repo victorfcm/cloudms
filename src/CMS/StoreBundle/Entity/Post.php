@@ -376,4 +376,9 @@ class Post
     {
         $this->postType = $type;
     }
+    
+    public function getTerms()
+    {
+        return $this->terms;
+    }
 }

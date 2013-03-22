@@ -35,10 +35,17 @@ class PostController extends Controller
 
         $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneById($typeId);
-
+        
+        foreach($entities[0]->getPostType()->getTaxonomys() as $tax)
+        {
+            $taxonomy = $tax->getTaxonomy();
+            break;
+        }
+        
         return array(
             'entities' => $entities,
-            'postType' => $postType->getName()
+            'postType' => $postType->getName(),
+            'taxonomy' => $taxonomy
         );
     }
     

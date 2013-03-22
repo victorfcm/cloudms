@@ -11,8 +11,8 @@ class PostTermRelashionshipType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('termId')
-            ->add('postId')
+            ->add('term')
+            ->add('post')
         ;
     }
 

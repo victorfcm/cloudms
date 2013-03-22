@@ -31,7 +31,12 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CMSStoreBundle:Term')->findAll();
+        $rel = $em->getRepository('CMSStoreBundle:TermTaxonomyRelashionship')->findByTaxonomy($taxId);
+        
+        foreach($rel as $tax)
+        {
+            $entities[] = $tax->getTerm();
+        }
 
         return array(
             'entities' => $entities,

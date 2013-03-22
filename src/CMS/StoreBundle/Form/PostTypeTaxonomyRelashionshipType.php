@@ -11,8 +11,8 @@ class PostTypeTaxonomyRelashionshipType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('postTypeId')
-            ->add('taxonomyId')
+            ->add('postType')
+            ->add('taxonomy')
         ;
     }
 

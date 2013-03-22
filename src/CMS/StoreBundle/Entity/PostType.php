@@ -54,6 +54,11 @@ class PostType
      * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="postType")
      */
     private $taxonomys;
+    
+    public function getTaxonomys()
+    {
+        return $this->taxonomys;
+    }
 
     /**
      * Get id
