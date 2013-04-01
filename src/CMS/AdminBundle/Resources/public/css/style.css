@@ -622,7 +622,7 @@ table.mceToolbar td a{margin:0 auto !important; padding:0 !important}
 /* Main */
 
 
-#main .general-btns{position:relative; text-align:right; padding:20px; border-top:1px dashed #ddd; margin-top:10px}
+#main .general-btns{position:relative; text-align:right; padding:20px; border-top:1px dashed #ddd; margin-top:10px; clear:both}
 #main .general-btns .delete{position:absolute; top:20px; left:20px; margin:0; }
 
 

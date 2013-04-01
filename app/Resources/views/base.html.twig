@@ -1,3 +1,12 @@
+{% if form is defined %}
+    {% form_theme form 'CMSStoreBundle:Form:form_layout.html.twig' %}
+{% endif %}
+
+{% if edit_form is defined %}
+    {% form_theme edit_form 'CMSStoreBundle:Form:form_layout.html.twig' %}
+{% endif %}
+{{ tinymce_init() }}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,11 +21,8 @@
         {% block javascripts %}
             {% javascripts 
                     '@CMSStoreBundle/Resources/public/js/jquery-1.7.2.min.js'
-                    '@CMSStoreBundle/Resources/public/js/jquery_ui/*'
-                    '@CMSStoreBundle/Resources/public/js/mfm/*'
-                    '@CMSStoreBundle/Resources/public/js/tiny_mce/*'
-                    '@CMSStoreBundle/Resources/public/js/highcharts.js'
-                    '@CMSStoreBundle/Resources/public/js/highcharts_init.js'
+                    '@CMSStoreBundle/Resources/public/js/jquery_ui/js/jquery-ui-1.10.2.custom.min.js'
+                    '@CMSStoreBundle/Resources/public/js/tiny_mce/tiny_mce.js'
                     '@CMSStoreBundle/Resources/public/js/effects.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -127,12 +133,19 @@
         {% endblock %}
 
             {% block main %}
-                <div id="main" class="grid_12">
-                    <div class="full_w">
+            <div id="main" class="grid_12">
+                <div class="full_w">
                 {% block body %}{% endblock %}
                     </div>
                 </div>
             {% endblock %}
-        </div>
-    </body>
-</html>
+            </div>
+            <!-- div id="footer">
+                <div class="container_16">
+                    <p>&copy; 2013 - v1.0</p>
+    
+                    <span class="creditos">Desenvolvido por <a href="http://agenciatamandua.com.br" target="_blank"><img alt="Agência Tamanduá" src="css/img/logo-tamandua-min.png" /></a> </span>
+                </div>
+            </div -->
+        </body>
+    </html>

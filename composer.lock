@@ -1,5 +1,5 @@
 {
-    "hash": "b239245164d9ac094ea8c9c8b34d21e5",
+    "hash": "3c352929a151cd02a3771c0b8379e1aa",
     "packages": [
         {
             "name": "doctrine/common",
@@ -272,6 +272,60 @@
                 "orm"
             ],
             "time": "2013-01-07 20:05:04"
+        },
+        {
+            "name": "elao/mce-media-bundle",
+            "version": "dev-master",
+            "target-dir": "Elao/Bundle/MceMediaBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Elao/ElaoMceMediaBundle.git",
+                "reference": "1dec5459ae3c7a5c4f41a78e41949f9dd8cf1a67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Elao/ElaoMceMediaBundle/zipball/1dec5459ae3c7a5c4f41a78e41949f9dd8cf1a67",
+                "reference": "1dec5459ae3c7a5c4f41a78e41949f9dd8cf1a67",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": ">=2.1,<2.4-dev"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Elao\\Bundle\\MceMediaBundle": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Lévêque",
+                    "email": "benjamin@leveque.me",
+                    "homepage": "http://benjamin.leveque.me"
+                },
+                {
+                    "name": "Elao Team",
+                    "homepage": "http://www.elao.com"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "http://github.com/Elao/ElaoMceMediaBundle/contributors"
+                }
+            ],
+            "description": "This bundle handles the integration of File Manager and Image Manager plugins inside TinyMCE",
+            "homepage": "http://github.com/Elao/ElaoMceMediaBundle",
+            "keywords": [
+                "bundle",
+                "elao",
+                "media",
+                "tiny_mce"
+            ],
+            "time": "2013-02-13 10:07:19"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -810,16 +864,16 @@
         },
         {
             "name": "kriswallsmith/assetic",
-            "version": "v1.1.0-alpha3",
+            "version": "v1.1.0-alpha4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "v1.1.0-alpha3"
+                "reference": "v1.1.0-alpha4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/v1.1.0-alpha3",
-                "reference": "v1.1.0-alpha3",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/v1.1.0-alpha4",
+                "reference": "v1.1.0-alpha4",
                 "shasum": ""
             },
             "require": {
@@ -877,7 +931,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-02-18 16:17:57"
+            "time": "2013-02-24 17:22:20"
         },
         {
             "name": "monolog/monolog",
@@ -1168,6 +1222,64 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2013-02-22 17:59:21"
+        },
+        {
+            "name": "stfalcon/tinymce-bundle",
+            "version": "dev-master",
+            "target-dir": "Stfalcon/Bundle/TinymceBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stfalcon/TinymceBundle.git",
+                "reference": "f7422a4dc860641d57805a99705f5f32c4fb10d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/f7422a4dc860641d57805a99705f5f32c4fb10d5",
+                "reference": "f7422a4dc860641d57805a99705f5f32c4fb10d5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/symfony": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Stfalcon\\Bundle\\TinymceBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stepan Tanasiychuk",
+                    "email": "ceo@stfalcon.com",
+                    "homepage": "http://blog.stfalcon.com"
+                },
+                {
+                    "name": "Igor Negrutsa",
+                    "email": "progi2007@gmail.com",
+                    "homepage": "http://igor-negrutsa.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/stfalcon/TinymceBundle/contributors"
+                }
+            ],
+            "description": "This Bundle integrates TinyMCE WYSIWYG editor into a Symfony2 project.",
+            "keywords": [
+                "editor",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "time": "2013-02-21 12:21:06"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1495,16 +1607,16 @@
         },
         {
             "name": "twig/extensions",
-            "version": "v1.0.0-alpha",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Twig-extensions",
-                "reference": "v1.0.0-alpha"
+                "url": "https://github.com/fabpot/Twig-extensions.git",
+                "reference": "v1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig-extensions/zipball/v1.0.0-alpha",
-                "reference": "v1.0.0-alpha",
+                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/v1.0.0",
+                "reference": "v1.0.0",
                 "shasum": ""
             },
             "require": {
@@ -1538,7 +1650,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2012-08-28 08:04:23"
+            "time": "2013-02-28 14:21:30"
         },
         {
             "name": "twig/twig",
@@ -1597,9 +1709,10 @@
 
     ],
     "minimum-stability": "alpha",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "stfalcon/tinymce-bundle": 20,
+        "elao/mce-media-bundle": 20
+    },
     "platform": {
         "php": ">=5.3.3"
     },

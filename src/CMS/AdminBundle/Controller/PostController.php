@@ -4,12 +4,13 @@ namespace CMS\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use CMS\StoreBundle\Controller\PostController as Controller;
 use CMS\StoreBundle\Entity\PostType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType as HiddenType;
-
 
 /**
  * Post controller.
@@ -18,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType as HiddenType;
  */
 class PostController extends Controller
 {
-    
+
     /**
      * Lists all Post entities.
      *
@@ -27,28 +28,28 @@ class PostController extends Controller
      * @Template()
      */
     public function indexAction($typeId = null)
-    {   
-        if(null === $typeId) 
+    {
+        if (null === $typeId)
             $typeId = PostType::$news_type_id;
-        
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneById($typeId);
-        
-        foreach($entities[0]->getPostType()->getTaxonomys() as $tax)
+
+        foreach ($entities[0]->getPostType()->getTaxonomys() as $tax)
         {
             $taxonomy = $tax->getTaxonomy();
             break;
         }
-        
+
         return array(
             'entities' => $entities,
             'postType' => $postType->getName(),
             'taxonomy' => $taxonomy
         );
     }
-    
+
     /**
      * Creates a new Post entity.
      *
@@ -72,31 +73,55 @@ class PostController extends Controller
     {
         $ar = parent::newAction();
         $form = $ar['form_front'];
-        $ar['postType'] = 'Post';
-        
+        $ar['postType'] = 'post';
+
         $em = $this->getDoctrine()->getManager();
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneByName($type);
-        
-        if(null !== $type && $postType)
+
+        if (null !== $type && $postType)
         {
             $form->remove('postType');
             $form->add('postType', new HiddenType(), array('attr' => array('value' => $postType->getId())));
-            $ar['postType'] = $postType->getName();
+            $ar['postType'] = strtolower($postType->getName());
         }
-        
+
         $form->remove('userId');
         $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
-        
+
         $form->remove('children');
-        
-        if(null !== $daddyId)
+
+        if (null !== $daddyId)
         {
             $form->add('children', new HiddenType(), array('attr' => array('value' => $daddyId)));
         }
-        
+
         $ar['form'] = $form->createView();
         
-        return $ar;
+        if($this->getTemplate($ar['postType']))
+        {
+            $return = $this->renderView(
+                "CMSAdminBundle:Post:new.$ar[postType].html.twig",
+                array(
+                    'entity' => $ar['entity'],
+                    'form' => $ar['form'],
+                    'postType' => $ar['postType']
+                ));
+            
+            return new Response($return);
+        }
+        else
+        {
+            return $ar;
+        }
+    }
+    
+    public function getTemplate($postType, $templateType = 'new')
+    {
+        $filename = $templateType.'.'.$postType;
+        $root = $this->get('kernel')->getRootDir();
+        
+        $fs = new Filesystem();
+        return $fs->exists("$root/../src/CMS/AdminBundle/Resources/views/Post/$filename.html.twig");
     }
 
     /**
@@ -120,11 +145,49 @@ class PostController extends Controller
      */
     public function editAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('CMSStoreBundle:Post')->findOneById($id);
+        $postType = strtolower($post->getPostType()->getName());
+        
         $ar = parent::editAction($id);
         $form = $ar['default_form'];
+
+        $form->remove('postType');
+        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\PostType', 
+            'attr' => array('style' => 'display:none'),
+            'label_attr' => array('style' => 'display:none')
+            ));
         
+        $form->remove('userId');
+        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\User', 
+            'attr' => array('style' => 'display:none'),
+            'label_attr' => array('style' => 'display:none')
+            ));
+        
+        $form->remove('children');
+        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post', 
+            'attr' => array('style' => 'display:none'),
+            'label_attr' => array('style' => 'display:none')
+            ));
+
         $ar['edit_form'] = $form->createView();
-        return $ar;
+        
+        if($this->getTemplate($postType, 'edit'))
+        {
+            $return = $this->renderView(
+                "CMSAdminBundle:Post:edit.$postType.html.twig",
+                array(
+                    'entity' => $ar['entity'],
+                    'edit_form' => $ar['edit_form'],
+                    'delete_form' => $ar['delete_form']
+                ));
+            
+            return new Response($return);
+        }
+        else
+        {
+            return $ar;
+        }
     }
 
     /**
@@ -158,7 +221,8 @@ class PostController extends Controller
      * @return Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
-    {        
+    {
         return parent::createDeleteForm($id);
     }
+
 }

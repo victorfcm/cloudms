@@ -22,7 +22,9 @@ class AppKernel extends Kernel
             new CMS\StoreBundle\CMSStoreBundle(),
 	    new FOS\UserBundle\FOSUserBundle(),
             new CMS\AdminBundle\CMSAdminBundle(),
-	    new Knp\Bundle\MenuBundle\KnpMenuBundle()
+	    new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+	    new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+	    new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

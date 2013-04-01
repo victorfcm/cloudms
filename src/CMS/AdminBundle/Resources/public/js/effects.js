@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 		}
 	});
-	$('#items-order, #items-order ul').sortable({ disabled: false });
+	$('#items-order, #items-order ul').sortable({disabled: false});
 	
 	$('a.side-btn.order').click(function(){
 		
