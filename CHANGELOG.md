@@ -9,3 +9,8 @@
 
 ### v0.4.1
  - User form bugfix.
+ - Post form bugfix.
+ - List layout definition.
+
+### v0.5
+ - TinyMCE Media Manager.
