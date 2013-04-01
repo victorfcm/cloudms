@@ -28,7 +28,7 @@
 //if (NO AUTENTIFICATION) { die('Unauthorized!'); }
 
 //config (if your TinyMCE location is different from example, you should also check paths at line ~360)
-$file_root = 'upload'; 		//where to store files, must be created and writable
+$file_root = '../../../uploads'; 		//where to store files, must be created and writable
 $root_path = ''; 					//path from webroot, without trailing slash. If your page is located in http://www.example.com/john/, this should be '/john'
 $thmb_size = 100;       	//max size of preview thumbnail
 $no_script = false;       //true/false - turns scripts into text files
@@ -366,8 +366,8 @@ if(isset($_GET['viewdir'])) {
   <meta http-equiv="content-language" content="en" />
   <title><?php echo $lng['window_title']; ?></title>
   <link rel="stylesheet" href="mfm/style.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo $root_path; ?>/tiny_mce/themes/advanced/skins/default/dialog.css" type="text/css" />
-  <script type="text/javascript" src="<?php echo $root_path; ?>/tiny_mce/tiny_mce_popup.js"></script>
+  <link rel="stylesheet" href="tiny_mce/themes/advanced/skins/default/dialog.css" type="text/css" />
+  <script type="text/javascript" src="tiny_mce/tiny_mce_popup.js"></script>
   <script type="text/javascript">
 		//<![CDATA[
 		

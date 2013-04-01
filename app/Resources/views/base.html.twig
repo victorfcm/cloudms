@@ -20,132 +20,151 @@
         {% endblock %}
         {% block javascripts %}
             {% javascripts 
-                    '@CMSStoreBundle/Resources/public/js/jquery-1.7.2.min.js'
                     '@CMSStoreBundle/Resources/public/js/jquery_ui/js/jquery-ui-1.10.2.custom.min.js'
-                    '@CMSStoreBundle/Resources/public/js/tiny_mce/tiny_mce.js'
                     '@CMSStoreBundle/Resources/public/js/effects.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
-    </head>
-    <body>
-        <div id="header">
 
-            <div id="top">
+        <script type="text/javascript">
+            
+            function MadFileBrowser(field_name, url, type, win) {
+            tinyMCE.activeEditor.windowManager.open({
+                file : "{{ asset('bundles/cmsstore/js/mfm.php') }}?field=" + field_name + "&url=" + url + "",
+                title : 'Gerenciador de Arquivos',
+                width : 640,
+                height : 450,
+                resizable : "no",
+                inline : "yes",
+                close_previous : "no"
+            }, {
+                window : win,
+                input : field_name
+            });
+            return false;
+            }
+        
+        </script>
 
-                <div class="container_16">
+        </head>
+        <body>
+            <div id="header">
+
+                <div id="top">
+
+                    <div class="container_16">
 
                 {% block logo %}
-                    <div id="logo">
-                        Gerenciador de Conteúdo 
-                    </div>
+                        <div id="logo">
+                            Gerenciador de Conteúdo 
+                        </div>
                 {% endblock %}
 
-                    <div id="saudacao">
-                        <p>Bem-vindo, <strong> {{ app.user.username }}
-                            </strong> [ <a href="{{ path('fos_user_security_logout') }}"> {{ 'sair'|trans({}, 'FOSUserBundle') }}</a> ]</p>
+                        <div id="saudacao">
+                            <p>Bem-vindo, <strong> {{ app.user.username }}
+                                </strong> [ <a href="{{ path('fos_user_security_logout') }}"> {{ 'sair'|trans({}, 'FOSUserBundle') }}</a> ]</p>
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-
             {% if is_granted("ROLE_SUPER_ADMIN") %}
-            <div id="nav" class="container_16">
+                <div id="nav" class="container_16">
 
-                <ul class="grid_16">
+                    <ul class="grid_16">
 
-                    <li class="upp home"><a href="{{ path('post') }}">Posts</a>
-                        <ul>
-                            <li>&#8250; <a href="{{ path('post') }}">Listar</a></li>
-                            <li>&#8250; <a href="{{ path('post_new') }}">Adicionar Novo</a></li>
-                        </ul>
-                    </li>
+                        <li class="upp home"><a href="{{ path('post') }}">Posts</a>
+                            <ul>
+                                <li>&#8250; <a href="{{ path('post') }}">Listar</a></li>
+                                <li>&#8250; <a href="{{ path('post_new') }}">Adicionar Novo</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="upp"><a href="{{ path('post_type') }}">Tipos de Post</a>
-                        <ul>
-                            <li>&#8250; <a href="{{ path('post_type') }}">Listar</a></li>
-                            <li>&#8250; <a href="{{ path('post_type_new') }}">Adicionar Novo</a></li>
-                        </ul>
-                    </li>
+                        <li class="upp"><a href="{{ path('post_type') }}">Tipos de Post</a>
+                            <ul>
+                                <li>&#8250; <a href="{{ path('post_type') }}">Listar</a></li>
+                                <li>&#8250; <a href="{{ path('post_type_new') }}">Adicionar Novo</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="upp"><a href="{{ path('taxonomy') }}">Taxonomia</a>
-                        <ul>
-                            <li>&#8250; <a href="{{ path('taxonomy') }}">Listar</a></li>
-                            <li>&#8250; <a href="{{ path('taxonomy_new') }}">Adicionar Novo</a></li>
-                        </ul>
-                    </li>
+                        <li class="upp"><a href="{{ path('taxonomy') }}">Taxonomia</a>
+                            <ul>
+                                <li>&#8250; <a href="{{ path('taxonomy') }}">Listar</a></li>
+                                <li>&#8250; <a href="{{ path('taxonomy_new') }}">Adicionar Novo</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="upp"><a href="{{ path('term') }}">Termos</a>
-                        <ul>
-                            <li>&#8250; <a href="{{ path('term') }}">Listar</a></li>
-                            <li>&#8250; <a href="{{ path('term_new') }}">Adicionar Nova</a></li>
-                        </ul>
-                    </li>
+                        <li class="upp"><a href="{{ path('term') }}">Termos</a>
+                            <ul>
+                                <li>&#8250; <a href="{{ path('term') }}">Listar</a></li>
+                                <li>&#8250; <a href="{{ path('term_new') }}">Adicionar Nova</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="upp"><a href="{{ path('user') }}">Usuários</a>
-                        <ul>
-                            <li>&#8250; <a href="{{ path('user') }}">Listar</a></li>
-                            <li>&#8250; <a href="{{ path('user_new') }}">Adicionar Novo</a></li>
-                        </ul>
-                    </li>
+                        <li class="upp"><a href="{{ path('user') }}">Usuários</a>
+                            <ul>
+                                <li>&#8250; <a href="{{ path('user') }}">Listar</a></li>
+                                <li>&#8250; <a href="{{ path('user_new') }}">Adicionar Novo</a></li>
+                            </ul>
+                        </li>
 
-                </ul>
+                    </ul>
 
-            </div><!--/nav-->
+                </div><!--/nav-->
              {% endif %}
 
 
-        </div><!--/header-->
+            </div><!--/header-->
 
-        <div id="content" class="container_16">
+            <div id="content" class="container_16">
 
         {% block sidebar %}
-            <div id="sidebar" class="grid_4">
+                <div id="sidebar" class="grid_4">
 
 
             {% block newpage %}
-                <ul id="side-nav" class="ui-sortable">
+                    <ul id="side-nav" class="ui-sortable">
 
                     {{ knp_menu_render('CMSStoreBundle:Builder:mainMenu') }}
 
-                    <li class="new">
-                        <p class="title">
-                            <a class="side-btn add" href="{{ path('post_cnew', { 'type': 'page' }) }}">Adicionar Página</a>
-                        </p>
-                    </li>
+                        <li class="new">
+                            <p class="title">
+                                <a class="side-btn add" href="{{ path('post_cnew', { 'type': 'page' }) }}">Adicionar Página</a>
+                            </p>
+                        </li>
 
-                </ul>
+                    </ul>
             {% endblock %}
 
             {% block order %}
-                <!-- div class="box order">
-                    <a class="side-btn order" href="">Ordenar menu</a>
-                    <ul class="btns">
-                        <li><button class="save">Salvar</button></li>
-                        <li><button class="cancel">Cancelar</button></li>
-                        <li class="msg">Salvando alteração...</li>
-                    </ul>
-                </div -->
+                    <!-- div class="box order">
+                        <a class="side-btn order" href="">Ordenar menu</a>
+                        <ul class="btns">
+                            <li><button class="save">Salvar</button></li>
+                            <li><button class="cancel">Cancelar</button></li>
+                            <li class="msg">Salvando alteração...</li>
+                        </ul>
+                    </div -->
             {% endblock %}
 
-            </div><!-- / sidebar -->
+                </div><!-- / sidebar -->
         {% endblock %}
 
             {% block main %}
-            <div id="main" class="grid_12">
-                <div class="full_w">
+                <div id="main" class="grid_12">
+                    <div class="full_w">
                 {% block body %}{% endblock %}
+                        </div>
                     </div>
-                </div>
             {% endblock %}
-            </div>
-            <!-- div id="footer">
-                <div class="container_16">
-                    <p>&copy; 2013 - v1.0</p>
-    
-                    <span class="creditos">Desenvolvido por <a href="http://agenciatamandua.com.br" target="_blank"><img alt="Agência Tamanduá" src="css/img/logo-tamandua-min.png" /></a> </span>
                 </div>
-            </div -->
-        </body>
-    </html>
+                <!-- div id="footer">
+                    <div class="container_16">
+                        <p>&copy; 2013 - v1.0</p>
+        
+                        <span class="creditos">Desenvolvido por <a href="http://agenciatamandua.com.br" target="_blank"><img alt="Agência Tamanduá" src="css/img/logo-tamandua-min.png" /></a> </span>
+                    </div>
+                </div -->
+            </body>
+        </html>
