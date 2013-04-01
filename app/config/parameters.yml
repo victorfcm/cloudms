@@ -1,10 +1,10 @@
 parameters:
     database_driver: pdo_mysql
-    database_host: 127.0.0.1
+    database_host: mysql.agenciatamandua.com.br
     database_port: null
     database_name: cms
-    database_user: root
-    database_password: victor1103
+    database_user: agenciatamandu04
+    database_password: tamandua123
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
