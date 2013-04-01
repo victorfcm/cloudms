@@ -12,8 +12,11 @@ class DefaultController extends Controller
      * @Route("/hello/{name}")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array('links' => array(
+            'Admin' => $this->generateUrl('post_cindex'),
+            'Master' => $this->generateUrl('post')
+            ));
     }
 }

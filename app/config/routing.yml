@@ -15,7 +15,7 @@ cms_store:
     
 _welcome:
     pattern:  /
-    defaults: { _controller: CMSStoreBundle:Default:index }
+    defaults: { _controller: CMSSiteBundle:Default:index }
     
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
