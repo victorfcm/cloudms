@@ -1,3 +1,8 @@
+cms_site:
+    resource: "@CMSSiteBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 cms_admin:
     resource: "@CMSAdminBundle/Controller/"
     type:     annotation

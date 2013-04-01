@@ -24,7 +24,8 @@ class AppKernel extends Kernel
             new CMS\AdminBundle\CMSAdminBundle(),
 	    new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 	    new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
-	    new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle()
+	    new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle(),
+            new CMS\SiteBundle\CMSSiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
