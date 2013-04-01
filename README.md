@@ -2,13 +2,16 @@
 
 ###** Requirements **###
  * PHP 5.3+
- * php-composer
+ * PHP Composer
+    - $ curl -s https://getcomposer.org/installer | php
 
 ###** Framework **###
 [Symfony2](http://symfony.com/]) - version 2.2.0
 
 ###** External Bundles **###
  * [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
+ * [KNPMenuBundle](https://github.com/KnpLabs/KnpMenuBundle)
+ * [StFalconTinyMCEBundle](https://github.com/stfalcon/TinymceBundle)
 
 ###** Internal Bundles **###
  1. Acme (symfony2 default demo bundle)
