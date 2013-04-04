@@ -1,11 +1,7 @@
-{% if form is defined %}
-    {% form_theme form 'CMSStoreBundle:Form:form_layout.html.twig' %}
-{% endif %}
-
-{% if edit_form is defined %}
+{% if (form is defined) or (edit_form is defined) %}
     {% form_theme edit_form 'CMSStoreBundle:Form:form_layout.html.twig' %}
+    {{ tinymce_init() }}
 {% endif %}
-{{ tinymce_init() }}
 
 <!DOCTYPE html>
 <html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{{ block('title') }}</title>
+        {% block stylesheets %}
+            {% stylesheets 'bundles/cmsstore/css/login.css' filter='cssrewrite' %}
+                <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+    </head>
+    <body>
+        <div class="wrap">
+            {% block main %}
+                <div id="content">
+                    <div id="main" class="{% if class is defined %}{{ class }}{% endif %}">
+                        <h1>{{ block('title') }}</h1>
+                        {% block body %}
+                                    {{ block('content') }}
+                        {% endblock %}
+                        <div class="footer">
+                            <p class="creditos">v1.0 - Desenvolvido por</p>
+                        </div>
+                    </div>
+            {% endblock %}
+                </div>
+            </div>
+        </body>
+    </html>

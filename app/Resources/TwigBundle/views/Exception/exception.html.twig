@@ -1,0 +1,22 @@
+{% extends "::base_center.html.twig" %}
+
+{% set class = 'erro' %}
+
+{% block title %}
+    {{ status_code }}
+{% endblock %}
+
+{% block content %}
+<div class="full_w">
+    {% set e = 'Ocorreu um erro, entre em contato com o administrador do sistema.' %}
+    {% if status_code == 404 %}
+        {% set e = 'Página não encontrada' %}
+    {% endif %}
+    {% if status_code == 403 %}
+        {% set e = 'Você não tem permissão de acessar essa área.' %}
+    {% endif %}
+    <h2>Ops!</h2>
+
+    <p>{{ e }}</p>
+</div>
+{% endblock %}
