@@ -159,13 +159,13 @@ class PostController extends Controller
             ));
         
         $form->remove('userId');
-        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\User', 
+        $form->add('userId', 'entity', array('class' => 'CMS\StoreBundle\Entity\User', 
             'attr' => array('style' => 'display:none'),
             'label_attr' => array('style' => 'display:none')
             ));
         
         $form->remove('children');
-        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post', 
+        $form->add('children', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post', 
             'attr' => array('style' => 'display:none'),
             'label_attr' => array('style' => 'display:none')
             ));

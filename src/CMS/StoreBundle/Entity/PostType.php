@@ -145,5 +145,20 @@ class PostType
 
         return $_r;
     }
+    
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+    
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+    }
+    
+    public function setTaxonomys($taxonomys)
+    {
+        $this->taxonomys = $taxonomys;
+    }
 
 }
