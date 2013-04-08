@@ -147,10 +147,11 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('CMSStoreBundle:Post')->findOneById($id);
-        $postType = strtolower($post->getPostType()->getName());
         
         $ar = parent::editAction($id);
         $form = $ar['default_form'];
+        
+        $ar['postType'] = strtolower($post->getPostType()->getName());
 
         $form->remove('postType');
         $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\PostType', 
@@ -172,14 +173,15 @@ class PostController extends Controller
 
         $ar['edit_form'] = $form->createView();
         
-        if($this->getTemplate($postType, 'edit'))
+        if($this->getTemplate($ar['postType'], 'edit'))
         {
             $return = $this->renderView(
-                "CMSAdminBundle:Post:edit.$postType.html.twig",
+                "CMSAdminBundle:Post:edit.$ar[postType].html.twig",
                 array(
                     'entity' => $ar['entity'],
                     'edit_form' => $ar['edit_form'],
-                    'delete_form' => $ar['delete_form']
+                    'delete_form' => $ar['delete_form'],
+                    'postType' => $ar['postType']
                 ));
             
             return new Response($return);
