@@ -169,4 +169,14 @@ class Term
     {
         return $this->getName();
     }
+    
+    /*
+     * set taxonomys
+     * 
+     * @param collection $taxonomys
+     */
+    public function setTaxonomys($taxonomys)
+    {
+        $this->taxonomys = $taxonomys;
+    }
 }

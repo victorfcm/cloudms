@@ -14,6 +14,7 @@ class TermType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('daddyId')
+            ->add('taxonomys', 'entity', array('class' => 'CMSStoreBundle:Taxonomy'))
         ;
     }
 

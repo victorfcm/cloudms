@@ -9,7 +9,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Taxonomyid</th>
+                <th>Taxonomy</th>
                 <th>Daddyid</th>
                 <th>Actions</th>
             </tr>
@@ -20,7 +20,7 @@
                 <td><a href="{{ path('term_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.description }}</td>
-                <td>{{ entity.taxonomyId }}</td>
+                <td>{% for tax in entity.taxonomys %} {{ tax.taxonomy.name }} {% endfor %}</td>
                 <td>{{ entity.daddyId }}</td>
                 <td>
                 <ul>
