@@ -12,6 +12,7 @@
  * [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
  * [KNPMenuBundle](https://github.com/KnpLabs/KnpMenuBundle)
  * [StFalconTinyMCEBundle](https://github.com/stfalcon/TinymceBundle)
+ * [KNPPaginatorBundle](https://github.com/KnpLabs/KnpPaginatorBundle)
 
 ###** Internal Bundles **###
  1. Acme (symfony2 default demo bundle)

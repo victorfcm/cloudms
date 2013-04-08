@@ -89,3 +89,13 @@ stfalcon_tinymce:
           theme_advanced_buttons1_add: "fullscreen"
           relative_urls: false
           file_browser_callback: "MadFileBrowser"
+knp_paginator:
+    page_range: 3
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: false
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
