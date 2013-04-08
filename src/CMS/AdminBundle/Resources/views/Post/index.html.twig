@@ -24,7 +24,7 @@
     <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('post_cshow', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                <td><a href="{{ path('post_cedit', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                 <td>
                     {% for term in entity.terms %}
                         {{ term.term.name }} 
