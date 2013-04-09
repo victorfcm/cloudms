@@ -27,7 +27,8 @@ class AppKernel extends Kernel
 	    new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle(),
             new CMS\SiteBundle\CMSSiteBundle(),
 	    new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-        );
+	    new DMS\Bundle\FilterBundle\DMSFilterBundle(),
+      );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
