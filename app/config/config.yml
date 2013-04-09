@@ -103,3 +103,8 @@ knp_paginator:
  
 dms_filter:
     auto_filter_forms: true
+    
+twig:
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig

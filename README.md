@@ -14,6 +14,7 @@
  * [StFalconTinyMCEBundle](https://github.com/stfalcon/TinymceBundle)
  * [KNPPaginatorBundle](https://github.com/KnpLabs/KnpPaginatorBundle)
  * [DMSFilterBundle](http://knpbundles.com/rdohms/DMSFilterBundle)
+ * [LexikFormFilterBundle](https://github.com/lexik/LexikFormFilterBundle)
 
 ###** Internal Bundles **###
  1. Acme (symfony2 default demo bundle)

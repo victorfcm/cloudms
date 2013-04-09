@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new CMS\SiteBundle\CMSSiteBundle(),
 	    new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 	    new DMS\Bundle\FilterBundle\DMSFilterBundle(),
+	    new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
       );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

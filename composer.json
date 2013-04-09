@@ -23,7 +23,8 @@
 	"stfalcon/tinymce-bundle": "dev-master",
 	"elao/mce-media-bundle": "dev-master",
 	"knplabs/knp-paginator-bundle": "dev-master",
-	"dms/dms-filter-bundle": "dev-master"
+	"dms/dms-filter-bundle": "dev-master",
+	"lexik/form-filter-bundle": "1.2.*"
     },
     "scripts": {
         "post-install-cmd": [
