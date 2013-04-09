@@ -1,45 +1,38 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Term list</h1>
+<div class="h_title">
+    {{ taxonomy.name }}
+
+        <div class="btns">
+            <a class="btn add" href="{{ path('term_cnew', {'taxId': taxonomy.id|lower }) }}">Adicionar {{ taxonomy.name }}</a>
+        </div>
+    </div>
 
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Daddyid</th>
-                <th>Actions</th>
+                <th style="width:50%; text-align:left">{{ knp_pagination_sortable(pagination, 'Título', 'name', {'style':'color:#ddd;'}) }}</th>
+                <th style="width:20%">Descrição</th>
+                <th style="width:10%">Ações</th>
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('term_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.daddyId }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('term_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('term_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+        {% for entity in pagination %}
+                <tr>
+                    <td><a href="{{ path('term_cedit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                    <td>{{ entity.description }}</td>
+                    <td>
+                        <a class="table-icon edit" title="Editar" href="{{ path('term_cedit', { 'id': entity.id }) }}"></a>
+                        <a class="table-icon delete" title="Deletar" href="{{ path('term_cdelete', { 'id': entity.id }) }}"></a>
+                    </td>
+                </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('term_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+            </tbody>
+        </table>
+        <div class="entry">
+            <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
     {% endblock %}

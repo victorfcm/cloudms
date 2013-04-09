@@ -42,11 +42,19 @@ class PostController extends Controller
             $taxonomy = $tax->getTaxonomy();
             break;
         }
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities, 
+            $this->get('request')->query->get('page', 1),
+            5
+        );
 
         return array(
             'entities' => $entities,
             'postType' => $postType->getName(),
-            'taxonomy' => $taxonomy
+            'taxonomy' => $taxonomy,
+            'pagination' => $pagination
         );
     }
 

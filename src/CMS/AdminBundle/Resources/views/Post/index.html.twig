@@ -4,42 +4,47 @@
 <div class="h_title">
     {{ postType }} <!-- &#8250; Listar -->
 
-    <div class="btns">
-        <a class="btn add" href="{{ path('post_cnew', {'type': postType|lower }) }}">Adicionar {{ postType }}</a>
-        <a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
+        <div class="btns">
+            <a class="btn add" href="{{ path('post_cnew', {'type': postType|lower }) }}">Adicionar {{ postType }}</a>
+            <a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
+        </div>
     </div>
-</div>
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th style="width:50%; text-align:left">Título</th>
-            {% if taxonomy %}
-                <th style="width:20%">{{ taxonomy.name }}</th>
-            {% endif %}
-            <th style="width:20%">Atualização</th>
-            <th style="width:10%">Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for entity in entities %}
+    <table class="records_list">
+        <thead>
             <tr>
-                <td><a href="{{ path('post_cedit', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                <td>
+                <th style="width:50%; text-align:left">{{ knp_pagination_sortable(pagination, 'Título', 'name', {'style':'color:#ddd;'}) }}</th>
+            {% if taxonomy %}
+                <th style="width:20%">{{ knp_pagination_sortable(pagination, taxonomy.name, 'taxonomys.taxonomy.name', {'style':'color:#ddd;'}) }}</th>
+            {% endif %}
+                <th style="width:20%">{{ knp_pagination_sortable(pagination, 'Atualização', 'updatedAt', {'style':'color:#ddd;'}) }}</th>
+                <th style="width:10%">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagination %}
+                <tr>
+                    <td><a href="{{ path('post_cedit', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                    <td>
                     {% for term in entity.terms %}
                         {{ term.term.name }} 
                             {% if not loop.last %}
-                        <span>, </span>
+                            <span>, </span>
                             {% endif %}
                     {% endfor %}
-               </td>
-                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d/m/Y H:i') }}{% endif %}</td>
-                <td>
-                    <a class="table-icon edit" title="Editar" href="{{ path('post_cedit', { 'id': entity.id }) }}"></a>
-                    <a class="table-icon delete" title="Deletar" href="{{ path('post_cdelete', { 'id': entity.id }) }}"></a>
-                </td>
-            </tr>
+                        </td>
+                        <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d/m/Y H:i') }}{% endif %}</td>
+                        <td>
+                            <a class="table-icon edit" title="Editar" href="{{ path('post_cedit', { 'id': entity.id }) }}"></a>
+                            <a class="table-icon delete" title="Deletar" href="{{ path('post_cdelete', { 'id': entity.id }) }}"></a>
+                        </td>
+                    </tr>
         {% endfor %}
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+            <div class="entry">
+                <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
     {% endblock %}
