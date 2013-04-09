@@ -89,6 +89,7 @@ stfalcon_tinymce:
           theme_advanced_buttons1_add: "fullscreen"
           relative_urls: false
           file_browser_callback: "MadFileBrowser"
+          
 knp_paginator:
     page_range: 2
     default_options:
@@ -99,3 +100,6 @@ knp_paginator:
     template:
         pagination: CMSAdminBundle:Pagination:sliding.html.twig
         sortable: CMSAdminBundle:Pagination:sortable_link.html.twig
+ 
+dms_filter:
+    auto_filter_forms: true
