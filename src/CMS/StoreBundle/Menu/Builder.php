@@ -19,13 +19,10 @@ class Builder extends ContainerAwareCommand
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root', array('depth' => 2));
+        $this->getPages();
+        $this->getPostTypes();
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $qry = $em->createQuery('SELECT p FROM CMSStoreBundle:Post p WHERE p.postType = :type_page and p.daddyId IS NULL ORDER BY p.id DESC')->setParameter('type_page', PostType::$page_type_id);
-
-        $itens = $qry->getResult();
-
-        foreach ($itens as $item)
+        foreach ($this->pages as $item)
         {
             $menu->addChild(
                 $item->getTitle(), array(
@@ -34,11 +31,8 @@ class Builder extends ContainerAwareCommand
                 'attributes' => array('id' => $item->getId(),
                     'style' => 'page')
             ));
-
-            $qry = $em->createQuery('SELECT p FROM CMSStoreBundle:Post p WHERE p.children = :id ORDER BY p.updatedAt DESC')->setParameter('id', $item->getId());
-            $children = $qry->getResult();
-
-            foreach ($children as $child)
+            
+            foreach ($this->getSubPages($item->getId()) as $child)
             {
                 $menu[$item->getTitle()]->addChild(
                     $child->getTitle(), array(
@@ -51,10 +45,7 @@ class Builder extends ContainerAwareCommand
             }
         }
 
-        $qry = $em->createQuery('SELECT pt FROM CMSStoreBundle:PostType pt WHERE pt.id != :type_page')->setParameter('type_page', PostType::$page_type_id);
-        $postTypes = $qry->getResult();
-
-        foreach ($postTypes as $postType)
+        foreach ($this->postTypes as $postType)
         {
             foreach ($postType->getTaxonomys() as $tax)
             {
@@ -64,20 +55,67 @@ class Builder extends ContainerAwareCommand
 
             $menu->addChild(
                 $postType->getName(), array(
-                'route' => 'term_show',
-                'routeParameters' => array('id' => $postType->getId()),
-                'attributes' =>
-                array(
-                    'id' => $postType->getId(),
-                    'style' => 'postType',
-                    'type' => strtolower($postType->getName()),
-                    'taxonomy' => $tax
-                )
+                    'route' => 'term_show',
+                    'routeParameters' => array('id' => $postType->getId()),
+                    'attributes' =>
+                    array(
+                        'id' => $postType->getId(),
+                        'style' => 'postType',
+                        'type' => strtolower($postType->getName()),
+                        'taxonomy' => $tax
+                    )
                 )
             );
         }
 
         return $menu;
+    }
+
+    private function getPostTypes()
+    {
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $qry = $em->getRepository('CMSStoreBundle:PostType')
+            ->createQueryBuilder('pt')
+            ->where('pt.in_menu = true')
+            ->andWhere('pt.name != :name')
+            ->setParameter('name', 'page');
+
+        $itens = $qry->getQuery()->execute();
+
+        $this->postTypes = $itens;
+    }
+
+    private function getPages()
+    {
+        $postTypes = array();
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $pts = $em->getRepository('CMSStoreBundle:PostType')->findByName('page');
+
+        foreach ($pts as $posttype)
+        {
+            if ($posttype->isInMenu())
+                $postTypes[] = $posttype->getId();
+        }
+
+        $qry = $em->getRepository('CMSStoreBundle:Post')
+            ->createQueryBuilder('p')
+            ->where('p.daddyId IS NULL')
+            ->andWhere('p.postType IN (:postTypes)')
+            ->setParameter('postTypes', $postTypes);
+
+        $itens = $qry->getQuery()->execute();
+
+        $this->pages = $itens;
+    }
+
+    private function getSubPages($pageId)
+    {
+        return $this->getContainer()
+                ->get('doctrine')
+                ->getManager()
+                ->getRepository('CMSStoreBundle:Post')
+                ->findByDaddyId($pageId);
     }
 
 }

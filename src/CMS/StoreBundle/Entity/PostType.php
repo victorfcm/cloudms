@@ -12,12 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PostType
 {
-    public static $page_type_id = 1;
-
-    public static $post_type_id = 2;
-
-    public static $news_type_id = 3;
-
     /**
      * @var integer
      *
@@ -47,6 +41,13 @@ class PostType
      * @ORM\OneToMany(targetEntity="Post", mappedBy="postType")
      */
     private $posts;
+    
+    /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="in_menu", type="boolean", options={"default":true})
+     */
+    private $in_menu;
     
     /**
      * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
@@ -125,26 +126,6 @@ class PostType
     {
         return $this->getName();
     }
-
-    public static function retriveId($name)
-    {
-        $_r = '';
-        
-        switch ($name)
-        {
-            case 'news':
-                $_r = self::$news_type_id;
-                break;
-            case 'page':
-                $_r = self::$page_type_id;
-                break;
-            case 'post':
-                $_r = self::$post_type_id;
-                break;
-        }
-
-        return $_r;
-    }
     
     public function getPosts()
     {
@@ -159,6 +140,24 @@ class PostType
     public function setTaxonomys($taxonomys)
     {
         $this->taxonomys = $taxonomys;
+    }
+    
+    public function setInMenu($in_menu)
+    {
+        $this->in_menu = $in_menu;
+    }
+    
+    public function isInMenu()
+    {
+        return (true === $this->in_menu)? true : false;
+    }
+    
+    public function getBySlug($slug)
+    {
+        if($this->name === strtolower($slug))
+            return $this->id;
+        
+        return false;
     }
 
 }
