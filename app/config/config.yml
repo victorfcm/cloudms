@@ -101,13 +101,9 @@ knp_paginator:
     template:
         pagination: CMSAdminBundle:Pagination:sliding.html.twig
         sortable: CMSAdminBundle:Pagination:sortable_link.html.twig
-
-# entity filter
-dms_filter:
-    auto_filter_forms: true
     
 # form filter
 twig:
     form:
         resources:
-            - LexikFormFilterBundle:Form:form_div_layout.html.twig
+            - CMSStoreBundle:Filter:filter_layout.html.twig

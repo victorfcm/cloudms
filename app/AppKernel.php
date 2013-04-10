@@ -27,7 +27,6 @@ class AppKernel extends Kernel
 	    new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle(),
             new CMS\SiteBundle\CMSSiteBundle(),
 	    new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-	    new DMS\Bundle\FilterBundle\DMSFilterBundle(),
 	    new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
       );
 
