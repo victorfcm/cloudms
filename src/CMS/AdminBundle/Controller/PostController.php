@@ -225,8 +225,13 @@ class PostController extends Controller
      * @Method("PUT")
      * @Template("CMSStoreBundle:Post:edit.html.twig")
      */
-    public function updateAction(Request $request, $id, $redirUrl = 'post_cupdate')
+    public function updateAction(Request $request, $id, $redirUrl = 'post_cedit')
     {
+        $this->get('session')->setFlash(
+            'notice',
+            'Alteração salva com sucesso!'
+        );
+        
         return parent::updateAction($request, $id, $redirUrl);
     }
 
