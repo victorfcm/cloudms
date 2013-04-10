@@ -246,11 +246,13 @@ class PostController extends Controller
         {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
-
+        
+        $posttype = $entity->getPostType();
+        
         $em->remove($entity);
         $em->flush();
         
-        return $this->redirect($this->generateUrl($redirUrl));
+        return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $posttype->getId())));
     }
 
     /**

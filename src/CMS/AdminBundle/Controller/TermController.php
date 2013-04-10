@@ -173,7 +173,7 @@ class TermController extends Controller
      * @Method("PUT")
      * @Template("CMSStoreBundle:Term:edit.html.twig")
      */
-    public function updateAction(Request $request, $id, $redirUrl = 'term_edit')
+    public function updateAction(Request $request, $id, $redirUrl = 'term_cedit')
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -193,6 +193,10 @@ class TermController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $this->get('session')->setFlash(
+                'notice', 'Alteração salva com sucesso!'
+            );
+
             return $this->redirect($this->generateUrl($redirUrl, array('id' => $id)));
         }
 
@@ -209,23 +213,25 @@ class TermController extends Controller
      * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="term_cdelete")
      * @Method({"DELETE", "GET"})
      */
-    public function deleteAction(Request $request, $id, $redirUrl = 'term')
+    public function deleteAction(Request $request, $id, $redirUrl = 'term_clist')
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('CMSStoreBundle:Term')->find($id);
-
+        
         if (!$entity)
         {
             throw $this->createNotFoundException('Unable to find Term entity.');
         }
+        
+        $taxonomy = $entity->getTaxonomys();
 
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl($redirUrl));
+        return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy[0]->getTaxonomy()->getId())));
     }
 
     /**
