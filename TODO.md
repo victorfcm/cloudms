@@ -5,4 +5,5 @@ Sprint 07:
  - Mudar a rota de redirecionamento quando cria um novo.
  - Acertar os "Deletes" do sistema.
  - Ordenação.
+ - Remover Gambiarra do indexAction no ADMIN:PostController
 

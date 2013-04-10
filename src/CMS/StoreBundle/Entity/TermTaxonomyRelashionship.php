@@ -24,12 +24,12 @@ class TermTaxonomyRelashionship
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Term", inversedBy="taxonomys", cascade="remove")
+     * @ORM\ManyToOne(targetEntity="Term", inversedBy="taxonomys", cascade="persist")
      */
     private $term;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="terms", cascade="remove")
+     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="terms", cascade="persist")
      */
     private $taxonomy;
 

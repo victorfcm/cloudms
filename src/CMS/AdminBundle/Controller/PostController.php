@@ -30,8 +30,9 @@ class PostController extends Controller
      */
     public function indexAction($typeId = null)
     {
+        ##TODO: REMOVER ESTA GAMBIARRA
         if (null === $typeId)
-            $typeId = PostType::$news_type_id;
+            $typeId = 3;
 
         $em = $this->getDoctrine()->getManager();
 
@@ -42,7 +43,7 @@ class PostController extends Controller
         {
             $taxonomy = $tax->getTaxonomy();
         }
-        
+
         $form_filter = $this->get('form.factory')->create(new PostFilterType());
 
         if ($this->get('request')->request->has('submit-filter'))
@@ -59,12 +60,10 @@ class PostController extends Controller
             // build the query from the given form object
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form_filter, $filterBuilder);
         }
-        
+
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $filterBuilder, 
-            $this->get('request')->query->get('page', 1),
-            5
+            $filterBuilder, $this->get('request')->query->get('page', 1), 5
         );
 
         return array(
@@ -122,17 +121,16 @@ class PostController extends Controller
         }
 
         $ar['form'] = $form->createView();
-        
-        if($this->getTemplate($ar['postType']))
+
+        if ($this->getTemplate($ar['postType']))
         {
             $return = $this->renderView(
-                "CMSAdminBundle:Post:new.$ar[postType].html.twig",
-                array(
-                    'entity' => $ar['entity'],
-                    'form' => $ar['form'],
-                    'postType' => $ar['postType']
+                "CMSAdminBundle:Post:new.$ar[postType].html.twig", array(
+                'entity' => $ar['entity'],
+                'form' => $ar['form'],
+                'postType' => $ar['postType']
                 ));
-            
+
             return new Response($return);
         }
         else
@@ -140,12 +138,12 @@ class PostController extends Controller
             return $ar;
         }
     }
-    
+
     public function getTemplate($postType, $templateType = 'new')
     {
-        $filename = $templateType.'.'.$postType;
+        $filename = $templateType . '.' . $postType;
         $root = $this->get('kernel')->getRootDir();
-        
+
         $fs = new Filesystem();
         return $fs->exists("$root/../src/CMS/AdminBundle/Resources/views/Post/$filename.html.twig");
     }
@@ -173,43 +171,42 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('CMSStoreBundle:Post')->findOneById($id);
-        
+
         $ar = parent::editAction($id);
         $form = $ar['default_form'];
-        
+
         $ar['postType'] = strtolower($post->getPostType()->getName());
 
         $form->remove('postType');
-        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\PostType', 
+        $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\PostType',
             'attr' => array('style' => 'display:none'),
             'label_attr' => array('style' => 'display:none')
-            ));
-        
+        ));
+
         $form->remove('userId');
-        $form->add('userId', 'entity', array('class' => 'CMS\StoreBundle\Entity\User', 
+        $form->add('userId', 'entity', array('class' => 'CMS\StoreBundle\Entity\User',
             'attr' => array('style' => 'display:none'),
             'label_attr' => array('style' => 'display:none')
-            ));
-        
+        ));
+
         $form->remove('children');
-        $form->add('children', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post', 
+        $form->add('children', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post',
             'attr' => array('style' => 'display:none'),
             'label_attr' => array('style' => 'display:none')
-            ));
+        ));
 
         $ar['edit_form'] = $form->createView();
-        
-        if($this->getTemplate($ar['postType'], 'edit'))
+
+        if ($this->getTemplate($ar['postType'], 'edit'))
         {
             $return = $this->renderView(
-                "CMSAdminBundle:Post:edit.$ar[postType].html.twig",
-                array(
-                    'entity' => $ar['entity'],
-                    'edit_form' => $ar['edit_form'],
-                    'delete_form' => $ar['delete_form'],
-                    'postType' => $ar['postType']
+                "CMSAdminBundle:Post:edit.$ar[postType].html.twig", array(
+                'entity' => $ar['entity'],
+                'edit_form' => $ar['edit_form'],
+                'delete_form' => $ar['delete_form'],
+                'postType' => $ar['postType']
                 ));
-            
+
             return new Response($return);
         }
         else
@@ -228,22 +225,32 @@ class PostController extends Controller
     public function updateAction(Request $request, $id, $redirUrl = 'post_cedit')
     {
         $this->get('session')->setFlash(
-            'notice',
-            'Alteração salva com sucesso!'
+            'notice', 'Alteração salva com sucesso!'
         );
-        
+
         return parent::updateAction($request, $id, $redirUrl);
     }
 
     /**
      * Deletes a Post entity.
      *
-     * @Route("/delete/{id}", name="post_cdelete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="post_cdelete")
+     * @Method({"DELETE", "GET"})
      */
-    public function deleteAction(Request $request, $id, $redirUrl = 'post_cdelete')
+    public function deleteAction(Request $request, $id, $redirUrl = 'post_cindex')
     {
-        return parent::deleteAction($request, $id, $redirUrl);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CMSStoreBundle:Post')->find($id);
+
+        if (!$entity)
+        {
+            throw $this->createNotFoundException('Unable to find Post entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl($redirUrl));
     }
 
     /**

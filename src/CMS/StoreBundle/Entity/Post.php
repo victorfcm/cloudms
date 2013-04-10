@@ -83,15 +83,15 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\Post
      * 
-     * @ORM\ManyToOne(targetEntity="Post", cascade={"all"})
-     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $children;
 
     /**
      * @var \CMS\StoreBundle\Entity\Term
      *
-     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="post", cascade="remove")
      */
     private $terms;
     

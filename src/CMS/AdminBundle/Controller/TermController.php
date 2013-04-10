@@ -60,7 +60,7 @@ class TermController extends Controller
         {
             $entities[] = $pag->getTerm();
         }
-        
+
         return array(
             'entities' => $entities,
             'taxonomy' => $taxonomy,
@@ -206,27 +206,24 @@ class TermController extends Controller
     /**
      * Deletes a Term entity.
      *
-     * @Route("/{id}", name="term_cdelete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="term_cdelete")
+     * @Method({"DELETE", "GET"})
      */
     public function deleteAction(Request $request, $id, $redirUrl = 'term')
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
-        if ($form->isValid())
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('CMSStoreBundle:Term')->find($id);
+
+        if (!$entity)
         {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CMSStoreBundle:Term')->find($id);
-
-            if (!$entity)
-            {
-                throw $this->createNotFoundException('Unable to find Term entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+            throw $this->createNotFoundException('Unable to find Term entity.');
         }
+
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->generateUrl($redirUrl));
     }

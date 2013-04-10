@@ -22,12 +22,12 @@ class PostTermRelashionship
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Term", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Term", inversedBy="posts", cascade="persist")
      */
     private $term;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="terms")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="terms", cascade="persist")
      */
     private $post;
 

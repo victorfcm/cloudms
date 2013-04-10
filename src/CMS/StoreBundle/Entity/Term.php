@@ -38,7 +38,7 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="term")
+     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="term", cascade="remove")
      */
     private $taxonomys;
 
@@ -53,7 +53,7 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Post
      *
-     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="term")
+     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="term", cascade="remove")
      */
     private $posts;
 
