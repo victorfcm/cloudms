@@ -9,7 +9,9 @@
             {% endstylesheets %}
         {% endblock %}
         {% block javascripts %}
-            {% javascripts '@CMSSiteBundle/Resources/public/js/*' %}
+            {% javascripts '@CMSSiteBundle/Resources/public/js/jquery-1.7.2.min.js'
+                           '@CMSSiteBundle/Resources/public/js/jquery.maskedinput-1.2.2.min.js'
+                           '@CMSSiteBundle/Resources/public/js/effects.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
@@ -49,7 +51,7 @@
         </div>
 
         <div id="main" class="container_16">
-            <div id="content" class="grid_10 push_3">
+            <div id="content" class="grid_10 push_3 pg-interna">
                     {% block body %}{% endblock %}
                 </div>
                 {% block sideleft %}
