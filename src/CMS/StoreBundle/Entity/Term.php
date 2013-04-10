@@ -46,7 +46,7 @@ class Term
      * @var \CMS\StoreBundle\Entity\Term
      *
      * @ORM\ManyToOne(targetEntity="Term")
-     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $daddyId;
     

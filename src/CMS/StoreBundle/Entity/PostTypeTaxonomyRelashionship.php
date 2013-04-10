@@ -22,12 +22,12 @@ class PostTypeTaxonomyRelashionship
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="taxonomys")
+     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="taxonomys", cascade="remove")
      */
     private $postType;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="postTypes")
+     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="postTypes", cascade="remove")
      */
     private $taxonomy;
 

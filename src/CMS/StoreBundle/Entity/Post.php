@@ -61,7 +61,7 @@ class Post
      * @var \CMS\StoreBundle\Entity\PostType
      * 
      * @ORM\ManyToOne(targetEntity="PostType", inversedBy="posts")
-     * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $postType;
     
@@ -76,7 +76,7 @@ class Post
      * @var integer
      * 
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $userId;
     
@@ -84,7 +84,7 @@ class Post
      * @var \CMS\StoreBundle\Entity\Post
      * 
      * @ORM\ManyToOne(targetEntity="Post", cascade={"all"})
-     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $children;
 
