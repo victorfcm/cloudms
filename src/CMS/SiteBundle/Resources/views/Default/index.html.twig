@@ -1,8 +1,12 @@
-<h1>
-    Bem vindo ao site.
-</h1>
+{% extends '::base_site.html.twig' %}
 
-{% for name,link in links %}
-    <a href="{{ link }}">{{ name }}</a>
-    <br />
-{% endfor %}
+{% block body -%}
+    <h1>
+        Bem vindo ao site.
+    </h1>
+
+    {% for name,link in links %}
+        <a href="{{ link }}">{{ name }}</a>
+        <br />
+    {% endfor %}
+{% endblock %}

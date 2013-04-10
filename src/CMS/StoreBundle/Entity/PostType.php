@@ -47,7 +47,7 @@ class PostType
      * 
      * @ORM\Column(name="in_menu", type="boolean", options={"default":true})
      */
-    private $in_menu;
+    private $inMenu;
     
     /**
      * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
@@ -144,12 +144,12 @@ class PostType
     
     public function setInMenu($in_menu)
     {
-        $this->in_menu = $in_menu;
+        $this->inMenu = $in_menu;
     }
     
     public function isInMenu()
     {
-        return (true === $this->in_menu)? true : false;
+        return (true === $this->inMenu)? true : false;
     }
     
     public function getBySlug($slug)
