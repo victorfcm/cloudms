@@ -11,9 +11,8 @@ class TermType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('daddyId')
+            ->add('name', 'text', array('label' => 'Nome'))
+            ->add('description', 'textarea', array('label' => 'Descrição'))
             ->add('taxonomys', 'entity', array('class' => 'CMSStoreBundle:Taxonomy'))
         ;
     }

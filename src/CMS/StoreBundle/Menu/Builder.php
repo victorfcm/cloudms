@@ -26,7 +26,7 @@ class Builder extends ContainerAwareCommand
         {
             $menu->addChild(
                 $item->getTitle(), array(
-                'route' => 'post_cshow',
+                'route' => 'post_cedit',
                 'routeParameters' => array('id' => $item->getId()),
                 'attributes' => array('id' => $item->getId(),
                     'style' => 'page')
@@ -36,7 +36,7 @@ class Builder extends ContainerAwareCommand
             {
                 $menu[$item->getTitle()]->addChild(
                     $child->getTitle(), array(
-                    'route' => 'post_cshow',
+                    'route' => 'post_cedit',
                     'routeParameters' => array('id' => $child->getId()),
                     'attributes' => array('id' => $child->getId(),
                         'style' => 'pageChild')
@@ -55,7 +55,7 @@ class Builder extends ContainerAwareCommand
 
             $menu->addChild(
                 $postType->getName(), array(
-                    'route' => 'term_show',
+                    'route' => 'term_cedit',
                     'routeParameters' => array('id' => $postType->getId()),
                     'attributes' =>
                     array(
