@@ -1,32 +1,44 @@
 <?php
 
-namespace CMS\StoreBundle\Form;
+namespace CMS\StoreBundle\Filter;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\QueryBuilder;
+use Lexik\Bundle\FormFilterBundle\Filter\ORM\Expr;
 
-class TermType extends AbstractType
+class PostFilterType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('daddyId')
-            ->add('taxonomys', 'entity', array('class' => 'CMSStoreBundle:Taxonomy'))
+            ->add('title', 'filter_text', array(
+                'apply_filter' => function (QueryBuilder $queryBuilder, Expr $expr, $field, array $values)
+                {
+                    if (!empty($values['value']))
+                    {
+                        $queryBuilder->andWhere($values['alias'].".title LIKE :title")
+                        ->setParameter('title', '%'.$values['value'].'%');
+                    }
+                },
+                'label' => 'Título'
+            ))
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CMS\StoreBundle\Entity\Term'
+            'csrf_protection' => false,
+            'validation_groups' => array('filtering') // avoid NotBlank() constraint-related message
         ));
     }
 
     public function getName()
     {
-        return 'cms_storebundle_termtype';
+        return 'cms_storebundle_termfilter';
     }
+
 }

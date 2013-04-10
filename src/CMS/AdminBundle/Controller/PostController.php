@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use CMS\StoreBundle\Controller\PostController as Controller;
 use CMS\StoreBundle\Entity\PostType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType as HiddenType;
+use CMS\StoreBundle\Filter\PostFilterType;
 
 /**
  * Post controller.
@@ -24,7 +25,7 @@ class PostController extends Controller
      * Lists all Post entities.
      *
      * @Route("/list/{typeId}", name="post_cindex")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function indexAction($typeId = null)
@@ -34,27 +35,44 @@ class PostController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
+        $filterBuilder = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneById($typeId);
 
-        foreach ($entities[0]->getPostType()->getTaxonomys() as $tax)
+        foreach ($postType->getTaxonomys() as $tax)
         {
             $taxonomy = $tax->getTaxonomy();
-            break;
+        }
+        
+        $form_filter = $this->get('form.factory')->create(new PostFilterType());
+
+        if ($this->get('request')->request->has('submit-filter'))
+        {
+            // bind values from the request
+            $form_filter->bind($this->get('request'));
+
+            // initliaze a query builder
+            $filterBuilder = $em->getRepository('CMSStoreBundle:Post')
+                ->createQueryBuilder('p')
+                ->where('p.postType = :postType')
+                ->setParameter('postType', $typeId);
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form_filter, $filterBuilder);
         }
         
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $entities, 
+            $filterBuilder, 
             $this->get('request')->query->get('page', 1),
             5
         );
 
         return array(
-            'entities' => $entities,
+            'entities' => $pagination,
             'postType' => $postType->getName(),
             'taxonomy' => $taxonomy,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'form_filter' => $form_filter->createView()
         );
     }
 

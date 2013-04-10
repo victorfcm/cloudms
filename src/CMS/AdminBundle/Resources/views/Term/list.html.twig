@@ -5,34 +5,41 @@
     {{ taxonomy.name }}
 
         <div class="btns">
-            <a class="btn add" href="{{ path('term_cnew', {'taxId': taxonomy.id|lower }) }}">Adicionar {{ taxonomy.name }}</a>
+            <a class="btn add" href="{{ path('term_cnew', {'taxId': taxonomy.id }) }}">Adicionar {{ taxonomy.name }}</a>
         </div>
     </div>
-
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th style="width:50%; text-align:left">{{ knp_pagination_sortable(pagination, 'Título', 'name', {'style':'color:#ddd;'}) }}</th>
-                <th style="width:20%">Descrição</th>
-                <th style="width:10%">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in pagination %}
-                <tr>
-                    <td><a href="{{ path('term_cedit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                    <td>{{ entity.description }}</td>
-                    <td>
-                        <a class="table-icon edit" title="Editar" href="{{ path('term_cedit', { 'id': entity.id }) }}"></a>
-                        <a class="table-icon delete" title="Deletar" href="{{ path('term_cdelete', { 'id': entity.id }) }}"></a>
-                    </td>
-                </tr>
-        {% endfor %}
-            </tbody>
-        </table>
-        <div class="entry">
-            <div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-                </div>
+    <form method="post" action="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">
+        <div class='grid_12'>
+            {{ form_rest(form_filter) }}
             </div>
+            <div class="general-btns btns">
+                <input type="submit" name="submit-filter" value="Filtrar!" class="save" />
+            </div>
+        </form>
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th style="width:50%; text-align:left">{{ knp_pagination_sortable(pagination, 'Título', 'name', {'style':'color:#ddd;'}) }}</th>
+                    <th style="width:20%">Descrição</th>
+                    <th style="width:10%">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('term_cedit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                        <td>{{ entity.description }}</td>
+                        <td>
+                            <a class="table-icon edit" title="Editar" href="{{ path('term_cedit', { 'id': entity.id }) }}"></a>
+                            <a class="table-icon delete" title="Deletar" href="{{ path('term_cdelete', { 'id': entity.id }) }}"></a>
+                        </td>
+                    </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+            <div class="entry">
+                <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
     {% endblock %}
