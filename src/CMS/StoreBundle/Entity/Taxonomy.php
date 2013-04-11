@@ -40,14 +40,14 @@ class Taxonomy
     /**
      * @var \CMS\StoreBundle\Entity\TermTaxonomyRelashionship
      *
-     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="taxonomy")
+     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="taxonomy", cascade="persist")
      */
     private $terms;
     
     /**
      * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
      *
-     * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="taxonomy")
+     * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="taxonomy", cascade="persist")
      */
     private $postTypes;
 

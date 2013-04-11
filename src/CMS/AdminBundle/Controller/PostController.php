@@ -252,6 +252,11 @@ class PostController extends Controller
         $em->remove($entity);
         $em->flush();
         
+        if($posttype->getName() === 'page')
+        {
+            return $this->redirect($this->generateUrl($redirUrl));
+        }
+        
         return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $posttype->getId())));
     }
 

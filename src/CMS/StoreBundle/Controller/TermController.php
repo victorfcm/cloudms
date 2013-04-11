@@ -42,18 +42,35 @@ class TermController extends Controller
      * @Method("POST")
      * @Template("CMSStoreBundle:Term:new.html.twig")
      */
-    public function createAction(Request $request, $redirUrl = 'term_show')
+    public function createAction(Request $request, $redirUrl = 'term_list')
     {
         $entity  = new Term();
         $form = $this->createForm(new TermType(), $entity);
         $form->bind($request);
-
+        
+        #TODO: Refazer a gambiarra de taxonomias abaixo.
+        
+        $_r = $request->request->all();
+        $taxId = $_r['cms_storebundle_termtype']['taxonomys'];
+        
+        $em = $this->getDoctrine()->getManager();
+        $taxonomy = $em->getRepository('CMSStoreBundle:Taxonomy')->find($taxId);
+        
+        $termTaxonomy = new \CMS\StoreBundle\Entity\TermTaxonomyRelashionship();
+        $termTaxonomy->setTaxonomy($taxonomy);
+        $termTaxonomy->setTerm($entity);
+        
+        $entity->setTaxonomys(array($termTaxonomy));
+        
+        #FIM DA GAMBIARRA
+        
+        
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy->getId())));
         }
 
         return array(

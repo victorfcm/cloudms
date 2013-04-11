@@ -76,7 +76,7 @@ class TermController extends Controller
      * @Method("POST")
      * @Template("CMSAdminBundle:Term:new.html.twig")
      */
-    public function createAction(Request $request, $redirUrl = 'term_cshow')
+    public function createAction(Request $request, $redirUrl = 'term_clist')
     {
         return parent::createAction($request, $redirUrl);
     }
@@ -93,7 +93,7 @@ class TermController extends Controller
         $ar = parent::newAction();
         $form = $ar['default_form'];
 
-        $taxonomy = $this->getDoctrine()->getManager()->getRepository('CMSStoreBundle:taxonomy')->find($taxId);
+        $taxonomy = $this->getDoctrine()->getManager()->getRepository('CMSStoreBundle:Taxonomy')->find($taxId);
         $ar['taxonomy'] = $taxonomy->getName();
 
         if (null !== $taxId)
@@ -151,6 +151,8 @@ class TermController extends Controller
         }
 
         $editForm = $this->createForm(new TermType(), $entity);
+        $editForm->remove('taxonomys');
+        
         $deleteForm = $this->createDeleteForm($id);
 
         foreach ($entity->getTaxonomys() as $tax)
@@ -171,7 +173,7 @@ class TermController extends Controller
      *
      * @Route("/{id}", name="term_cupdate")
      * @Method("PUT")
-     * @Template("CMSStoreBundle:Term:edit.html.twig")
+     * @Template("CMSAdminBundle:Term:edit.html.twig")
      */
     public function updateAction(Request $request, $id, $redirUrl = 'term_cedit')
     {

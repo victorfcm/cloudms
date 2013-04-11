@@ -38,7 +38,7 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="term", cascade="remove")
+     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="term", cascade="persist")
      */
     private $taxonomys;
 

@@ -77,7 +77,7 @@ class Builder extends ContainerAwareCommand
 
         $qry = $em->getRepository('CMSStoreBundle:PostType')
             ->createQueryBuilder('pt')
-            ->where('pt.in_menu = true')
+            ->where('pt.inMenu = true')
             ->andWhere('pt.name != :name')
             ->setParameter('name', 'page');
 
