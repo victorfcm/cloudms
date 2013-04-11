@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
+use CMS\SiteBundle\Filter\PostFilterType;
 
 class DefaultController extends Controller
 {
@@ -65,10 +66,37 @@ class DefaultController extends Controller
         $this->setMenu();
 
         $em = $this->getDoctrine()->getManager();
-
         $postType = $em->getRepository("CMSStoreBundle:PostType")->find($id);
 
-        $data = array('postType' => $postType,
+        $form_filter = $this->get('form.factory')->create(new PostFilterType());
+        
+        $posts = $postType->getPosts();
+
+        if ($this->get('request')->request->has('submit-filter'))
+        {
+            // bind values from the request
+            $form_filter->bind($this->get('request'));
+
+            // initliaze a query builder
+            $posts = $em->getRepository('CMSStoreBundle:Post')
+                ->createQueryBuilder('p')
+                ->where('p.postType = :postType')
+                ->setParameter('postType', $id);
+            
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form_filter, $posts);
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts, $this->get('request')->query->get('page', 1), 5
+        );
+        
+        $postType->setPosts($pagination);
+        
+        $data = array(
+            'form_filter' => $form_filter->createView(),
+            'postType' => $postType,
             'pages' => $this->pages,
             'postTypes' => $this->postTypes
         );

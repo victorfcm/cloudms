@@ -45,7 +45,7 @@ class PostType
     /**
      * @var boolean
      * 
-     * @ORM\Column(name="in_menu", type="boolean", options={"default":true})
+     * @ORM\Column(name="in_menu", type="boolean", options={"default":false}, nullable=true)
      */
     private $inMenu;
     

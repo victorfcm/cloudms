@@ -59,14 +59,15 @@
                         <div class="box-menu">
                             <ul>
                                 <li class="titulo">Institucional</li>
-                                <li><a href="#">Quem Somos</a></li>
-                                <li><a href="servicos.htm">Serviços</a></li>
-                                <li><a href="#">Compras</a></li>
-                                <li><a href="#">Documentos Úteis</a></li>
+                                <li><a href="{{ url('static_quem_somos') }}">Quem Somos</a></li>
+                                <li><a href="{{ url('static_servicos') }}">Serviços</a></li>
+                                <li><a href="{{ url('static_compras') }}">Compras</a></li>
+                                <li><a href="{{ url('static_documentos') }}">Documentos Úteis</a></li>
                             </ul>
                         </div>
                     </div>
                 {% endblock %}
+                {{ block('side_right') }}
             </div>
         
         </body>

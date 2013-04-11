@@ -1,12 +1,97 @@
 {% extends '::base_site.html.twig' %}
 
-{% block body -%}
-    <h1>
-        Bem vindo ao site.
-    </h1>
+{% set dir = asset('bundles/cmssite/') %}
 
-    {% for name,link in links %}
-        <a href="{{ link }}">{{ name }}</a>
-        <br />
-    {% endfor %}
+{% block body -%}
+
+    <div id="slider">
+
+        <div class="container">
+
+            <div class="item" style="z-index: 10; left: 0px; display: block;"><a href="#"><img alt="" src="{{ dir }}test/banner1.jpg"> <span class="leia-mais"><img alt="Leia Mais" src="{{ dir }}css/img/slider-leiamais.png"></span></a></div>
+
+            <div class="item" style="display: none; z-index: 1; left: -580px;"><a href="#"><img alt="" src="{{ dir }}test/parque1.jpg"> <span class="leia-mais"><img alt="Leia Mais" src="{{ dir }}css/img/slider-leiamais.png"></span></a></div>
+
+            <div class="item" style="display: none; z-index: 1; left: -580px;"><a href="#"><img alt="" src="{{ dir }}test/parque2.jpg"> <span class="leia-mais"><img alt="Leia Mais" src="{{ dir }}css/img/slider-leiamais.png"></span></a></div>
+
+        </div>
+
+        <span class="nav"></span>
+
+    </div><!-- slibder -->
+
+    <div id="bem-vindo">
+
+        <h2>Gestão de Saúde Pública</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim..</p>
+
+    </div><!-- bem-vindo -->
+
+    <div id="boxes-home" class="clearfix">
+
+        <div class="grid_5 alpha">
+            <h2>Notícias</h2>
+            <p><a href="#">
+                    <span class="i-img"><img alt="" src="{{ dir }}css/img/med-ilustracao1.jpg"></span>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam...
+                </a></p>
+            <p class="link-mais"><a href="#">Saiba mais</a></p>
+        </div>
+
+        <div class="grid_5 omega">
+            <h2>Fale Conosco</h2>
+            <p><a href="#">
+                    <span class="i-img"><img alt="" src="{{ dir }}css/img/fale-conosco-ilustracao.jpg"></span>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam...
+                </a></p>
+            <p class="link-mais"><a href="#">Saiba mais</a></p>
+        </div>
+
+    </div><!-- boxes-home -->
+{% endblock %}
+        
+{% block side_right %}
+<div id="sideRight" class="sidebar grid_3">
+        <div class="box-menu">
+
+                <h3 class="titulo">Unidades</h3>
+
+                <img alt="Ilustracao Label" src="{{ dir }}css/img/globo-ilustracao.jpg">
+
+                <p>Eiusmod tempor incidi unt ut lt anim. sit amet, consect.</p>
+
+                <p class="link-mais"><a href="#">Saiba mais</a></p>
+
+        </div><!-- box-menu -->
+
+        <div class="box-menu">
+
+                <h3 class="titulo">Serviços</h3>
+
+                <p>Eiusmod tempor incidi unt ut lt anim. sit amet, consect. eiusmod tempor ncididunt.</p>
+
+                <p class="link-mais"><a href="#">Saiba mais</a></p>
+
+        </div><!-- box-menu -->
+
+        <div class="box-menu">
+
+                <h3 class="titulo">Newsletter</h3>
+
+                <p>Confira nossas novidades!</p>
+
+                <form id="newsSide">
+                        <input type="text" class="nome" value="Nome">
+                        <input type="text" class="email" value="Email">
+                        <input type="submit" class="send" value="Ok">
+                </form>
+
+                <p class="link-rss"><a href="#">RSS</a></p>
+
+        </div><!-- box-menu -->
+
+</div>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends '::base_site.html.twig' %}
+
+{% block body -%}
+    <h1>
+        {{ postType.name }}
+    </h1>
+    <div id="pg-txt" class="sanfona plus">
+        {{ postType.description|raw }}
+        {% for post in postType.posts %}
+                <h2 class="wrap">
+                    {{ post.title }}
+                    <span class="icon"></span>
+                </h2>
+                    {{ post.content|raw }}
+        {% endfor %}
+{% endblock %}
