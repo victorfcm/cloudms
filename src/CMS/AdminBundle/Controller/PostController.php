@@ -192,7 +192,8 @@ class PostController extends Controller
         $form->remove('children');
         $form->add('children', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post',
             'attr' => array('style' => 'display:none'),
-            'label_attr' => array('style' => 'display:none')
+            'label_attr' => array('style' => 'display:none'),
+            'empty_value' => 'escolha'
         ));
 
         $ar['edit_form'] = $form->createView();
