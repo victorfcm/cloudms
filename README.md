@@ -9,7 +9,7 @@
 [Symfony2](http://symfony.com/]) - version 2.2.0
 
 ###** Project Documentation **###
-	[Visit the Wiki](/wiki/Home)
+[Visit the Wiki](/wiki/Home)
 
 ###** External Bundles **###
  * [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
