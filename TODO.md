@@ -1,7 +1,15 @@
 ###TODO CMS Tamanduá
 
-Sprint 07:
- - Ordenação.
- - Remover Gambiarra do indexAction no ADMIN:PostController
- - Módulos.
+**Modules:**
+  - Home - Destaques.
+  - Menu - Administração.
+  - Menu - Ordenação.
+
+**Code Clear:**
+  - Workaround - AdminBundle:PostController:indexAction (remove).
+  - Comments - Add comments to the classes.
+
+**Documentation:**
+  - Refresh.
+  - Add class documentation.
 
