@@ -6,10 +6,10 @@
     - $ curl -s https://getcomposer.org/installer | php
 
 ###** Framework **###
-[Symfony2](http://symfony.com/]) - version 2.2.0
+[Symfony2](http://symfony.com/) - version 2.2.0
 
 ###** Project Documentation **###
-[Visit the Wiki](wiki/Home)
+[Visit the Wiki](cms/wiki/Home)
 
 ###** External Bundles **###
  * [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
