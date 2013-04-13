@@ -4,9 +4,10 @@
   - Schema - Apply slugable mode in Post, PostTypes, Terms and Taxonomys, see [Symfony2 Doc](http://symfony.com/doc/current/cookbook/doctrine/common_extensions.html) for more details.
   - Routing - Apply slugable routes.
   - Schema - Change the Post:DaddyId relashionship to be correct call with getChildren().
+  - **[CRITICAL]** Form - Add EMBED FORM for Terms, Taxonomys and Posts relations in each form.
 
 ###**Modules:**
-  - Home - Destaques.
+  - **[IMPORTANT]** Home - Destaques.
   - Menu - Administração.
   - Menu - Ordenação.
 
