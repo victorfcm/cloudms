@@ -30,10 +30,6 @@ class PostController extends Controller
      */
     public function indexAction($typeId = null)
     {
-        ##TODO: REMOVER ESTA GAMBIARRA
-        if (null === $typeId)
-            $typeId = 3;
-
         $em = $this->getDoctrine()->getManager();
 
         $filterBuilder = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
@@ -69,7 +65,7 @@ class PostController extends Controller
         return array(
             'entities' => $pagination,
             'postType' => $postType->getName(),
-            'taxonomy' => $taxonomy,
+            'taxonomy' => (isset($taxonomy)) ? $taxonomy : null,
             'pagination' => $pagination,
             'form_filter' => $form_filter->createView()
         );

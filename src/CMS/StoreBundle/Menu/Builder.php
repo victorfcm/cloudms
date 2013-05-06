@@ -62,7 +62,7 @@ class Builder extends ContainerAwareCommand
                         'id' => $postType->getId(),
                         'style' => 'postType',
                         'type' => strtolower($postType->getName()),
-                        'taxonomy' => $tax
+                        'taxonomy' => (isset($tax)) ? $tax : null
                     )
                 )
             );
@@ -92,21 +92,28 @@ class Builder extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $pts = $em->getRepository('CMSStoreBundle:PostType')->findByName('page');
 
-        foreach ($pts as $posttype)
-        {
-            if ($posttype->isInMenu())
-                $postTypes[] = $posttype->getId();
-        }
+		if(!empty($pts))
+		{
+			foreach ($pts as $posttype)
+			{
+				if ($posttype->isInMenu())
+					$postTypes[] = $posttype->getId();
+			}
 
-        $qry = $em->getRepository('CMSStoreBundle:Post')
-            ->createQueryBuilder('p')
-            ->where('p.daddyId IS NULL')
-            ->andWhere('p.postType IN (:postTypes)')
-            ->setParameter('postTypes', $postTypes);
+			$qry = $em->getRepository('CMSStoreBundle:Post')
+				->createQueryBuilder('p')
+				->where('p.daddyId IS NULL')
+				->andWhere('p.postType IN (:postTypes)')
+				->setParameter('postTypes', $postTypes);
 
-        $itens = $qry->getQuery()->execute();
+			$itens = $qry->getQuery()->execute();
 
-        $this->pages = $itens;
+			$this->pages = $itens;
+		}
+		else
+		{
+			$this->pages = array();
+		}
     }
 
     private function getSubPages($pageId)

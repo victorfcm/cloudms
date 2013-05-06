@@ -119,9 +119,11 @@
                     <li class="b1" style="">
                         <a class="icon page" href="{{ path('post_cindex', {'typeId' : item.attributes.id}) }}">Listar {{ item.label }}</a>
                     </li>
-                    <li style="">
-                        <a class="icon category" href="{{ path('term_clist', {'taxId' : item.attributes.taxonomy.id}) }}">Listar {{ item.attributes.taxonomy.name }}</a>
-                    </li>
+                    {% if item.attributes.taxonomy.id is defined %}
+						<li style="">
+							<a class="icon category" href="{{ path('term_clist', {'taxId' : item.attributes.taxonomy.id}) }}">Listar {{ item.attributes.taxonomy.name }}</a>
+						</li>
+					{% endif %}
                     <li style="">
                         <a class="side-btn add" href="{{ path('post_cnew', {'type' : item.attributes.type}) }}">Adicionar {{ item.label }}</a>
                     </li>

@@ -6,7 +6,9 @@
 
         <div class="btns">
             <a class="btn add" href="{{ path('post_cnew', {'type': postType|lower }) }}">Adicionar {{ postType }}</a>
-            <a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
+            {% if taxonomy.id is defined %}
+				<a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
+			{% endif %}
         </div>
     </div>
     <form method="post" action="{{ path('post_cindex', {'taxId' : postType.id}) }}">
