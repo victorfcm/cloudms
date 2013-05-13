@@ -32,7 +32,7 @@ class TermController extends Controller
         $entities = array();
         $em = $this->getDoctrine()->getManager();
 
-        $filterBuilder = $em->getRepository('CMSStoreBundle:TermTaxonomyRelashionship')->findByTaxonomy($taxId);
+        $filterBuilder = $em->getRepository('CMSStoreBundle:Term')->findByTaxonomy($taxId);
         $taxonomy = $em->getRepository('CMSStoreBundle:Taxonomy')->find($taxId);
 
         $form_filter = $this->get('form.factory')->create(new TermFilterType());
@@ -43,9 +43,8 @@ class TermController extends Controller
             $form_filter->bind($this->get('request'));
 
             // initliaze a query builder
-            $filterBuilder = $em->getRepository('CMSStoreBundle:TermTaxonomyRelashionship')
-                ->createQueryBuilder('tr')
-                ->select('tr,t');
+            $filterBuilder = $em->getRepository('CMSStoreBundle:Term')
+                ->createQueryBuilder('t');
 
             // build the query from the given form object
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form_filter, $filterBuilder);
@@ -56,13 +55,8 @@ class TermController extends Controller
             $filterBuilder, $this->get('request')->query->get('page', 1), 5
         );
 
-        foreach ($pagination as $pag)
-        {
-            $entities[] = $pag->getTerm();
-        }
-
         return array(
-            'entities' => $entities,
+            'entities' => $pagination,
             'taxonomy' => $taxonomy,
             'pagination' => $pagination,
             'form_filter' => $form_filter->createView()

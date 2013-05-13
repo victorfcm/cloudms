@@ -47,24 +47,7 @@ class TermController extends Controller
         $entity  = new Term();
         $form = $this->createForm(new TermType(), $entity);
         $form->bind($request);
-        
-        #TODO: Refazer a gambiarra de taxonomias abaixo.
-        
-        $_r = $request->request->all();
-        $taxId = $_r['cms_storebundle_termtype']['taxonomys'];
-        
-        $em = $this->getDoctrine()->getManager();
-        $taxonomy = $em->getRepository('CMSStoreBundle:Taxonomy')->find($taxId);
-        
-        $termTaxonomy = new \CMS\StoreBundle\Entity\TermTaxonomyRelashionship();
-        $termTaxonomy->setTaxonomy($taxonomy);
-        $termTaxonomy->setTerm($entity);
-        
-        $entity->setTaxonomys(array($termTaxonomy));
-        
-        #FIM DA GAMBIARRA
-        
-        
+       
         if ($form->isValid()) {
             
             $em->persist($entity);

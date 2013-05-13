@@ -169,4 +169,27 @@ class PostAttachment
     {
         return $this->getFileName();
     }
+
+    /**
+     * Set posts
+     *
+     * @param \CMS\StoreBundle\Entity\Post $posts
+     * @return PostAttachment
+     */
+    public function setPosts(\CMS\StoreBundle\Entity\Post $posts = null)
+    {
+        $this->posts = $posts;
+    
+        return $this;
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \CMS\StoreBundle\Entity\Post 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
 }

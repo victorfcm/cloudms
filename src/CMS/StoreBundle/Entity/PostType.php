@@ -50,16 +50,11 @@ class PostType
     private $inMenu;
     
     /**
-     * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
+     * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="postType")
+     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="postTypes")
      */
     private $taxonomys;
-    
-    public function getTaxonomys()
-    {
-        return $this->taxonomys;
-    }
 
     /**
      * Get id
@@ -127,21 +122,6 @@ class PostType
         return $this->getName();
     }
     
-    public function getPosts()
-    {
-        return $this->posts;
-    }
-    
-    public function setPosts($posts)
-    {
-        $this->posts = $posts;
-    }
-    
-    public function setTaxonomys($taxonomys)
-    {
-        $this->taxonomys = $taxonomys;
-    }
-    
     public function setInMenu($in_menu)
     {
         $this->inMenu = $in_menu;
@@ -160,4 +140,88 @@ class PostType
         return false;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taxonomys = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get inMenu
+     *
+     * @return boolean 
+     */
+    public function getInMenu()
+    {
+        return $this->inMenu;
+    }
+
+    /**
+     * Add posts
+     *
+     * @param \CMS\StoreBundle\Entity\Post $posts
+     * @return PostType
+     */
+    public function addPost(\CMS\StoreBundle\Entity\Post $posts)
+    {
+        $this->posts[] = $posts;
+    
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param \CMS\StoreBundle\Entity\Post $posts
+     */
+    public function removePost(\CMS\StoreBundle\Entity\Post $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Add taxonomys
+     *
+     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
+     * @return PostType
+     */
+    public function addTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
+    {
+        $this->taxonomys[] = $taxonomys;
+    
+        return $this;
+    }
+
+    /**
+     * Remove taxonomys
+     *
+     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
+     */
+    public function removeTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
+    {
+        $this->taxonomys->removeElement($taxonomys);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Get taxonomys
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaxonomys()
+    {
+        return $this->taxonomys;
+    }
 }

@@ -19,8 +19,7 @@ class TermFilterType extends AbstractType
                 {
                     if (!empty($values['value']))
                     {
-                        $queryBuilder->leftJoin($values['alias'].'.term', 't')
-                        ->andWhere("t.name LIKE :name")
+                        $queryBuilder->($values['alias'].".name LIKE :name")
                         ->setParameter('name', '%'.$values['value'].'%');
                     }
                 },

@@ -83,15 +83,14 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\Post
      * 
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="daddy_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="daddyId", cascade="remove")
      */
     private $children;
 
     /**
      * @var \CMS\StoreBundle\Entity\Term
      *
-     * @ORM\OneToMany(targetEntity="PostTermRelashionship", mappedBy="post", cascade="remove")
+     * @ORM\OneToMany(targetEntity="Term", mappedBy="post", cascade="remove")
      */
     private $terms;
     
@@ -380,5 +379,92 @@ class Post
     public function getTerms()
     {
         return $this->terms;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add attachments
+     *
+     * @param \CMS\StoreBundle\Entity\PostAttachment $attachments
+     * @return Post
+     */
+    public function addAttachment(\CMS\StoreBundle\Entity\PostAttachment $attachments)
+    {
+        $this->attachments[] = $attachments;
+    
+        return $this;
+    }
+
+    /**
+     * Remove attachments
+     *
+     * @param \CMS\StoreBundle\Entity\PostAttachment $attachments
+     */
+    public function removeAttachment(\CMS\StoreBundle\Entity\PostAttachment $attachments)
+    {
+        $this->attachments->removeElement($attachments);
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * Add terms
+     *
+     * @param \CMS\StoreBundle\Entity\Term $terms
+     * @return Post
+     */
+    public function addTerm(\CMS\StoreBundle\Entity\Term $terms)
+    {
+        $this->terms[] = $terms;
+    
+        return $this;
+    }
+
+    /**
+     * Remove terms
+     *
+     * @param \CMS\StoreBundle\Entity\Term $terms
+     */
+    public function removeTerm(\CMS\StoreBundle\Entity\Term $terms)
+    {
+        $this->terms->removeElement($terms);
+    }
+
+    /**
+     * Add children
+     *
+     * @param \CMS\StoreBundle\Entity\Post $children
+     * @return Post
+     */
+    public function addChildren(\CMS\StoreBundle\Entity\Post $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \CMS\StoreBundle\Entity\Post $children
+     */
+    public function removeChildren(\CMS\StoreBundle\Entity\Post $children)
+    {
+        $this->children->removeElement($children);
     }
 }

@@ -28,3 +28,6 @@
 
 ### v0.8
   - Front-end application applyed.
+
+### v0.8.1
+  - Was removed every relashionship table.

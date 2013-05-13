@@ -12,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Taxonomy
 {
-    public static $id_taxonomy_categoria = 1;
-    
     /**
      * @var integer
      *
@@ -38,16 +36,16 @@ class Taxonomy
     private $description;
     
     /**
-     * @var \CMS\StoreBundle\Entity\TermTaxonomyRelashionship
+     * @var \CMS\StoreBundle\Entity\Term
      *
-     * @ORM\OneToMany(targetEntity="TermTaxonomyRelashionship", mappedBy="taxonomy", cascade="persist")
+     * @ORM\OneToMany(targetEntity="Term", mappedBy="taxonomy", cascade="persist")
      */
     private $terms;
     
     /**
-     * @var \CMS\StoreBundle\Entity\PostTypeTaxonomyRelashionship
+     * @var \CMS\StoreBundle\Entity\PostType
      *
-     * @ORM\OneToMany(targetEntity="PostTypeTaxonomyRelashionship", mappedBy="taxonomy", cascade="persist")
+     * @ORM\OneToMany(targetEntity="PostType", mappedBy="taxonomys", cascade="persist")
      */
     private $postTypes;
 
@@ -116,5 +114,79 @@ class Taxonomy
     public function __toString()
     {
         return $this->getName();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->postTypes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add terms
+     *
+     * @param \CMS\StoreBundle\Entity\Term $terms
+     * @return Taxonomy
+     */
+    public function addTerm(\CMS\StoreBundle\Entity\Term $terms)
+    {
+        $this->terms[] = $terms;
+    
+        return $this;
+    }
+
+    /**
+     * Remove terms
+     *
+     * @param \CMS\StoreBundle\Entity\Term $terms
+     */
+    public function removeTerm(\CMS\StoreBundle\Entity\Term $terms)
+    {
+        $this->terms->removeElement($terms);
+    }
+
+    /**
+     * Get terms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTerms()
+    {
+        return $this->terms;
+    }
+
+    /**
+     * Add postTypes
+     *
+     * @param \CMS\StoreBundle\Entity\PostType $postTypes
+     * @return Taxonomy
+     */
+    public function addPostType(\CMS\StoreBundle\Entity\PostType $postTypes)
+    {
+        $this->postTypes[] = $postTypes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove postTypes
+     *
+     * @param \CMS\StoreBundle\Entity\PostType $postTypes
+     */
+    public function removePostType(\CMS\StoreBundle\Entity\PostType $postTypes)
+    {
+        $this->postTypes->removeElement($postTypes);
+    }
+
+    /**
+     * Get postTypes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostTypes()
+    {
+        return $this->postTypes;
     }
 }

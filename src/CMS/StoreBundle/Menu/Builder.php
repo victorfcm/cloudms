@@ -22,31 +22,36 @@ class Builder extends ContainerAwareCommand
         $this->getPages();
         $this->getPostTypes();
 
-        foreach ($this->pages as $item)
-        {
-            $menu->addChild(
-                $item->getTitle(), array(
-                'route' => 'post_cedit',
-                'routeParameters' => array('id' => $item->getId()),
-                'attributes' => array('id' => $item->getId(),
-                    'style' => 'page')
-            ));
-            
-            foreach ($this->getSubPages($item->getId()) as $child)
-            {
-                $menu[$item->getTitle()]->addChild(
-                    $child->getTitle(), array(
-                    'route' => 'post_cedit',
-                    'routeParameters' => array('id' => $child->getId()),
-                    'attributes' => array('id' => $child->getId(),
-                        'style' => 'pageChild')
-                    )
-                );
-            }
-        }
+		foreach ($this->pages as $item)
+		{
+			$menu->addChild(
+				$item->getTitle(), array(
+				'route' => 'post_cedit',
+				'routeParameters' => array('id' => $item->getId()),
+				'attributes' => array('id' => $item->getId(),
+					'style' => 'page')
+			));
+			
+			foreach ($this->getSubPages($item->getId()) as $child)
+			{
+				$menu[$item->getTitle()]->addChild(
+					$child->getTitle(), array(
+					'route' => 'post_cedit',
+					'routeParameters' => array('id' => $child->getId()),
+					'attributes' => array('id' => $child->getId(),
+						'style' => 'pageChild')
+					)
+				);
+			}
+		}
 
         foreach ($this->postTypes as $postType)
         {
+			foreach($postType->getTaxonomys() as $tax)
+			{
+				var_dump($tax); die;
+			}
+			var_dump($postType->getTaxonomys()); die;
             foreach ($postType->getTaxonomys() as $tax)
             {
                 $tax = $tax->getTaxonomy();
