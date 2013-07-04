@@ -30,10 +30,14 @@ class PostController extends Controller
      */
     public function indexAction($typeId = null)
     {
+		if($this->get('request')->request->has('submit-filter'))
+			$typeId = $this->get('request')->get('cms_storebundle_termfilter')['typeId'];
+		
         $em = $this->getDoctrine()->getManager();
 
         $filterBuilder = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneById($typeId);
+
 
         foreach ($postType->getTaxonomys() as $tax)
         {
@@ -56,6 +60,10 @@ class PostController extends Controller
             // build the query from the given form object
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form_filter, $filterBuilder);
         }
+        else
+        {
+			$form_filter->add('typeId', 'hidden', array('attr' => array('value' => $typeId)));
+		}
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -90,7 +98,7 @@ class PostController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction($daddyId = null, $type = null)
+    public function newAction($type = null, $daddyId = null)
     {
         $ar = parent::newAction();
         $form = $ar['form_front'];
@@ -110,10 +118,11 @@ class PostController extends Controller
         $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
 
         $form->remove('children');
+        $form->remove('daddy');
 
         if (null !== $daddyId)
         {
-            $form->add('children', new HiddenType(), array('attr' => array('value' => $daddyId)));
+            $form->add('daddy', new HiddenType(), array('attr' => array('value' => $daddyId)));
         }
 
         $ar['form'] = $form->createView();
@@ -137,6 +146,7 @@ class PostController extends Controller
 
     public function getTemplate($postType, $templateType = 'new')
     {
+		#TODO: do this in a better way
         $filename = $templateType . '.' . $postType;
         $root = $this->get('kernel')->getRootDir();
 
@@ -187,6 +197,13 @@ class PostController extends Controller
 
         $form->remove('children');
         $form->add('children', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post',
+            'attr' => array('style' => 'display:none'),
+            'label_attr' => array('style' => 'display:none'),
+            'empty_value' => 'escolha'
+        ));
+        
+        $form->remove('daddy');
+        $form->add('daddy', 'entity', array('class' => 'CMS\StoreBundle\Entity\Post',
             'attr' => array('style' => 'display:none'),
             'label_attr' => array('style' => 'display:none'),
             'empty_value' => 'escolha'
@@ -248,11 +265,6 @@ class PostController extends Controller
         
         $em->remove($entity);
         $em->flush();
-        
-        if($posttype->getName() === 'page')
-        {
-            return $this->redirect($this->generateUrl($redirUrl));
-        }
         
         return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $posttype->getId())));
     }

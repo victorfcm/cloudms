@@ -53,7 +53,7 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Post
      *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="term", cascade="remove")
+     * @ORM\ManyToOne(targetEntity="Post" , inversedBy="term", cascade="remove")
      */
     private $posts;
 
@@ -242,5 +242,18 @@ class Term
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Set posts
+     *
+     * @param \CMS\StoreBundle\Entity\Post $posts
+     * @return Term
+     */
+    public function setPosts(\CMS\StoreBundle\Entity\Post $posts = null)
+    {
+        $this->posts = $posts;
+    
+        return $this;
     }
 }

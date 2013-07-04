@@ -45,7 +45,7 @@ class Taxonomy
     /**
      * @var \CMS\StoreBundle\Entity\PostType
      *
-     * @ORM\OneToMany(targetEntity="PostType", mappedBy="taxonomys", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="taxonomys", cascade="persist")
      */
     private $postTypes;
 
@@ -188,5 +188,18 @@ class Taxonomy
     public function getPostTypes()
     {
         return $this->postTypes;
+    }
+
+    /**
+     * Set postTypes
+     *
+     * @param \CMS\StoreBundle\Entity\PostType $postTypes
+     * @return Taxonomy
+     */
+    public function setPostTypes(\CMS\StoreBundle\Entity\PostType $postTypes = null)
+    {
+        $this->postTypes = $postTypes;
+    
+        return $this;
     }
 }

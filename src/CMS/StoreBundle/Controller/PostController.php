@@ -53,7 +53,10 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getId())));
+			if($redirUrl == 'post_show')
+				return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getId())));
+				
+			return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $entity->getPostType()->getId())));
         }
 
         return array(

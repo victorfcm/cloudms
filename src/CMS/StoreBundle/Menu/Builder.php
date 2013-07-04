@@ -47,11 +47,6 @@ class Builder extends ContainerAwareCommand
 
         foreach ($this->postTypes as $postType)
         {
-			foreach($postType->getTaxonomys() as $tax)
-			{
-				var_dump($tax); die;
-			}
-			var_dump($postType->getTaxonomys()); die;
             foreach ($postType->getTaxonomys() as $tax)
             {
                 $tax = $tax->getTaxonomy();
@@ -104,16 +99,23 @@ class Builder extends ContainerAwareCommand
 				if ($posttype->isInMenu())
 					$postTypes[] = $posttype->getId();
 			}
+			
+			if(!empty($postTypes))
+			{
+				$qry = $em->getRepository('CMSStoreBundle:Post')
+					->createQueryBuilder('p')
+					->where('p.daddy IS NULL')
+					->andWhere('p.postType IN (:postTypes)')
+					->setParameter('postTypes', $postTypes);
 
-			$qry = $em->getRepository('CMSStoreBundle:Post')
-				->createQueryBuilder('p')
-				->where('p.daddyId IS NULL')
-				->andWhere('p.postType IN (:postTypes)')
-				->setParameter('postTypes', $postTypes);
+				$itens = $qry->getQuery()->execute();
 
-			$itens = $qry->getQuery()->execute();
-
-			$this->pages = $itens;
+				$this->pages = $itens;
+			}
+			else
+			{
+				$this->pages = array();
+			}
 		}
 		else
 		{
@@ -127,7 +129,7 @@ class Builder extends ContainerAwareCommand
                 ->get('doctrine')
                 ->getManager()
                 ->getRepository('CMSStoreBundle:Post')
-                ->findByDaddyId($pageId);
+                ->findByDaddy($pageId);
     }
 
 }

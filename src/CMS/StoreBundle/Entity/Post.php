@@ -83,23 +83,23 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\Post
      * 
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="daddyId", cascade="remove")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="daddy", cascade="remove")
      */
     private $children;
 
     /**
      * @var \CMS\StoreBundle\Entity\Term
      *
-     * @ORM\OneToMany(targetEntity="Term", mappedBy="post", cascade="remove")
+     * @ORM\OneToMany(targetEntity="Term", mappedBy="posts", cascade="remove")
      */
     private $terms;
     
     /**
-     * @var integer
-     * 
-     * @ORM\Column(name="daddy_id", type="integer", nullable=true)
+     * @var \CMS\StoreBundle\Entity\Post
+     *
+     * @ORM\ManyToOne(targetEntity="Post" , inversedBy="children")
      */
-    private $daddyId;
+    private $daddy;
 
     /**
      * @var \DateTime
@@ -308,30 +308,7 @@ class Post
     {
         return $this->updatedAt;
     }
-
-    /**
-     * Set daddyId
-     *
-     * @param string $daddyId
-     * @return Post
-     */
-    public function setDaddyId($daddyId)
-    {
-        $this->daddyId = $daddyId;
-
-        return $this;
-    }
-
-    /**
-     * Get daddyId
-     *
-     * @return string
-     */
-    public function getDaddyId()
-    {
-        return $this->daddyId;
-    }
-
+    
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -356,30 +333,6 @@ class Post
         return $this->getTitle();
     }
     
-    public function getChildren()
-    {
-        return $this->children;
-    }
-    
-    public function getPostType()
-    {
-        return $this->postType;
-    }
-    
-    public function setChildren($child)
-    {
-        $this->children = $child;
-    }
-    
-    public function setPostType($type)
-    {
-        $this->postType = $type;
-    }
-    
-    public function getTerms()
-    {
-        return $this->terms;
-    }
     /**
      * Constructor
      */
@@ -387,6 +340,7 @@ class Post
     {
         $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -466,5 +420,71 @@ class Post
     public function removeChildren(\CMS\StoreBundle\Entity\Post $children)
     {
         $this->children->removeElement($children);
+    }
+
+    /**
+     * Set postType
+     *
+     * @param \CMS\StoreBundle\Entity\PostType $postType
+     * @return Post
+     */
+    public function setPostType(\CMS\StoreBundle\Entity\PostType $postType = null)
+    {
+        $this->postType = $postType;
+    
+        return $this;
+    }
+
+    /**
+     * Get postType
+     *
+     * @return \CMS\StoreBundle\Entity\PostType 
+     */
+    public function getPostType()
+    {
+        return $this->postType;
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Get terms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTerms()
+    {
+        return $this->terms;
+    }
+
+    /**
+     * Set daddy
+     *
+     * @param \CMS\StoreBundle\Entity\Post $daddy
+     * @return Post
+     */
+    public function setDaddy(\CMS\StoreBundle\Entity\Post $daddy = null)
+    {
+        $this->daddy = $daddy;
+    
+        return $this;
+    }
+
+    /**
+     * Get daddy
+     *
+     * @return \CMS\StoreBundle\Entity\Post 
+     */
+    public function getDaddy()
+    {
+        return $this->daddy;
     }
 }
