@@ -2,6 +2,7 @@
 
 namespace CMS\StoreBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -114,6 +115,14 @@ class Post
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+    
+    /** 
+     * @var string
+     * 
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     /**
      * Get id
@@ -486,5 +495,51 @@ class Post
     public function getDaddy()
     {
         return $this->daddy;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \CMS\StoreBundle\Entity\Post $children
+     * @return Post
+     */
+    public function addChild(\CMS\StoreBundle\Entity\Post $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \CMS\StoreBundle\Entity\Post $children
+     */
+    public function removeChild(\CMS\StoreBundle\Entity\Post $children)
+    {
+        $this->children->removeElement($children);
     }
 }

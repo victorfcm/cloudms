@@ -2,6 +2,7 @@
 
 namespace CMS\StoreBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +56,14 @@ class PostType
      * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="postTypes")
      */
     private $taxonomys;
+    
+    /** 
+     * @var string
+     * 
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
 
     /**
      * Get id
@@ -223,5 +232,28 @@ class PostType
     public function getTaxonomys()
     {
         return $this->taxonomys;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return PostType
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

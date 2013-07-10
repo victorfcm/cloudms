@@ -17,6 +17,7 @@ class PostType extends AbstractType
             ->add('userId')
             ->add('children')
             ->add('daddy')
+            ->add('slug')
         ;
     }
 
