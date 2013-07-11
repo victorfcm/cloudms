@@ -32,8 +32,8 @@ class TermController extends Controller
         $entities = array();
         $em = $this->getDoctrine()->getManager();
 
-        $filterBuilder = $em->getRepository('CMSStoreBundle:Term')->findByTaxonomy($taxId);
-        $taxonomy = $em->getRepository('CMSStoreBundle:Taxonomy')->find($taxId);
+        $taxonomy = $em->getRepository('CMSStoreBundle:Taxonomy')->findOneBySlug($taxId);
+        $filterBuilder = $em->getRepository('CMSStoreBundle:Term')->findByTaxonomy($taxonomy->getId());
 
         $form_filter = $this->get('form.factory')->create(new TermFilterType());
 
@@ -87,13 +87,13 @@ class TermController extends Controller
         $ar = parent::newAction();
         $form = $ar['default_form'];
 
-        $taxonomy = $this->getDoctrine()->getManager()->getRepository('CMSStoreBundle:Taxonomy')->find($taxId);
+        $taxonomy = $this->getDoctrine()->getManager()->getRepository('CMSStoreBundle:Taxonomy')->findOneBySlug($taxId);
         $ar['taxonomy'] = $taxonomy->getName();
 
         if (null !== $taxId)
         {
             $form->remove('taxonomys');
-            $form->add('taxonomys', new HiddenType(), array('attr' => array('value' => $taxId)));
+            $form->add('taxonomys', new HiddenType(), array('attr' => array('value' => $taxonomy->getId())));
         }
 
         $ar['form'] = $form->createView();
@@ -137,7 +137,7 @@ class TermController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('CMSStoreBundle:Term')->find($id);
+        $entity = $em->getRepository('CMSStoreBundle:Term')->findOneBySlug($id);
 
         if (!$entity)
         {
@@ -147,7 +147,7 @@ class TermController extends Controller
         $editForm = $this->createForm(new TermType(), $entity);
         $editForm->remove('taxonomys');
         
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         foreach ($entity->getTaxonomys() as $tax)
         {
@@ -173,14 +173,14 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('CMSStoreBundle:Term')->find($id);
+        $entity = $em->getRepository('CMSStoreBundle:Term')->findOneBySlug($id);
 
         if (!$entity)
         {
             throw $this->createNotFoundException('Unable to find Term entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
         $editForm = $this->createForm(new TermType(), $entity);
         $editForm->bind($request);
 
@@ -206,7 +206,7 @@ class TermController extends Controller
     /**
      * Deletes a Term entity.
      *
-     * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="term_cdelete")
+     * @Route("/delete/{id}", name="term_cdelete")
      * @Method({"DELETE", "GET"})
      */
     public function deleteAction(Request $request, $id, $redirUrl = 'term_clist')
@@ -215,7 +215,7 @@ class TermController extends Controller
         $form->bind($request);
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('CMSStoreBundle:Term')->find($id);
+        $entity = $em->getRepository('CMSStoreBundle:Term')->findOneBySlug($id);
         
         if (!$entity)
         {
@@ -227,7 +227,7 @@ class TermController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy[0]->getTaxonomy()->getId())));
+        return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy[0]->getTaxonomy()->getSlug())));
     }
 
     /**

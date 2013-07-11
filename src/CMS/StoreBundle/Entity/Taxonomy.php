@@ -121,7 +121,6 @@ class Taxonomy
     public function __construct()
     {
         $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->postTypes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**

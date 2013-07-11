@@ -35,8 +35,8 @@ class PostController extends Controller
 		
         $em = $this->getDoctrine()->getManager();
 
-        $filterBuilder = $em->getRepository('CMSStoreBundle:Post')->findByPostType($typeId);
-        $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneById($typeId);
+        $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug($typeId);
+        $filterBuilder = $em->getRepository('CMSStoreBundle:Post')->findByPostType($postType->getId());
 
 
         foreach ($postType->getTaxonomys() as $tax)
@@ -75,7 +75,8 @@ class PostController extends Controller
             'postType' => $postType->getName(),
             'taxonomy' => (isset($taxonomy)) ? $taxonomy : null,
             'pagination' => $pagination,
-            'form_filter' => $form_filter->createView()
+            'form_filter' => $form_filter->createView(),
+            'postTypeSlug' => $postType->getSlug()
         );
     }
 
@@ -105,13 +106,14 @@ class PostController extends Controller
         $ar['postType'] = 'post';
 
         $em = $this->getDoctrine()->getManager();
-        $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneByName($type);
+        $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug($type);
+        $daddy = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($daddyId);
 
         if (null !== $type && $postType)
         {
             $form->remove('postType');
             $form->add('postType', new HiddenType(), array('attr' => array('value' => $postType->getId())));
-            $ar['postType'] = strtolower($postType->getName());
+            $ar['postType'] = $postType->getSlug();
         }
 
         $form->remove('userId');
@@ -122,7 +124,7 @@ class PostController extends Controller
 
         if (null !== $daddyId)
         {
-            $form->add('daddy', new HiddenType(), array('attr' => array('value' => $daddyId)));
+            $form->add('daddy', new HiddenType(), array('attr' => array('value' => $daddy->getId())));
         }
 
         $ar['form'] = $form->createView();
@@ -176,12 +178,12 @@ class PostController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('CMSStoreBundle:Post')->findOneById($id);
+        $post = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($id);
 
-        $ar = parent::editAction($id);
+        $ar = parent::editAction($post->getId());
         $form = $ar['default_form'];
 
-        $ar['postType'] = strtolower($post->getPostType()->getName());
+        $ar['postType'] = $post->getPostType()->getSlug();
 
         $form->remove('postType');
         $form->add('postType', 'entity', array('class' => 'CMS\StoreBundle\Entity\PostType',
@@ -237,7 +239,7 @@ class PostController extends Controller
      * @Template("CMSStoreBundle:Post:edit.html.twig")
      */
     public function updateAction(Request $request, $id, $redirUrl = 'post_cedit')
-    {
+    {		
         $this->get('session')->setFlash(
             'notice', 'Alteração salva com sucesso!'
         );
@@ -248,13 +250,13 @@ class PostController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="post_cdelete")
+     * @Route("/delete/{id}", name="post_cdelete")
      * @Method({"DELETE", "GET"})
      */
     public function deleteAction(Request $request, $id, $redirUrl = 'post_cindex')
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('CMSStoreBundle:Post')->find($id);
+        $entity = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($id);
 
         if (!$entity)
         {
@@ -266,7 +268,7 @@ class PostController extends Controller
         $em->remove($entity);
         $em->flush();
         
-        return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $posttype->getId())));
+        return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $posttype->getSlug())));
     }
 
     /**

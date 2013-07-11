@@ -27,8 +27,8 @@ class Builder extends ContainerAwareCommand
 			$menu->addChild(
 				$item->getTitle(), array(
 				'route' => 'post_cedit',
-				'routeParameters' => array('id' => $item->getId()),
-				'attributes' => array('id' => $item->getId(),
+				'routeParameters' => array('id' => $item->getSlug()),
+				'attributes' => array('id' => $item->getSlug(),
 					'style' => 'page')
 			));
 			
@@ -37,8 +37,8 @@ class Builder extends ContainerAwareCommand
 				$menu[$item->getTitle()]->addChild(
 					$child->getTitle(), array(
 					'route' => 'post_cedit',
-					'routeParameters' => array('id' => $child->getId()),
-					'attributes' => array('id' => $child->getId(),
+					'routeParameters' => array('id' => $child->getSlug()),
+					'attributes' => array('id' => $child->getSlug(),
 						'style' => 'pageChild')
 					)
 				);
@@ -56,12 +56,12 @@ class Builder extends ContainerAwareCommand
             $menu->addChild(
                 $postType->getName(), array(
                     'route' => 'term_cedit',
-                    'routeParameters' => array('id' => $postType->getId()),
+                    'routeParameters' => array('id' => $postType->getSlug()),
                     'attributes' =>
                     array(
-                        'id' => $postType->getId(),
+                        'id' => $postType->getSlug(),
                         'style' => 'postType',
-                        'type' => strtolower($postType->getName()),
+                        'type' => $postType->getSlug(),
                         'taxonomy' => (isset($tax)) ? $tax : null
                     )
                 )

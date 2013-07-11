@@ -5,7 +5,7 @@
     {{ postType }} <!-- &#8250; Listar -->
 
         <div class="btns">
-            <a class="btn add" href="{{ path('post_cnew', {'type': postType|lower }) }}">Adicionar {{ postType }}</a>
+            <a class="btn add" href="{{ path('post_cnew', {'type': postTypeSlug }) }}">Adicionar {{ postType }}</a>
             {% if taxonomy.id is defined %}
 				<a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
 			{% endif %}
@@ -42,8 +42,8 @@
                             </td>
                             <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('d/m/Y H:i') }}{% endif %}</td>
                             <td>
-                                <a class="table-icon edit" title="Editar" href="{{ path('post_cedit', { 'id': entity.id }) }}"></a>
-                                <a class="table-icon delete" title="Deletar" href="{{ path('post_cdelete', { 'id': entity.id }) }}"></a>
+                                <a class="table-icon edit" title="Editar" href="{{ path('post_cedit', { 'id': entity.slug }) }}"></a>
+                                <a class="table-icon delete" title="Deletar" href="{{ path('post_cdelete', { 'id': entity.slug }) }}"></a>
                             </td>
                         </tr>
         {% endfor %}

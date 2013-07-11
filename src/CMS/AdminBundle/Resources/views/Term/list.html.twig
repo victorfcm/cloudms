@@ -5,7 +5,7 @@
     {{ taxonomy.name }}
 
         <div class="btns">
-            <a class="btn add" href="{{ path('term_cnew', {'taxId': taxonomy.id }) }}">Adicionar {{ taxonomy.name }}</a>
+            <a class="btn add" href="{{ path('term_cnew', {'taxId': taxonomy.slug }) }}">Adicionar {{ taxonomy.name }}</a>
         </div>
     </div>
     <form method="post" action="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">

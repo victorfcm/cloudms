@@ -162,7 +162,7 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl($redirUlr, array('id' => $id)));
+            return $this->redirect($this->generateUrl($redirUlr, array('id' => $entity->getSlug())));
         }
 
         return array(
