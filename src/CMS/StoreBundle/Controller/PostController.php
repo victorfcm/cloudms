@@ -56,7 +56,7 @@ class PostController extends Controller
 			if($redirUrl == 'post_show')
 				return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getId())));
 				
-			return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $entity->getPostType()->getId())));
+			return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $entity->getPostType()->getSlug())));
         }
 
         return array(

@@ -28,8 +28,11 @@ class Builder extends ContainerAwareCommand
 				$item->getTitle(), array(
 				'route' => 'post_cedit',
 				'routeParameters' => array('id' => $item->getSlug()),
-				'attributes' => array('id' => $item->getSlug(),
-					'style' => 'page')
+				'attributes' => array(
+					'id' => $item->getSlug(),
+					'style' => 'page',
+                    'position' => $item->getPosition()
+					)
 			));
 			
 			foreach ($this->getSubPages($item->getId()) as $child)
@@ -62,14 +65,38 @@ class Builder extends ContainerAwareCommand
                         'id' => $postType->getSlug(),
                         'style' => 'postType',
                         'type' => $postType->getSlug(),
-                        'taxonomy' => (isset($tax)) ? $tax : null
+                        'taxonomy' => (isset($tax)) ? $tax : null,
+                        'position' => $postType->getPosition()
                     )
                 )
             );
         }
+        
+        $menu = $this->orderMenu($menu);
 
         return $menu;
     }
+    
+    private function orderMenu($menu)
+    {
+		$_holder = array();
+		$count = count($menu->getChildren());
+		
+		foreach($menu->getChildren() as $child)
+		{
+			$actPos = $child->getAttributes()['position'];
+			
+			if(isset($_holder[$actPos]))
+				$actPos = $count++;
+			
+			$_holder[$actPos] = $child;
+		}
+		
+		ksort($_holder);
+		
+		$menu->setChildren($_holder);
+		return $menu;
+	}
 
     private function getPostTypes()
     {
@@ -79,6 +106,7 @@ class Builder extends ContainerAwareCommand
             ->createQueryBuilder('pt')
             ->where('pt.inMenu = true')
             ->andWhere('pt.name != :name')
+			->orderBy('pt.position', 'ASC')
             ->setParameter('name', 'page');
 
         $itens = $qry->getQuery()->execute();
@@ -106,6 +134,7 @@ class Builder extends ContainerAwareCommand
 					->createQueryBuilder('p')
 					->where('p.daddy IS NULL')
 					->andWhere('p.postType IN (:postTypes)')
+					->orderBy('p.position', 'ASC')
 					->setParameter('postTypes', $postTypes);
 
 				$itens = $qry->getQuery()->execute();

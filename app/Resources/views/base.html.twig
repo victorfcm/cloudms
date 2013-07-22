@@ -19,8 +19,8 @@
         {% endblock %}
         {% block javascripts %}
             {% javascripts 
-                    '@CMSStoreBundle/Resources/public/js/jquery_ui/js/jquery-ui-1.10.2.custom.min.js'
-                    '@CMSStoreBundle/Resources/public/js/jquery-1.7.2.min.js'
+                    '@CMSStoreBundle/Resources/public/js/jquery-1.9.1.min.js'
+                    '@CMSStoreBundle/Resources/public/js/jquery_ui/js/jquery-ui-1.10.3.custom.min.js'
                     '@CMSStoreBundle/Resources/public/js/effects.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -141,7 +141,7 @@
 
             {% block order %}
                     <!-- div class="box order">
-                        <a class="side-btn order" href="">Ordenar menu</a>
+                        <a class="side-btn order" id="btn-order" href="">Ordenar menu</a>
                         <ul class="btns">
                             <li><button class="save">Salvar</button></li>
                             <li><button class="cancel">Cancelar</button></li>

@@ -13,6 +13,7 @@ $(document).ready(function(){
 	// Sidebar: Menu: Ordenacao
 	//if(draggable.options.refreshPositions) $.ui.ddmanager.prepareOffsets(draggable, event);
 	//$(ui.draggable).draggable('option','refreshPositions',true);
+	
 	$('#side-nav, #side-nav ul, #items-order, #items-order ul').sortable({
 		disabled : true,
 		cursor: 'move',
@@ -21,9 +22,13 @@ $(document).ready(function(){
 
 		}
 	});
+	
 	$('#items-order, #items-order ul').sortable({ disabled: false });
 	
 	$('a.side-btn.order').click(function(){
+		
+		alert('asd');
+		return false;
 		
 		var sidenav = $('#side-nav');
 		
