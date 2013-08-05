@@ -1,0 +1,16 @@
+{# extends "::base.html.twig" #}
+
+{% block body %}
+<ul class="titulos">
+	{% for noticia in noticias %}
+	<li class="titulo">
+		<div class="data">
+			<span class="dia">{{ noticia.createdAt|date('d') }}</span>
+			<span class="mes-ano">{{ noticia.createdAt|date('F')|slice(0,3)|upper }}/{{ noticia.createdAt|date('Y') }}</span>
+		</div>
+		<h3>{{ noticia.title }}</h3>
+		<p>{{ noticia.content|length > 100 ? noticia.content|slice(0,100)|raw : noticia.content|raw  }} ... <br/><a href="{{ url('site_post', {'slug' : noticia.slug, 'type' : 'noticia'}) }}">continuar lendo</a></p>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}

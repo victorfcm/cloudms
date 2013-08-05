@@ -20,7 +20,7 @@
                 <td><a href="{{ path('term_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.description }}</td>
-                <td>{% for tax in entity.taxonomys %} {{ tax.taxonomy.name }} {% endfor %}</td>
+                <td>{{ entity.taxonomy.name }}</td>
                 <td>{{ entity.daddyId }}</td>
                 <td>
                 <ul>

@@ -2,6 +2,7 @@
 
 namespace CMS\StoreBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,10 +46,35 @@ class Taxonomy
     /**
      * @var \CMS\StoreBundle\Entity\PostType
      *
-     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="taxonomys", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="taxonomy", cascade="persist")
      */
     private $postTypes;
 
+	/** 
+     * @var string
+     * 
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
+    /**
+     * toString
+     *  
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -69,7 +95,7 @@ class Taxonomy
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -92,7 +118,7 @@ class Taxonomy
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -105,24 +131,30 @@ class Taxonomy
     {
         return $this->description;
     }
-    
+
     /**
-     * toString
-     *  
-     * @return string
+     * Set slug
+     *
+     * @param string $slug
+     * @return Taxonomy
      */
-    public function __toString()
+    public function setSlug($slug)
     {
-        return $this->getName();
+        $this->slug = $slug;
+
+        return $this;
     }
+
     /**
-     * Constructor
+     * Get slug
+     *
+     * @return string 
      */
-    public function __construct()
+    public function getSlug()
     {
-        $this->terms = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->slug;
     }
-    
+
     /**
      * Add terms
      *
@@ -132,7 +164,7 @@ class Taxonomy
     public function addTerm(\CMS\StoreBundle\Entity\Term $terms)
     {
         $this->terms[] = $terms;
-    
+
         return $this;
     }
 
@@ -157,39 +189,6 @@ class Taxonomy
     }
 
     /**
-     * Add postTypes
-     *
-     * @param \CMS\StoreBundle\Entity\PostType $postTypes
-     * @return Taxonomy
-     */
-    public function addPostType(\CMS\StoreBundle\Entity\PostType $postTypes)
-    {
-        $this->postTypes[] = $postTypes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove postTypes
-     *
-     * @param \CMS\StoreBundle\Entity\PostType $postTypes
-     */
-    public function removePostType(\CMS\StoreBundle\Entity\PostType $postTypes)
-    {
-        $this->postTypes->removeElement($postTypes);
-    }
-
-    /**
-     * Get postTypes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPostTypes()
-    {
-        return $this->postTypes;
-    }
-
-    /**
      * Set postTypes
      *
      * @param \CMS\StoreBundle\Entity\PostType $postTypes
@@ -198,7 +197,17 @@ class Taxonomy
     public function setPostTypes(\CMS\StoreBundle\Entity\PostType $postTypes = null)
     {
         $this->postTypes = $postTypes;
-    
+
         return $this;
+    }
+
+    /**
+     * Get postTypes
+     *
+     * @return \CMS\StoreBundle\Entity\PostType 
+     */
+    public function getPostTypes()
+    {
+        return $this->postTypes;
     }
 }

@@ -84,7 +84,8 @@ class Builder extends ContainerAwareCommand
 		
 		foreach($menu->getChildren() as $child)
 		{
-			$actPos = $child->getAttributes()['position'];
+			$actPos = $child->getAttributes();
+			$actPos = $actPos['position'];
 			
 			if(isset($_holder[$actPos]))
 				$actPos = $count++;
@@ -104,7 +105,7 @@ class Builder extends ContainerAwareCommand
 
         $qry = $em->getRepository('CMSStoreBundle:PostType')
             ->createQueryBuilder('pt')
-            ->where('pt.inMenu = true')
+            ->where('pt.editable = true')
             ->andWhere('pt.name != :name')
 			->orderBy('pt.position', 'ASC')
             ->setParameter('name', 'page');
@@ -124,7 +125,7 @@ class Builder extends ContainerAwareCommand
 		{
 			foreach ($pts as $posttype)
 			{
-				if ($posttype->isInMenu())
+				if ($posttype->isEditable())
 					$postTypes[] = $posttype->getId();
 			}
 			

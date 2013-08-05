@@ -1,0 +1,126 @@
+@charset "utf-8";
+/* CSS Document */
+/* Resetando Elementos */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;list-style:none outside;}
+body{line-height:1;text-align:left !important;font-family:Arial,Helvetica,sans-serif;font-size:12px;background:#E0E0E0;}
+ol, ul{list-style:none;display:inline;}
+blockquote, q{quotes:none;}
+p{line-height:15px;margin-top:10px;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none;cursor:pointer;}
+a:hover{text-decoration:none;}
+input, textarea, select{border:1px solid #EAE9E9;color:#254367;font-size:11px;}
+/* Firefox sempre com barra */
+/*html { overflow:-moz-scrollbars-vertical;}*/
+html{overflow:-moz-scrollbars-vertical !important;}  /*------- Remocao de Scroll Horizontal no IE e FF -------*/
+.container{width:869px;margin:0 auto;}
+header{float:left;display:block;width:869px;height:230px;background:url('../img/bg-header.png') no-repeat bottom right;position:relative;z-index:1;}
+header .logo{float:left;display:block;width:159px;height:169px;margin:22px 0 0 -65px;}
+header .link-login{float:right;display:block;margin:65px 5px 0 0;font-size:15px;}
+header .link-login a{color:#0024fe;transition:0.2s;}
+header .link-login a:hover{color:#2175ff;text-decoration:underline;}
+header .frase{width:692px;padding:0 40px;text-align:center;display:block;float:left;color:#fff;font-size:16px;margin-top:35px;font-weight:bold}
+header nav{display:block;float:left;width:732px;margin:40px 0 0 14px;}
+header nav ul{display:block;float:left;text-align:center;}
+header nav ul li{display:inline-block;margin:0 7px;}
+header nav ul li a{font-size:13px;color:#fff;padding-bottom:20px;transition:0.2s;background:bottom center;}
+header nav ul li a:hover{color:#E2281C;text-decoration:underline;background:url('../img/ico-cruz.png') no-repeat bottom center;}
+section{width:833px;display:block;float:left;padding:25px 15px 200px;margin:-5px 3px 0;background:#fff url('../img/galera.png') no-repeat bottom right;box-shadow:4px 1px 10px #aaa, -4px 1px 10px #aaa;-webkit-box-shadow:4px 1px 10px #aaa, -4px 1px 10px #aaa;-moz-box-shadow:4px 1px 10px #aaa, -4px 1px 10px #aaa;}
+section .redes{display:block;float:right;}
+section .redes li{display:block;float:left;margin:0 3px 0;}
+section .content{width:513px;display:block;float:left;clear:both;}
+section .content article.chefe{width:513px;display:block;float:left;margin-top:15px;}
+section .content article.chefe h2{display:block;float:left;padding-left:23px;background:url('../img/ico-cruz.png') no-repeat 0 4px;margin:0;}
+section .content article.chefe h2 span{width:490px;display:block;float:left;line-height:25px;font-size:20px;color:#000;font-weight:normal;border-bottom:1px solid #000;}
+section .content article .slider-noticias{width:490px;display:block;float:left;position:relative;margin:15px 0 0 23px;}
+section .content article .slider-noticias img{max-width:490px;display:block;float:left;}
+section .content article .slider-noticias .texto{position:absolute;width:470px;padding:15px 10px;bottom:0;line-height:15px;border-top:1px solid #333;background:rgba(0,0,0,0.7);color:#fff;font-size:14px;}
+section .content article .slider-noticias .texto a{color:#DF241F;transition:0.2s;-webkit-transition:0.2s;font-size:12px;}
+section .content article .slider-noticias .texto a:hover{text-decoration:underline;color:#FF6A6A;}
+section .content article .seletor{display:block;float:right;margin-top:10px;}
+section .content article .seletor .left{display:block;float:left;width:22px;height:18px;background:url('../img/seletor-noticia.png') no-repeat;}
+section .content article .seletor .left.inativo{background-position:0 -18px;}
+section .content article .seletor .right{display:block;float:right;width:22px;height:18px;background:url('../img/seletor-noticia.png') no-repeat -23px 0;}
+section .content article .seletor .right.inativo{background-position:-23px -18px;}
+section .content article .seletor .pagina-atual{display:block;float:left;color:#777;line-height:18px;margin:0 5px;}
+section .content article ul.titulos{display:block;float:left;margin-left:23px;}
+section .content article ul .titulo{display:block;float:left;margin-top:25px;}
+section .content article ul .titulo .data{display:block;float:left;font-weight:bold;color:#fff;text-align:center;}
+section .content article ul .titulo .dia{display:block;float:left;width:100px;text-align:center;font-size:55px;line-height:60px;background:#000;}
+section .content article ul .titulo .mes-ano{display:block;float:left;clear:left;margin-top:1px;width:100px;font-size:15px;line-height:25px;background:#000;}
+section .content article ul .titulo h3{display:block;float:left;width:380px;font-size:16px;color:#000;margin:0 0 0 10px;}
+section .content article ul .titulo p{display:block;float:left;max-width:380px;font-size:12px;color:#555;margin:10px 0 0 10px;}
+section .content article ul .titulo p a{color:#DF241F;transition:0.2s;-webkit-transition:0.2s;}
+section .content article ul .titulo p a:hover{color:#FF6A6A;text-decoration:underline;}
+section .content article ul.videos{display:block;float:left;margin-left:23px;}
+section .content article ul.videos li{display:block;float:left;margin:15px 4px 0;}
+section .content article ul.videos li img{max-width:155px;}
+aside{width:300px;display:block;float:left;margin-left:20px;}
+aside .box1{width:300px;display:block;float:left;border:1px solid #ddd;border-top:2px solid #757575;margin-top:20px;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;}
+aside .box1 h3{width:280px;display:block;float:left;border-bottom:1px solid #ddd;font-size:15px;line-height:35px;margin:0;padding:0 10px;}
+aside .box1 .conteudo{width:260px;display:block;float:left;color:#777;padding:15px 20px 20px;}
+aside .box1 .conteudo h4{width:260px;display:block;float:left;text-align:center;}
+aside .box1 .conteudo .descricao{width:260px;display:block;float:left;margin:5px 0 0 0;text-align:center;}
+aside .box1 .conteudo .time1{width:50px;height:50px;display:block;float:left;margin:15px 0 0 48px;text-align:center;}
+aside .box1 .conteudo .time1 img{max-width:50px;max-height:50px;}
+aside .box1 .conteudo .time2{width:50px;height:50px;display:block;float:left;margin:15px 0 0 0;text-align:center;}
+aside .box1 .conteudo .time2 img{max-width:50px;max-height:50px;}
+aside .box1 .conteudo .versus{width:23px;height:23px;display:block;float:left;margin:25px 20px 0;}
+aside .box1 .jogo-anterior{width:280px;height:33px;display:block;float:left;border-top:1px solid #ddd;padding:0 10px;background:url('../img/bg-jogo-anterior.png') repeat-x;}
+aside .box1 .jogo-anterior .data{display:block;float:left;font-size:11px;color:#777;margin-top:6px;}
+aside .box1 .jogo-anterior .data strong{color:#444;}
+aside .box1 .jogo-anterior .resultado{display:block;float:right;}
+aside .box1 .jogo-anterior .resultado .time1{height:24px;display:block;float:left;margin:6px 0 0 0px;text-align:center;}
+aside .box1 .jogo-anterior .resultado .time1 img{display:block;float:left;max-width:24px;max-height:24px;}
+aside .box1 .jogo-anterior .resultado .time1 .pts{display:block;float:right;font-size:23px;color:#777;margin-left:5px;line-height:26px;}
+aside .box1 .jogo-anterior .resultado .time2{height:24px;display:block;float:left;margin:6px 0 0 0;text-align:center;}
+aside .box1 .jogo-anterior .resultado .time2 img{display:block;float:right;max-width:24px;max-height:24px;}
+aside .box1 .jogo-anterior .resultado .time2 .pts{display:block;float:left;font-size:23px;color:#777;margin-right:5px;line-height:26px;}
+aside .box1 .jogo-anterior .resultado .versus{width:13px;height:13px;display:block;float:left;margin:12px 10px 0;}
+aside .box1 .jogo-anterior .resultado .versus img{max-width:13px;max-height:13px;}
+aside .box2{width:300px;display:block;float:left;border:1px solid #ddd;border-top:2px solid #757575;border-bottom:3px solid #EAEAEA;margin-top:20px;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;}
+aside .box2 h3{width:280px;display:block;float:left;border-bottom:1px solid #ddd;font-size:15px;line-height:35px;margin:0;padding:0 10px;}
+aside .box2 .conteudo{width:260px;display:block;float:left;color:#000;padding:15px 20px 20px;font-size:14px;}
+aside .box2 .caravanas{width:260px;display:block;float:left;padding:10px 20px 15px;}
+aside .box2 .caravanas li{color:#000;clear:left;line-height:18px;font-size:14px;}
+aside .box3{width:300px;display:block;float:left;margin-top:20px;}
+aside .box3 h4{display:block;float:left;padding-left:23px;background:url('../img/ico-cruz.png') no-repeat 0 4px;margin:0;}
+aside .box3 h4 span{width:277px;display:block;float:left;line-height:20px;font-size:16px;color:#000;font-weight:normal;border-bottom:1px solid #000;}
+aside .links-uteis a{width:277px;display:block;float:left;margin:10px 0 0 23px;text-align:center;}
+aside .links-uteis a img{max-width:277px;}
+aside .parceiros ul{width:277px;display:block;float:left;margin:10px 0 0 23px;padding-left:1px;}
+aside .parceiros ul li{display:block;float:left;width:128px;margin:10px 5px;text-align:center;}
+aside .parceiros ul li a img{max-width:128px;max-height:128px;}
+footer{width:869px;display:block;float:left;height:286px;background:url('../img/footer.png') no-repeat center center;}
+/* Icones */
+.ico-gplus{width:24px;height:24px;display:block;float:left;background:url('../img/gplus.gif') no-repeat;}
+.ico-gplus:hover{background-position:0 -24px;}
+.ico-orkut{width:24px;height:24px;display:block;float:left;background:url('../img/orkut.gif') no-repeat;}
+.ico-orkut:hover{background-position:0 -24px;}
+.ico-fb{width:24px;height:24px;display:block;float:left;background:url('../img/facebook.gif') no-repeat;}
+.ico-fb:hover{background-position:0 -24px;}
+.ico-tw{width:24px;height:24px;display:block;float:left;background:url('../img/twitter.gif') no-repeat;}
+.ico-tw:hover{background-position:0 -24px;}
+.ico-loja{width:24px;height:24px;display:block;float:left;background:url('../img/loja.gif') no-repeat;}
+.ico-loja:hover{background-position:0 -24px;}
+.ico-youtube{width:24px;height:24px;display:block;float:left;background:url('../img/youtube.gif') no-repeat;}
+.ico-youtube:hover{background-position:0 -24px;}
+.ico-caravana{width:24px;height:24px;display:block;float:left;background:url('../img/caravana.gif') no-repeat;}
+.ico-caravana:hover{background-position:0 -24px;}
+.ico-vboutique{width:24px;height:24px;display:block;float:left;background:url('../img/vboutique.gif') no-repeat;}
+.ico-vboutique:hover{background-position:0 -24px;}
+.ico-vasco{width:24px;height:24px;display:block;float:left;background:url('../img/vasco.gif') no-repeat;}
+.ico-vasco:hover{background-position:0 -24px;}
+.chefe div.texto{ 
+	padding-left: 23px;
+	padding-top: 25px;
+ }
+ 
+ .chefe div.texto ul
+ {
+	display: block;
+	padding-top: 15px;
+ }

@@ -1,3 +1,8 @@
+cmsgda:
+    resource: "@CMSGDABundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 cms_admin:
     resource: "@CMSAdminBundle/Controller/"
     type:     annotation
@@ -10,7 +15,7 @@ cms_store:
     
 _welcome:
     pattern:  /
-    defaults: { _controller: CMSAdminBundle:Default:index }
+    defaults: { _controller: CMSGDABundle:Default:index }
     
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -30,20 +35,3 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /admin/profile
-
-#TODO: REMOVER AS ROTAS ABAIXO
-static_quem_somos:
-    pattern: /page/32
-    defaults: { _controller: CMSStoreBundle:Default:page }
-
-static_servicos:
-    pattern: /posttype/8
-    defaults: { _controller: CMSStoreBundle:Default:posttype }
-    
-static_compras:
-    pattern: /page/37
-    defaults: { _controller: CMSStoreBundle:Default:page }
-    
-static_documentos:
-    pattern: /page/38
-    defaults: { _controller: CMSStoreBundle:Default:page }

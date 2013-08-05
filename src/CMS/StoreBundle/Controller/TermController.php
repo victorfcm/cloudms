@@ -29,7 +29,7 @@ class TermController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('CMSStoreBundle:Term')->findAll();
-
+		
         return array(
             'entities' => $entities,
         );
@@ -42,7 +42,7 @@ class TermController extends Controller
      * @Method("POST")
      * @Template("CMSStoreBundle:Term:new.html.twig")
      */
-    public function createAction(Request $request, $redirUrl = 'term_list')
+    public function createAction(Request $request, $redirUrl = 'term_clist')
     {
         $entity  = new Term();
         $form = $this->createForm(new TermType(), $entity);
@@ -50,10 +50,11 @@ class TermController extends Controller
        
         if ($form->isValid()) {
             
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy->getId())));
+			
+            return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $entity->getTaxonomy()->getId())));
         }
 
         return array(

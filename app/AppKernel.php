@@ -27,6 +27,7 @@ class AppKernel extends Kernel
 			new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle(),
 			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 			new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
+            new CMS\GDABundle\CMSGDABundle(),
       );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

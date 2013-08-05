@@ -2,6 +2,7 @@
 
 namespace CMS\StoreBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,9 +39,9 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="term", cascade="persist")
+     * @ORM\ManyToOne(targetEntity="Taxonomy", inversedBy="term", cascade="persist")
      */
-    private $taxonomys;
+    private $taxonomy;
 
     /**
      * @var \CMS\StoreBundle\Entity\Term
@@ -56,6 +57,14 @@ class Term
      * @ORM\ManyToOne(targetEntity="Post" , inversedBy="term", cascade="remove")
      */
     private $posts;
+    
+    /** 
+     * @var string
+     * 
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
 
 
     /**
@@ -134,7 +143,7 @@ class Term
      */
     public function getTaxonomys()
     {
-        return $this->taxonomys;
+        return $this->taxonomy;
     }
 
     /**
@@ -184,8 +193,8 @@ class Term
      */
     public function __construct()
     {
-        $this->taxonomys = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        #$this->taxonomys = new \Doctrine\Common\Collections\ArrayCollection();
+        #$this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -255,5 +264,51 @@ class Term
         $this->posts = $posts;
     
         return $this;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Term
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set taxonomy
+     *
+     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomy
+     * @return Term
+     */
+    public function setTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomy = null)
+    {
+        $this->taxonomy = $taxonomy;
+
+        return $this;
+    }
+
+    /**
+     * Get taxonomy
+     *
+     * @return \CMS\StoreBundle\Entity\Taxonomy 
+     */
+    public function getTaxonomy()
+    {
+        return $this->taxonomy;
     }
 }

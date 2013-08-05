@@ -51,9 +51,16 @@ class PostType
     private $inMenu;
     
     /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="editable", type="boolean", options={"default":true}, nullable=false)
+     */
+    private $editable;
+    
+    /**
      * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="postTypes")
+     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="postTypes", cascade="persist")
      */
     private $taxonomys;
     
@@ -72,6 +79,35 @@ class PostType
      * @Gedmo\SortablePosition
      */
     private $position;
+
+    /**
+     * toString
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+    
+    public function isInMenu()
+    {
+        return (true === $this->inMenu)? true : false;
+    }
+    
+    public function isEditable()
+    {
+        return (true === $this->editable)? true : false;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        #$this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        #$this->taxonomys = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -130,42 +166,18 @@ class PostType
     }
 
     /**
-     * toString
-     * 
-     * @return string
+     * Set inMenu
+     *
+     * @param boolean $inMenu
+     * @return PostType
      */
-    public function __toString()
+    public function setInMenu($inMenu)
     {
-        return $this->getName();
-    }
-    
-    public function setInMenu($in_menu)
-    {
-        $this->inMenu = $in_menu;
-    }
-    
-    public function isInMenu()
-    {
-        return (true === $this->inMenu)? true : false;
-    }
-    
-    public function getBySlug($slug)
-    {
-        if($this->name === strtolower($slug))
-            return $this->id;
-        
-        return false;
+        $this->inMenu = $inMenu;
+
+        return $this;
     }
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->taxonomys = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
     /**
      * Get inMenu
      *
@@ -174,72 +186,6 @@ class PostType
     public function getInMenu()
     {
         return $this->inMenu;
-    }
-
-    /**
-     * Add posts
-     *
-     * @param \CMS\StoreBundle\Entity\Post $posts
-     * @return PostType
-     */
-    public function addPost(\CMS\StoreBundle\Entity\Post $posts)
-    {
-        $this->posts[] = $posts;
-    
-        return $this;
-    }
-
-    /**
-     * Remove posts
-     *
-     * @param \CMS\StoreBundle\Entity\Post $posts
-     */
-    public function removePost(\CMS\StoreBundle\Entity\Post $posts)
-    {
-        $this->posts->removeElement($posts);
-    }
-
-    /**
-     * Add taxonomys
-     *
-     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
-     * @return PostType
-     */
-    public function addTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
-    {
-        $this->taxonomys[] = $taxonomys;
-    
-        return $this;
-    }
-
-    /**
-     * Remove taxonomys
-     *
-     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
-     */
-    public function removeTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
-    {
-        $this->taxonomys->removeElement($taxonomys);
-    }
-
-    /**
-     * Get posts
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPosts()
-    {
-        return $this->posts;
-    }
-
-    /**
-     * Get taxonomys
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTaxonomys()
-    {
-        return $this->taxonomys;
     }
 
     /**
@@ -286,5 +232,94 @@ class PostType
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Add posts
+     *
+     * @param \CMS\StoreBundle\Entity\Post $posts
+     * @return PostType
+     */
+    public function addPost(\CMS\StoreBundle\Entity\Post $posts)
+    {
+        $this->posts[] = $posts;
+
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param \CMS\StoreBundle\Entity\Post $posts
+     */
+    public function removePost(\CMS\StoreBundle\Entity\Post $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Add taxonomys
+     *
+     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
+     * @return PostType
+     */
+    public function addTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
+    {
+        $this->taxonomys[] = $taxonomys;
+
+        return $this;
+    }
+
+    /**
+     * Remove taxonomys
+     *
+     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
+     */
+    public function removeTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
+    {
+        $this->taxonomys->removeElement($taxonomys);
+    }
+
+    /**
+     * Get taxonomys
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaxonomys()
+    {
+        return $this->taxonomys;
+    }
+
+    /**
+     * Set editable
+     *
+     * @param boolean $editable
+     * @return PostType
+     */
+    public function setEditable($editable)
+    {
+        $this->editable = $editable;
+
+        return $this;
+    }
+
+    /**
+     * Get editable
+     *
+     * @return boolean 
+     */
+    public function getEditable()
+    {
+        return $this->editable;
     }
 }

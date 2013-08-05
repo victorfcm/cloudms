@@ -1,0 +1,11 @@
+{# extends "::base.html.twig" #}
+
+{% block body %}
+<a href="http://www.vascodividazero.com.br/" target="_blank">
+	<span class="vdzbanner" style="position: absolute; margin-left: 110px; margin-top:35px">
+		<span style="color: red;">Valor pago: R$ {{ data.DADOS.VALOR_PAGO|trim }}</span><br/>
+		<span style="color: black;">Cadastrados: {{ data.DADOS.CADASTROS|number_format(0, ',','.') }}</span>
+	</span>
+	<img src="/bundles/cmsgda/img/vdzbanner.jpg" alt="divida zero" />
+</a>
+{% endblock %}

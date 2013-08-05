@@ -1,0 +1,26 @@
+{% block body %}
+<h3>Calendário de jogos</h3>
+<div class="conteudo">
+	<h4> {{ proximo.jogo.campeonato }} </h4>
+	<span class="descricao">{{ proximo.jogo.data }} às {{ proximo.jogo.local }}</span>
+	<span class="time1"><img src="{{ proximo.times.casa.img }}" alt="{{ proximo.times.casa.nome }}" /></span>
+	<span class="versus"><img src="/bundles/cmsgda/img/versus.png" alt="X" /></span>
+	<span class="time2"><img src="{{ proximo.times.fora.img }}" alt="{{ proximo.times.fora.nome }}" /></span>
+</div>
+<div class="jogo-anterior">
+	<!-- span class="data">
+		<strong>JOGO ANTERIOR</strong><br />Sáb. 08/06
+	</span --!>
+	<!-- div class="resultado">
+		<span class="time1">
+			<img src="img/inter.png" alt="Internacional" />
+			<span class="pts">1</span>
+		</span>
+		<span class="versus"><img src="img/versus.png" alt="X" /></span>
+		<span class="time2">
+			<img src="img/vasco.png" alt="Vasco" />
+			<span class="pts">1</span>
+		</span>
+	</div --!>
+</div>
+{% endblock %}

@@ -30,6 +30,14 @@ class PostTypeController extends Controller
 
         $entities = $em->getRepository('CMSStoreBundle:PostType')->findAll();
 
+		foreach($entities as $en)
+		{
+			foreach($en->getTaxonomys() as $tax)
+			{
+				var_dump($tax->getSlug());
+			}
+		}
+
         return array(
             'entities' => $entities,
         );

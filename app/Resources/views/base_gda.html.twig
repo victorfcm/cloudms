@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <title>Guerreiros do Almirante</title>
+        {% block stylesheets %}
+            {% stylesheets 'bundles/cmsgda/css/estilo.css' filter='cssrewrite' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+    </head>
+    <body>
+		<div class="container">
+            <header>
+                <a href="{{ url('home') }}" class="logo" title="Movimento Guerreiros do Almirante"><img src="/bundles/cmsgda/img/logo.png" alt="Clube de Regatas Vasco da Gama" /></a>
+                <span class="link-login"></span>
+                <span class="frase">“ Jamais terás a cruz, esse é meu batismo! ”</span>
+                <nav>
+					<ul>
+						{{ knp_menu_render('CMSGDABundle:Builder:mainMenu', {'template': 'CMSGDABundle:Menu:main_menu.html.twig'}) }}
+					</ul>
+                </nav>
+            </header>
+            <section>
+                <ul class="redes">
+                    <!-- li><a href="#" class="ico-gplus" title="Google+"></a></li --!>
+                    <li><a href="http://www.orkut.com.br/Main#Community?cmm=20190492" target="_blank" class="ico-orkut" title="Orkut"></a></li>
+                    <li><a href="https://www.facebook.com/gdavg" target="_blank" class="ico-fb" title="Facebook"></a></li>
+                    <li><a href="https://twitter.com/gdavg" target="_blank" class="ico-tw" title="Twitter"></a></li>
+                    <li><a href="http://www.youtube.com/user/gdamultimidia" target="_blank" class="ico-loja" title="Loja vitrual"></a></li>
+                    <li><a href="www.instagram.com/gdavg" target="_blank" class="ico-youtube" title="Youtube"></a></li>
+                    <li><a href="http://www.vasco.com.br/" target="_blank" class="ico-vasco" title="Site Oficial do Vasco"></a></li>
+                </ul>
+				<div class="content">
+					{% block body %}{% endblock %}
+				</div>
+				{% block sidebar %}
+				<aside>
+                    <div class="box1 calendario-jogos">
+                        {{ render(controller('CMSGDABundle:FrontEnd:calendario')) }}
+                    </div>
+                    <div class="box2">
+                        <h3>Enquete</h3>
+                        <div class="conteudo">
+                            em breve
+                        </div>
+                    </div>
+                    <div class="box2">
+						{{ render(controller('CMSGDABundle:FrontEnd:caravana')) }}
+                    </div>
+                    <div class="box3 links-uteis">
+                        <h4><span>Links úteis</span></h4>
+                        <a href="{{ url('site_post', {'slug' : 'loja-virtual', 'type' : 'page'}) }}"><img src="/bundles/cmsgda/img/lvgda.jpg" alt="loja gda" /></a>
+                        {{ render(controller('CMSGDABundle:FrontEnd:vdz')) }}
+                        <a href="http://www.ovascoemeu.com.br/" target="_blank"><img src="/bundles/cmsgda/img/programasocios.jpg" alt="programa de socios" /></a>
+                    </div>
+                    <div class="box3 parceiros">
+                        <h4><span>Parceiros</span></h4>
+                        <ul>
+                            <li><a href="https://www.facebook.com/PaixaoVascaina" target="_blank"><img src="/bundles/cmsgda/img/parceiro1.jpg" alt="parceiro" /></a></li>
+                            <li><a href="http://vozesdacolina.com.br/" target="_blank"><img src="/bundles/cmsgda/img/parceiro2.jpg" alt="parceiro" /></a></li>
+                        </ul>
+                    </div>
+                </aside>
+                {% endblock %}
+            </section>
+            <footer></footer>
+        </div>
+    </body>
+</html>
+

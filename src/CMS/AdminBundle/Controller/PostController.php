@@ -31,7 +31,10 @@ class PostController extends Controller
     public function indexAction($typeId = null)
     {
 		if($this->get('request')->request->has('submit-filter'))
-			$typeId = $this->get('request')->get('cms_storebundle_termfilter')['typeId'];
+		{
+			$typeId = $this->get('request')->get('cms_storebundle_termfilter');
+			$typeId = $typeId['typeId'];
+		}
 		
         $em = $this->getDoctrine()->getManager();
 
@@ -118,6 +121,11 @@ class PostController extends Controller
 
         $form->remove('userId');
         $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
+                
+        if(count($postType->getTaxonomys()) > 0)
+        {
+			$form->add('terms');
+		}
 
         $form->remove('children');
         $form->remove('daddy');
