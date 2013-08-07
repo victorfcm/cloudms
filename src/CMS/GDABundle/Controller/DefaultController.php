@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
-	private $in_maitence = true;
+	private $in_maitence = false;
 	
     /**
      * @Route("/")
@@ -21,7 +21,7 @@ class DefaultController extends Controller
 		if($this->in_maitence)
 			return $this->redirect($this->generateUrl('maintence'));
 			
-        return array();
+        return $this->redirect($this->generateUrl('home'));
     }
     
     /**
