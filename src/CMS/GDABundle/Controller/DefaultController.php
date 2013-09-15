@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -55,19 +57,72 @@ class DefaultController extends Controller
 	 {
 		 $em = $this->getDoctrine()->getManager();
 	     $post = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($slug);
+	     $template = $this->getTemplate($post->getPostType()->getSlug());
+	     
+	     if($template)
+	     {
+            $content = $this->renderView(
+				'CMSGDABundle:Default:'.$template,
+				array('post' => $post)
+			);
+			
+			return new Response($content);
+		 }
 	     
 		 return array("post" => $post);
 	 }
 	
 	/**
-	 * @Route("/list/{slug}", name="site_term")
+	 * @Route("/list/{slug}/{term}", name="site_term")
 	 * @Template()
 	 */
-	 public function termAction($slug)
+	 public function termAction($slug, $term = null)
 	 {
 		 $em = $this->getDoctrine()->getManager();
-	     $posttype = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug($slug);
 		 
-		 return array("postType" => $posttype);
+		 if(null === $term)
+		 {
+			 $posttype = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug($slug);
+			 $repository = $em->getRepository('CMSStoreBundle:Post');
+			 $posts = $repository->createQueryBuilder('p')
+						->where('p.postType = :postType')
+						->orderBy('p.createdAt', 'DESC')
+						->setParameter('postType', $posttype)
+						->getQuery()
+						->execute();
+		 }
+		 else
+		 {
+			 $term = $em->getRepository('CMSStoreBundle:Term')->findOneBySlug($term);
+			 $posttype = $em->getRepository('CMSStoreBundle:Taxonomy')->findOneBySlug($slug);
+			 $posts = $term->getPosts();
+		 }
+	     
+	     $template = $this->getTemplate($slug, 'term');
+	     if($template)
+	     {
+            $content = $this->renderView(
+				'CMSGDABundle:Default:'.$template,
+				array('postType' => $posttype, 'posts' => $posts, 'term' => $term)
+			);
+			
+			return new Response($content);
+		 }
+		 
+		 return array("postType" => $posttype, 'posts' => $posts, 'term' => $term);
 	 }
+	 
+     private function getTemplate($postType, $templateType = 'post')
+     {
+         $filename = $templateType . '.' . $postType;
+         $root = $this->get('kernel')->getRootDir();
+
+         $fs = new Filesystem();
+         if($fs->exists("$root/../src/CMS/GDABundle/Resources/views/Default/$filename.html.twig"))
+         {
+			 return $filename.".html.twig";
+		 }
+		 
+		 return false;
+     }
 }

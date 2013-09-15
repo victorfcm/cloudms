@@ -8,8 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PostType extends AbstractType
 {
+	private $formOptions;
+    
+    public function __construct($options = array())
+    {        
+        $this->formOptions = $options;
+    }
+	
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+		$searchTool = (!empty($this->formOptions)) ? (isset($this->formOptions["em"])) ? $this->formOptions["em"] : $this->formOptions["postType"] : null;
+		
         $builder
             ->add('title', 'text', array('label' => 'Título'))
             ->add('content', 'textarea', array('label' => 'Conteúdo'))
@@ -18,8 +27,21 @@ class PostType extends AbstractType
             ->add('children')
             ->add('daddy')
             ->add('slug', 'text', array('label' => 'Endereço URL'))
-            ->add('position', 'integer', array('label' => 'Posição'))
-        ;
+            ->add('position', 'integer', array('label' => 'Posição'));
+            
+         if(null !== $searchTool)
+         {
+            $builder->add("terms", "entity", array("required" => true,
+                      "class" => 'CMSStoreBundle:Term',
+                      "choices" => $searchTool->getTermsChoice(),
+                      'multiple' => true,
+                      'label' => $searchTool->getTaxonomyName()
+			));
+		}
+		else
+		{
+			$builder->add("terms");
+		}
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

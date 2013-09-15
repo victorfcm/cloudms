@@ -1,4 +1,12 @@
 $(document).ready(function(){
+	
+	$('#box-anexos #add').live('click', function(){
+		
+		var input = $('#cms_storebundle_postattachmenttype_fileName').clone();
+		$(input).css('margin-top', '10px');
+		$('#cms_storebundle_postattachmenttype_fileName').after(input);
+	
+	});
 
 	$("#side-nav  ul").hide();
 	

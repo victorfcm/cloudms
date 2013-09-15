@@ -10,8 +10,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use CMS\StoreBundle\Controller\PostController as Controller;
 use CMS\StoreBundle\Entity\PostType;
+use CMS\StoreBundle\Entity\PostAttachment;
+use CMS\StoreBundle\Form\PostAttachmentType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType as HiddenType;
 use CMS\StoreBundle\Filter\PostFilterType;
+use CMS\StoreBundle\Entity\Post;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Post controller.
@@ -41,11 +45,7 @@ class PostController extends Controller
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug($typeId);
         $filterBuilder = $em->getRepository('CMSStoreBundle:Post')->findByPostType($postType->getId());
 
-
-        foreach ($postType->getTaxonomys() as $tax)
-        {
-            $taxonomy = $tax->getTaxonomy();
-        }
+        $taxonomy = $postType->getTaxonomy();
 
         $form_filter = $this->get('form.factory')->create(new PostFilterType());
 
@@ -58,6 +58,7 @@ class PostController extends Controller
             $filterBuilder = $em->getRepository('CMSStoreBundle:Post')
                 ->createQueryBuilder('p')
                 ->where('p.postType = :postType')
+                ->orderBy('p.createdAt', 'DESC')
                 ->setParameter('postType', $typeId);
 
             // build the query from the given form object
@@ -73,7 +74,7 @@ class PostController extends Controller
             $filterBuilder, $this->get('request')->query->get('page', 1), 5
         );
 
-        return array(
+        $return = array(
             'entities' => $pagination,
             'postType' => $postType->getName(),
             'taxonomy' => (isset($taxonomy)) ? $taxonomy : null,
@@ -81,6 +82,18 @@ class PostController extends Controller
             'form_filter' => $form_filter->createView(),
             'postTypeSlug' => $postType->getSlug()
         );
+              
+        if ($this->getTemplate($postType->getSlug(), 'index'))
+        {
+            $return = $this->renderView(
+                "CMSAdminBundle:Post:index.".$postType->getSlug().".html.twig", $return);
+
+            return new Response($return);
+        }
+        else
+        {
+            return $return;
+        }
     }
 
     /**
@@ -104,29 +117,29 @@ class PostController extends Controller
      */
     public function newAction($type = null, $daddyId = null)
     {
-        $ar = parent::newAction();
-        $form = $ar['form_front'];
-        $ar['postType'] = 'post';
-
         $em = $this->getDoctrine()->getManager();
         $postType = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug($type);
-        $daddy = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($daddyId);
+        $daddy = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($daddyId);        
+        
+        $entity = new Post();
+        $form = $this->createForm(new \CMS\StoreBundle\Form\PostType(array('postType' => $postType)), $entity);
+        $postTypeName = 'post';
 
         if (null !== $type && $postType)
         {
             $form->remove('postType');
             $form->add('postType', new HiddenType(), array('attr' => array('value' => $postType->getId())));
-            $ar['postType'] = $postType->getSlug();
+            $postTypeName = $postType->getSlug();
         }
 
         $form->remove('userId');
         $form->add('userId', new HiddenType(), array('attr' => array('value' => $this->getUser()->getId())));
-                
-        if(count($postType->getTaxonomys()) > 0)
+        
+        if(!$postType->getTaxonomy())
         {
-			$form->add('terms');
+			$form->remove('terms');
 		}
-
+        
         $form->remove('children');
         $form->remove('daddy');
 
@@ -135,22 +148,26 @@ class PostController extends Controller
             $form->add('daddy', new HiddenType(), array('attr' => array('value' => $daddy->getId())));
         }
 
-        $ar['form'] = $form->createView();
-
-        if ($this->getTemplate($ar['postType']))
+		$up_entity = new PostAttachment();
+        $up_form   = $this->createForm(new PostAttachmentType(), $up_entity);
+		
+		$return = array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+                'up_form' => $up_form->createView(),
+                'postType' => $postTypeName
+                );
+		
+        if ($this->getTemplate($postType))
         {
             $return = $this->renderView(
-                "CMSAdminBundle:Post:new.$ar[postType].html.twig", array(
-                'entity' => $ar['entity'],
-                'form' => $ar['form'],
-                'postType' => $ar['postType']
-                ));
+                "CMSAdminBundle:Post:new.$ar[postType].html.twig", $return);
 
             return new Response($return);
         }
         else
         {
-            return $ar;
+            return $return;
         }
     }
 
@@ -187,7 +204,7 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('CMSStoreBundle:Post')->findOneBySlug($id);
-
+        
         $ar = parent::editAction($post->getId());
         $form = $ar['default_form'];
 
@@ -218,8 +235,12 @@ class PostController extends Controller
             'label_attr' => array('style' => 'display:none'),
             'empty_value' => 'escolha'
         ));
-
+		
+		$up_entity = new PostAttachment();
+        $up_form   = $this->createForm(new PostAttachmentType(), $up_entity);
+        
         $ar['edit_form'] = $form->createView();
+		$ar['up_form'] = $up_form->createView();
 
         if ($this->getTemplate($ar['postType'], 'edit'))
         {
@@ -227,6 +248,7 @@ class PostController extends Controller
                 "CMSAdminBundle:Post:edit.$ar[postType].html.twig", array(
                 'entity' => $ar['entity'],
                 'edit_form' => $ar['edit_form'],
+                'up_form' => $ar['up_form'],
                 'delete_form' => $ar['delete_form'],
                 'postType' => $ar['postType']
                 ));

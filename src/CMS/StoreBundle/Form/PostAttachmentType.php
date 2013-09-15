@@ -11,10 +11,7 @@ class PostAttachmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('postId')
-            ->add('path')
-            ->add('fileName')
-            ->add('mime')
+            ->add('fileName', 'file', array('required' => false))
         ;
     }
 

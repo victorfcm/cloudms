@@ -34,7 +34,7 @@ class PostAttachment
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="attachments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id") 
      */
-    private $posts;
+    private $post;
 
     /**
      * @var string
@@ -171,25 +171,25 @@ class PostAttachment
     }
 
     /**
-     * Set posts
+     * Set post
      *
-     * @param \CMS\StoreBundle\Entity\Post $posts
+     * @param \CMS\StoreBundle\Entity\Post $post
      * @return PostAttachment
      */
-    public function setPosts(\CMS\StoreBundle\Entity\Post $posts = null)
+    public function setPost(\CMS\StoreBundle\Entity\Post $post = null)
     {
-        $this->posts = $posts;
+        $this->post = $post;
     
         return $this;
     }
 
     /**
-     * Get posts
+     * Get post
      *
      * @return \CMS\StoreBundle\Entity\Post 
      */
-    public function getPosts()
+    public function getPost()
     {
-        return $this->posts;
+        return $this->post;
     }
 }

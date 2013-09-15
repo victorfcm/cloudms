@@ -15,21 +15,19 @@
 	<article class="chefe">
 		<h2><span>Notícias</span></h2>
 		{{ render(controller('CMSGDABundle:FrontEnd:noticias')) }}
+		<div class="seletor">
+			<span class="pagina-atual"><a href="{{ url('site_term', {'slug' : 'noticias'}) }}">ver todas</a></span>
+		</div>
 	</article>
 	<article class="chefe">
 		<h2><span>Fotos</span></h2>
-		<ul class="videos">
-			<li>
-				em breve..
-			</li>
-		</ul>
+		{{ render(controller('CMSGDABundle:FrontEnd:albuns')) }}
 	</article>
 	<article class="chefe">
 		<h2><span>Vídeos</span></h2>
-		<ul class="videos">
-			<li>
-				em breve..
-			</li>
-		</ul>
+		{{ render(controller('CMSGDABundle:FrontEnd:videos')) }}
+		<div class="seletor">
+			<span class="pagina-atual"><a href="{{ url('site_term', {'slug' : 'videos'}) }}">ver todos</a></span>
+		</div>
 	</article>
 {% endblock %}

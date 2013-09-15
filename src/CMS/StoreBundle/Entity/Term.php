@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Term
 {
@@ -54,7 +55,7 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Post
      *
-     * @ORM\ManyToOne(targetEntity="Post" , inversedBy="term", cascade="remove")
+     * @ORM\ManyToMany(targetEntity="Post" , inversedBy="term")
      */
     private $posts;
     
@@ -65,6 +66,20 @@ class Term
      * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
 
     /**
@@ -124,29 +139,6 @@ class Term
     }
 
     /**
-     * Set taxonomyId
-     *
-     * @param integer $taxonomyId
-     * @return Term
-     */
-    public function setTaxonomyId($taxonomyId)
-    {
-        $this->taxonomyId = $taxonomyId;
-    
-        return $this;
-    }
-
-    /**
-     * Get taxonomyId
-     *
-     * @return integer 
-     */
-    public function getTaxonomys()
-    {
-        return $this->taxonomy;
-    }
-
-    /**
      * Set daddyId
      *
      * @param integer $daddyId
@@ -178,46 +170,14 @@ class Term
     {
         return $this->getName();
     }
-    
-    /*
-     * set taxonomys
-     * 
-     * @param collection $taxonomys
-     */
-    public function setTaxonomys($taxonomys)
-    {
-        $this->taxonomys = $taxonomys;
-    }
+
     /**
      * Constructor
      */
     public function __construct()
     {
         #$this->taxonomys = new \Doctrine\Common\Collections\ArrayCollection();
-        #$this->posts = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add taxonomys
-     *
-     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
-     * @return Term
-     */
-    public function addTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
-    {
-        $this->taxonomys[] = $taxonomys;
-    
-        return $this;
-    }
-
-    /**
-     * Remove taxonomys
-     *
-     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
-     */
-    public function removeTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
-    {
-        $this->taxonomys->removeElement($taxonomys);
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -310,5 +270,61 @@ class Term
     public function getTaxonomy()
     {
         return $this->taxonomy;
+    }
+    
+    public function getFirstPost()
+    {
+		foreach($this->getPosts() as $post)
+		{
+			return $post;
+		}
+		
+		return null;
+	}
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Term
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Term
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

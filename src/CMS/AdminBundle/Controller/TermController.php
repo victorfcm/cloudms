@@ -88,12 +88,12 @@ class TermController extends Controller
         $form = $ar['default_form'];
 
         $taxonomy = $this->getDoctrine()->getManager()->getRepository('CMSStoreBundle:Taxonomy')->findOneBySlug($taxId);
-        $ar['taxonomy'] = $taxonomy->getName();
+        $ar['taxonomy'] = $taxonomy->getSlug();
 
         if (null !== $taxId)
         {
-            $form->remove('taxonomys');
-            $form->add('taxonomys', new HiddenType(), array('attr' => array('value' => $taxonomy->getId())));
+            $form->remove('taxonomy');
+            $form->add('taxonomy', new HiddenType(), array('attr' => array('value' => $taxonomy->getId())));
         }
 
         $ar['form'] = $form->createView();
@@ -143,16 +143,17 @@ class TermController extends Controller
         {
             throw $this->createNotFoundException('Unable to find Term entity.');
         }
-
+        
+        $taxonomy = $entity->getTaxonomy();
+        
         $editForm = $this->createForm(new TermType(), $entity);
-        $editForm->remove('taxonomys');
+        $editForm->remove('taxonomy');
+        $editForm->add('taxonomy', 'entity', array('class' => 'CMS\StoreBundle\Entity\Taxonomy',
+            'attr' => array('style' => 'display:none'),
+            'label_attr' => array('style' => 'display:none')
+        ));
         
         $deleteForm = $this->createDeleteForm($entity->getId());
-
-        foreach ($entity->getTaxonomys() as $tax)
-        {
-            $taxonomy = $tax->getTaxonomy();
-        }
 
         return array(
             'entity' => $entity,
@@ -193,7 +194,7 @@ class TermController extends Controller
                 'notice', 'Alteração salva com sucesso!'
             );
 
-            return $this->redirect($this->generateUrl($redirUrl, array('id' => $id)));
+            return $this->redirect($this->generateUrl($redirUrl, array('id' => $entity->getSlug())));
         }
 
         return array(

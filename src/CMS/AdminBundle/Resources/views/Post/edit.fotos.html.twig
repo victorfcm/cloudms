@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<div class="h_title">{{ postType }} > Editar</div>
+
+{% if app.session.hasFlash('notice') %}
+    <div class="n_ok">
+        <p>
+            {{ app.session.flash('notice') }}
+        </p>        
+    </div>
+{% endif %}
+
+<form id='edit-form' action="{{ path('post_cupdate', { 'id': entity.id }) }}" method="post" {{ form_enctype(up_form) }}>
+    <input type="hidden" name="_method" value="PUT" />
+        {{ form_widget(edit_form) }}
+        <ul id="box-anexos">
+			<li class="element arquivo">
+				{{ form_widget(up_form.fileName, { 'full_name': up_form.fileName.get('full_name') ~ '[]' }) }}
+				<div class="btns">
+					<a href="javascript:void(0);" class="btn ver" id="add">add</a>
+					<a href="javascript:void(0);" class="btn ver" id="remove">remover</a>
+				</div>
+			</li>
+			<li class='files'>
+			{% for file in entity.attachments %}
+				<div class='foto'>
+					<a class='img' href="/{{ file.path }}" target="_blank" title="{{ file.fileName }}"> <img src="/{{ file.path }}" width="130" /> </a>
+					<span><a href="{{path('attachments_delete', {'id' : file.id})}}">(remover)</a></span>
+				</div>
+			{% endfor %}
+			</li>
+        </ul>
+</form>
+
+<div class="general-btns btns">
+    <button type="button" onclick="$('#edit-form').submit();" class="save">Salvar</button>
+    <button type="button" onclick="window.history.back(1)" class="cancel">Voltar</button>
+    <form action="{{ path('post_cdelete', { 'id': entity.id }) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+        <button type="submit" class="delete">Excluir</button>
+    </form>
+</div>
+{% endblock %}

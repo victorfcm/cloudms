@@ -11,9 +11,23 @@
     </div>
 {% endif %}
 
-<form id='edit-form' action="{{ path('post_cupdate', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<form id='edit-form' action="{{ path('post_cupdate', { 'id': entity.id }) }}" method="post" {{ form_enctype(up_form) }}>
     <input type="hidden" name="_method" value="PUT" />
         {{ form_widget(edit_form) }}
+        <ul id="box-anexos">
+			<li class="element arquivo">
+				{{ form_widget(up_form.fileName, { 'full_name': up_form.fileName.get('full_name') ~ '[]' }) }}
+				<div class="btns">
+					<a href="javascript:void(0);" class="btn ver" id="add">add</a>
+					<a href="javascript:void(0);" class="btn ver" id="remove">remover</a>
+				</div>
+			</li>
+			{% for file in entity.attachments %}
+			<li class='files'>
+				[{{ file.mime }}] - <a href="/{{ file.path }}" target="_blank"> {{ file.fileName }} </a>  -  <a href="{{path('attachments_delete', {'id' : file.id})}}">(remover)</a>
+			</li>
+			{% endfor %}
+        </ul>
 </form>
 
 <div class="general-btns btns">

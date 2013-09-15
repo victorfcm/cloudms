@@ -1,0 +1,5 @@
+{# extends "::base.html.twig" #}
+
+{% block body %}
+	<p><a href="{{ url('site_term', {'slug' : 'album' , 'term' : album.slug }) }}" title="{{ capa.title }}"><img src="/{{ capa.firstAttachment.path }}" alt="{{ capa.title }}" /> </a></p>
+{% endblock %}

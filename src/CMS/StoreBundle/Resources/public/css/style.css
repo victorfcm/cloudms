@@ -627,7 +627,7 @@ table.mceToolbar td a{margin:0 auto !important; padding:0 !important}
 
 
 /* Arquivos Anexos */
-#box-anexos{clear:both; padding:20px; background:#f9f9f9; border-top:1px dashed #ededed; border-bottom:1px dashed #ededed; margin-bottom:-11px}
+#box-anexos{clear:both; padding:20px; background:#f9f9f9; border-top:1px dashed #ededed; border-bottom:1px dashed #ededed; margin-bottom:-11px !important; margin-left:0 !important;}
 
 #box-anexos h2{font-size:14px; padding-bottom:10px !important}
 #box-anexos .item{border:1px solid transparent; border-bottom-color:#eee; margin:0; border-radius:3px; background:none; margin-bottom:-1px}
@@ -660,6 +660,27 @@ table.mceToolbar td a{margin:0 auto !important; padding:0 !important}
 #items-order li p, #items-order li:hover li p{padding:7px 7px 7px 25px; background:#f9f9f9 url(img/i_sortable.png) no-repeat 6px center; border:1px solid #ddd; color:#999; border-radius:3px; margin:0 !important}
 #items-order li:hover p, #items-order li li:hover p{background-color:#e3e3e3; border-color:#ccc; color:#444}
 
-#items-order li ul{padding-top:10px}
+#items-order li ul{padding-top:10px;}
+
+li.files div.foto
+{
+	display: inline-block;
+	padding: 17px;
+	width: 123px;
+}
+
+li.files div.foto a.img
+{
+	width:130px;
+	height: 130px;
+	display:block;
+}
+
+li.files div.foto span
+{
+	position:absolute;
+	margin-left:45px;
+	margin-top:-10px;
+}
 
 

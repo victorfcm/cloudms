@@ -2,7 +2,7 @@
 /* CSS Document */
 /* Resetando Elementos */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;list-style:none outside;}
-body{line-height:1;text-align:left !important;font-family:Arial,Helvetica,sans-serif;font-size:12px;background:#E0E0E0;}
+body{line-height:1;text-align:left !important;font-family:Arial,Helvetica,sans-serif;font-size:12px;background:url('../img/bg.png') repeat-x #E0E0E0;}
 ol, ul{list-style:none;display:inline;}
 blockquote, q{quotes:none;}
 p{line-height:15px;margin-top:10px;}
@@ -10,8 +10,9 @@ p{line-height:15px;margin-top:10px;}
 ins{text-decoration:none;}
 del{text-decoration:line-through;}
 table{border-collapse:collapse;border-spacing:0;}
-a{text-decoration:none;cursor:pointer;}
-a:hover{text-decoration:none;}
+a{text-decoration:none;cursor:pointer;color:#000}
+a:visited{color:#606060}
+a:hover{text-decoration:underline; color:#000}
 input, textarea, select{border:1px solid #EAE9E9;color:#254367;font-size:11px;}
 /* Firefox sempre com barra */
 /*html { overflow:-moz-scrollbars-vertical;}*/
@@ -26,8 +27,8 @@ header .frase{width:692px;padding:0 40px;text-align:center;display:block;float:l
 header nav{display:block;float:left;width:732px;margin:40px 0 0 14px;}
 header nav ul{display:block;float:left;text-align:center;}
 header nav ul li{display:inline-block;margin:0 7px;}
-header nav ul li a{font-size:13px;color:#fff;padding-bottom:20px;transition:0.2s;background:bottom center;}
-header nav ul li a:hover{color:#E2281C;text-decoration:underline;background:url('../img/ico-cruz.png') no-repeat bottom center;}
+header nav ul li a{font-size:13px;color:#fff !important;padding-bottom:20px;transition:0.2s;background:bottom center;}
+header nav ul li a:hover{color:#E2281C !important;text-decoration:underline;background:url('../img/ico-cruz.png') no-repeat bottom center;}
 section{width:833px;display:block;float:left;padding:25px 15px 200px;margin:-5px 3px 0;background:#fff url('../img/galera.png') no-repeat bottom right;box-shadow:4px 1px 10px #aaa, -4px 1px 10px #aaa;-webkit-box-shadow:4px 1px 10px #aaa, -4px 1px 10px #aaa;-moz-box-shadow:4px 1px 10px #aaa, -4px 1px 10px #aaa;}
 section .redes{display:block;float:right;}
 section .redes li{display:block;float:left;margin:0 3px 0;}
@@ -117,6 +118,11 @@ footer{width:869px;display:block;float:left;height:286px;background:url('../img/
 .chefe div.texto{ 
 	padding-left: 23px;
 	padding-top: 25px;
+ }
+ 
+ .chefe div.texto ul li
+ {
+	padding-bottom: 5px;
  }
  
  .chefe div.texto ul

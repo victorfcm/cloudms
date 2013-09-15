@@ -4,8 +4,17 @@
     <div class="h_title">{{ postType }} > Criar Novo</div>
     <h1>{# Adicionar BreadCrumbs #}</h1>
 
-    <form action="{{ path('post_ccreate') }}" method="post" {{ form_enctype(form) }}>
+    <form action="{{ path('post_ccreate') }}" method="post" {{ form_enctype(up_form) }}>
         {{ form_widget(form) }}
+        <ul id="box-anexos">
+			<li class="element arquivo">
+				{{ form_widget(up_form.fileName, { 'full_name': up_form.fileName.get('full_name') ~ '[]' }) }}
+				<div class="btns">
+					<a href="javascript:void(0);" class="btn ver" id="add">add</a>
+					<a href="javascript:void(0);" class="btn ver" id="remove">remover</a>
+				</div>
+			</li>
+        </ul>
         <div class="general-btns btns">
             <button type="submit" class="save">Salvar</button>
             <button type="reset" class="cancel">Cancelar</button>

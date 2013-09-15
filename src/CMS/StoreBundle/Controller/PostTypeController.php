@@ -30,14 +30,6 @@ class PostTypeController extends Controller
 
         $entities = $em->getRepository('CMSStoreBundle:PostType')->findAll();
 
-		foreach($entities as $en)
-		{
-			foreach($en->getTaxonomys() as $tax)
-			{
-				var_dump($tax->getSlug());
-			}
-		}
-
         return array(
             'entities' => $entities,
         );
@@ -160,7 +152,15 @@ class PostTypeController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new PostTypeType(), $entity);
         $editForm->bind($request);
-
+        
+        ## Adicionando os postypes na taxonomia ##
+        $tax = $entity->getTaxonomy();
+        if($tax->getPostType() !== $entity)
+        {
+			$tax->setPostType($entity);
+            $em->persist($tax);
+		}	
+			
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();

@@ -13,7 +13,7 @@ class PostTypeType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('taxonomys')
+            ->add('taxonomy', 'entity', array('class' => 'CMSStoreBundle:Taxonomy', 'multiple' => false))
             ->add('inMenu', 'checkbox', array('required' => false))
             ->add('slug', 'text', array('label' => 'Endereço URL'))
             ->add('position', 'integer', array('label' => 'Posição'))

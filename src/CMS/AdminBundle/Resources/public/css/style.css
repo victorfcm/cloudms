@@ -627,7 +627,7 @@ table.mceToolbar td a{margin:0 auto !important; padding:0 !important}
 
 
 /* Arquivos Anexos */
-#box-anexos{clear:both; padding:20px; background:#f9f9f9; border-top:1px dashed #ededed; border-bottom:1px dashed #ededed; margin-bottom:-11px}
+#box-anexos{clear:both; padding:20px; background:#f9f9f9; border-top:1px dashed #ededed; border-bottom:1px dashed #ededed; margin-bottom:-11px !important; margin-left:0 !important;}
 
 #box-anexos h2{font-size:14px; padding-bottom:10px !important}
 #box-anexos .item{border:1px solid transparent; border-bottom-color:#eee; margin:0; border-radius:3px; background:none; margin-bottom:-1px}

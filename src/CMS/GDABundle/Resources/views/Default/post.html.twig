@@ -5,6 +5,18 @@
 		<h2><span>{{ post.title }}</span></h2>
 		<div class="texto">
 			{{ post.content|raw }}
+			<ul class="files">
+				{% if post.attachments|length > 0 %}
+				<li>
+					<h3>Arquivos Anexos</h3>
+				</li>
+				{% endif %}
+				{% for file in post.attachments %}
+				<li class='files'>
+					[{{ file.mime }}] - <a href="/{{ file.path }}" target="_blank"> {{ file.fileName }} </a>
+				</li>
+				{% endfor %}
+			</ul>
 		</div>
 	</article>
 {% endblock %}

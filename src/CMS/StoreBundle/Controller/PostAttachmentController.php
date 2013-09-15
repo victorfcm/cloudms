@@ -170,27 +170,27 @@ class PostAttachmentController extends Controller
     /**
      * Deletes a PostAttachment entity.
      *
-     * @Route("/{id}", name="attachments_delete")
-     * @Method("DELETE")
+     * @Route("/remove/{id}", name="attachments_delete")
+     * @Method({"GET","DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('CMSStoreBundle:PostAttachment')->find($id);
+		$em = $this->getDoctrine()->getManager();
+		$entity = $em->getRepository('CMSStoreBundle:PostAttachment')->find($id);
+		
+		if (!$entity) {
+			throw $this->createNotFoundException('Unable to find PostAttachment entity.');
+		}
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find PostAttachment entity.');
-            }
+		$slug = $entity->getPost()->getSlug();
 
-            $em->remove($entity);
-            $em->flush();
-        }
+		$em->remove($entity);
+		$em->flush();
 
-        return $this->redirect($this->generateUrl('attachments'));
+        return $this->redirect($this->generateUrl('post_cedit', array('id' => $slug)));
     }
 
     /**

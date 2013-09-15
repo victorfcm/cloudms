@@ -54,7 +54,7 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\PostAttachment
      * 
-     * @ORM\OneToMany(targetEntity="PostAttachment", mappedBy="posts", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="PostAttachment", mappedBy="post", cascade={"all"})
      */
     private $attachments;
 
@@ -84,14 +84,14 @@ class Post
     /**
      * @var \CMS\StoreBundle\Entity\Post
      * 
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="daddy", cascade="remove")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="daddy", cascade={"persist","remove"})
      */
     private $children;
 
     /**
      * @var \CMS\StoreBundle\Entity\Term
      *
-     * @ORM\OneToMany(targetEntity="Term", mappedBy="posts", cascade="remove")
+     * @ORM\ManyToMany(targetEntity="Term", mappedBy="posts", cascade="persist")
      */
     private $terms;
     
@@ -415,6 +415,17 @@ class Post
     {
         $this->terms->removeElement($terms);
     }
+    
+    public function hasTerm($term)
+    {
+		foreach($this->getTerms() as $_t)
+		{
+			if($term === $_t)
+				return true;
+		}
+		
+		return false;
+	}
 
     /**
      * Add children
@@ -573,4 +584,24 @@ class Post
     {
         return $this->position;
     }
+    
+    public function getTermsChoice()
+    {
+		return $this->getPostType()->getTaxonomy()->getTerms();
+	}
+	
+    public function getTaxonomyName()
+    {
+		return $this->getPostType()->getTaxonomy()->getName();
+	}
+	
+	public function getFirstAttachment()
+	{
+		foreach($this->getAttachments() as $at)
+		{
+			return $at;
+		}
+		
+		return null;
+	}
 }

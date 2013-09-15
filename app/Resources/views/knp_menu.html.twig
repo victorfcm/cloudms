@@ -121,7 +121,7 @@
                     </li>
                     {% if item.attributes.taxonomy.id is defined %}
 						<li style="">
-							<a class="icon category" href="{{ path('term_clist', {'taxId' : item.attributes.taxonomy.id}) }}">Listar {{ item.attributes.taxonomy.name }}</a>
+							<a class="icon category" href="{{ path('term_clist', {'taxId' : item.attributes.taxonomy.slug}) }}">Listar {{ item.attributes.taxonomy.name }}</a>
 						</li>
 					{% endif %}
                     <li style="">

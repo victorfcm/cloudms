@@ -7,7 +7,7 @@
         <div class="btns">
             <a class="btn add" href="{{ path('post_cnew', {'type': postTypeSlug }) }}">Adicionar {{ postType }}</a>
             {% if taxonomy.id is defined %}
-				<a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.id}) }}">Listar {{ taxonomy.name }}</a>
+				<a class="btn archive" href="{{ path('term_clist', {'taxId' : taxonomy.slug}) }}">Listar {{ taxonomy.name }}</a>
 			{% endif %}
         </div>
     </div>
@@ -24,7 +24,7 @@
                 <tr>
                     <th style="width:50%; text-align:left">{{ knp_pagination_sortable(pagination, 'Título', 'name', {'style':'color:#ddd;'}) }}</th>
                     <th style="width:20%">{% if taxonomy %}{{ knp_pagination_sortable(pagination, taxonomy.name, 'taxonomys.taxonomy.name', {'style':'color:#ddd;'}) }}{% endif %}</th>
-                    <th style="width:20%">{{ knp_pagination_sortable(pagination, 'Atualização', 'updatedAt', {'style':'color:#ddd;'}) }}</th>
+                    <th style="width:20%">{{ knp_pagination_sortable(pagination, 'Criado em', 'updatedAt', {'style':'color:#ddd;'}) }}</th>
                     <th style="width:10%">Ações</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                         <td><a href="{{ path('post_cedit', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                         <td>
 						{% for term in entity.terms %}
-							{{ term.term.name }} 
+							{{ term.name }} 
 								{% if not loop.last %}
 									<span>, </span>
 								{% endif %}

@@ -30,8 +30,8 @@
                         <td><a href="{{ path('term_cedit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                         <td>{{ entity.description|raw }}</td>
                         <td>
-                            <a class="table-icon edit" title="Editar" href="{{ path('term_cedit', { 'id': entity.id }) }}"></a>
-                            <a class="table-icon delete" title="Deletar" href="{{ path('term_cdelete', { 'id': entity.id }) }}"></a>
+                            <a class="table-icon edit" title="Editar" href="{{ path('term_cedit', { 'id': entity.slug }) }}"></a>
+                            <a class="table-icon delete" title="Deletar" href="{{ path('term_cdelete', { 'id': entity.slug }) }}"></a>
                         </td>
                     </tr>
         {% endfor %}

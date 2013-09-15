@@ -1,0 +1,10 @@
+{% extends '::base_gda.html.twig' %}
+
+{% block body %}
+	<article class="chefe">
+		<h2><span>{{ post.title }}</span></h2>
+		<div class="texto">
+			{{ render(controller('CMSGDABundle:FrontEnd:video', {'slug' : post.slug,'url' : post.content})) }}
+		</div>
+	</article>
+{% endblock %}

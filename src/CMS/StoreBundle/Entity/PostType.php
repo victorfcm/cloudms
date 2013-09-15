@@ -53,16 +53,16 @@ class PostType
     /**
      * @var boolean
      * 
-     * @ORM\Column(name="editable", type="boolean", options={"default":true}, nullable=false)
+     * @ORM\Column(name="editable", type="boolean", options={"default":true}, nullable=true)
      */
     private $editable;
     
     /**
      * @var \CMS\StoreBundle\Entity\Taxonomy
      *
-     * @ORM\OneToMany(targetEntity="Taxonomy", mappedBy="postTypes", cascade="persist")
+     * @ORM\OneToOne(targetEntity="Taxonomy", mappedBy="postType", cascade="persist")
      */
-    private $taxonomys;
+    private $taxonomy;
     
     /** 
      * @var string
@@ -268,39 +268,6 @@ class PostType
     }
 
     /**
-     * Add taxonomys
-     *
-     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
-     * @return PostType
-     */
-    public function addTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
-    {
-        $this->taxonomys[] = $taxonomys;
-
-        return $this;
-    }
-
-    /**
-     * Remove taxonomys
-     *
-     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomys
-     */
-    public function removeTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomys)
-    {
-        $this->taxonomys->removeElement($taxonomys);
-    }
-
-    /**
-     * Get taxonomys
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTaxonomys()
-    {
-        return $this->taxonomys;
-    }
-
-    /**
      * Set editable
      *
      * @param boolean $editable
@@ -322,4 +289,37 @@ class PostType
     {
         return $this->editable;
     }
+
+    /**
+     * Set taxonomy
+     *
+     * @param \CMS\StoreBundle\Entity\Taxonomy $taxonomy
+     * @return PostType
+     */
+    public function setTaxonomy(\CMS\StoreBundle\Entity\Taxonomy $taxonomy = null)
+    {
+        $this->taxonomy = $taxonomy;
+
+        return $this;
+    }
+
+    /**
+     * Get taxonomy
+     *
+     * @return \CMS\StoreBundle\Entity\Taxonomy 
+     */
+    public function getTaxonomy()
+    {
+        return $this->taxonomy;
+    }
+    
+    public function getTermsChoice()
+    {
+		return ($this->getTaxonomy())?$this->getTaxonomy()->getTerms():array();
+	}
+    
+    public function getTaxonomyName()
+    {
+		return ($this->getTaxonomy())?$this->getTaxonomy()->getName():'';
+	}
 }

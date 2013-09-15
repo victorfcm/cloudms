@@ -50,11 +50,7 @@ class Builder extends ContainerAwareCommand
 
         foreach ($this->postTypes as $postType)
         {
-            foreach ($postType->getTaxonomys() as $tax)
-            {
-                $tax = $tax->getTaxonomy();
-                break;
-            }
+            $tax = $postType->getTaxonomy();
 
             $menu->addChild(
                 $postType->getName(), array(

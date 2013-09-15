@@ -9,7 +9,8 @@
 			<span class="mes-ano">{{ noticia.createdAt|date('F')|slice(0,3)|upper }}/{{ noticia.createdAt|date('Y') }}</span>
 		</div>
 		<h3>{{ noticia.title }}</h3>
-		<p>{{ noticia.content|length > 100 ? noticia.content|slice(0,100)|raw : noticia.content|raw  }} ... <br/><a href="{{ url('site_post', {'slug' : noticia.slug, 'type' : 'noticia'}) }}">continuar lendo</a></p>
+		{% set content = noticia.content|striptags %}
+		<p>{{ content|length > 150 ? content|slice(0,150)|raw : content|raw  }} ... <br/><a href="{{ url('site_post', {'slug' : noticia.slug, 'type' : 'noticia'}) }}">continuar lendo</a></p>
 	</li>
 	{% endfor %}
 </ul>

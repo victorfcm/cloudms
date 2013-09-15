@@ -1,0 +1,16 @@
+{% extends '::base_gda.html.twig' %}
+
+{% block body %}
+	<article class="chefe">
+		<h2><span>{{ postType.name }}</span></h2>
+		<div class="texto">
+			<ul>
+			{% for post in posts %}
+				<li>
+					<a href="{{ url('site_post', {'type' : postType.slug, 'slug' : post.slug}) }}">[{{ post.createdAt|date('d/m/Y H:m') }}] {{ post.title }} </a>
+				<li>
+			{% endfor %}
+			</ul>
+		</div>
+	</article>
+{% endblock %}

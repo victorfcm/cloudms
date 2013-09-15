@@ -7,8 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use CMS\StoreBundle\Entity\Term;
 use CMS\StoreBundle\Entity\Post;
+use CMS\StoreBundle\Entity\PostAttachment;
 use CMS\StoreBundle\Form\PostType;
+use CMS\StoreBundle\Form\PostAttachmentType;
 
 /**
  * Post controller.
@@ -44,12 +47,57 @@ class PostController extends Controller
      */
     public function createAction(Request $request, $redirUrl = 'post_show')
     {
+        $em = $this->getDoctrine()->getManager();
+        
         $entity  = new Post();
         $form = $this->createForm(new PostType(), $entity);
         $form->bind($request);
+        
+        $pt = $entity->getPostType()->getSlug();
+        $form_terms = (isset($request->request->get('cms_storebundle_posttype')['terms']) && !empty($request->request->get('cms_storebundle_posttype')['terms'])) ? $request->request->get('cms_storebundle_posttype')['terms']: array();
+        $terms = $em->getRepository('CMSStoreBundle:Term')->findById($form_terms);
+        $trm = '';
+        
+        foreach($terms as $term)
+        {
+			$trm .= $term->getName()."/";
+		}
+        
+        ## Upload ##
+        $upe = new PostAttachment();
+        $upf = $this->createForm(new PostAttachmentType(), $upe);
+        $upf->bind($request);
+        
+        $dir = "uploads/$pt/$trm";
+        
+        foreach($upf->getData()->getFileName() as $file)
+        {
+			if(null !== $file)
+			{
+				$attachment = new PostAttachment();
+				$attachment->setPost($entity);
+				$attachment->setMime($file->getMimeType());
+				$attachment->setFileName($file->getClientOriginalName());
+				$attachment->setPath($dir.''.$file->getClientOriginalName());
+				
+				$em->persist($attachment);
+				
+				$entity->addAttachment($attachment);
+				
+				$file->move($dir, $file->getClientOriginalName());
+			}
+		}
+		
+		## Terms ##
+		foreach($terms as $term)
+        {
+			$term->addPost($entity);
+			$entity->addTerm($term);
+			
+			$em->persist($term);
+		}
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -58,6 +106,7 @@ class PostController extends Controller
 				
 			return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $entity->getPostType()->getSlug())));
         }
+        var_dump($form->getErrors());die;
 
         return array(
             'entity' => $entity,
@@ -126,7 +175,7 @@ class PostController extends Controller
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
-        $editForm = $this->createForm(new PostType(), $entity);
+        $editForm = $this->createForm(new PostType(array('em' => $entity)), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -155,8 +204,52 @@ class PostController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new PostType(), $entity);
+        $editForm = $this->createForm(new PostType(array('em' => $entity)), $entity);
         $editForm->bind($request);
+        
+        $pt = $entity->getPostType()->getSlug();
+        $trm = '';
+        
+        foreach($entity->getTerms() as $term)
+        {
+			$trm .= "$term/";
+		}
+        
+        ## Upload ##
+        $upe = new PostAttachment();
+        $upf = $this->createForm(new PostAttachmentType(), $upe);
+        $upf->bind($request);
+        $dir = "uploads/$pt/$trm";
+        
+        foreach($upf->getData()->getFileName() as $file)
+        {
+			if(null !== $file)
+			{
+				$attachment = new PostAttachment();
+				$attachment->setPost($entity);
+				$attachment->setMime($file->getMimeType());
+				$attachment->setFileName($file->getClientOriginalName());
+				$attachment->setPath($dir.''.$file->getClientOriginalName());
+				
+				$em->persist($attachment);
+				
+				$entity->addAttachment($attachment);
+				
+				$file->move($dir, $file->getClientOriginalName());
+			}
+		}
+		
+		## Terms ##
+		foreach($entity->getTerms() as $term)
+        {
+			if(!$entity->hasTerm($term))
+			{
+				$term->addPost($entity);
+				$entity->addTerm($term);
+				
+				$em->persist($term);
+			}
+		}
 
         if ($editForm->isValid()) {
             $em->persist($entity);

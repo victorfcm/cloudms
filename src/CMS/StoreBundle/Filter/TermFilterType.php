@@ -15,11 +15,12 @@ class TermFilterType extends AbstractType
     {
         $builder
             ->add('name', 'filter_text', array(
-                'apply_filter' => function (QueryBuilder $queryBuilder, Expr $expr, $field, array $values)
+                'apply_filter' => 
+                function (QueryBuilder $queryBuilder, Expr $expr, $field, array $values)
                 {
                     if (!empty($values['value']))
                     {
-                        $queryBuilder->($values['alias'].".name LIKE :name")
+                        $queryBuilder->andWhere($values['alias'].".name LIKE :name")
                         ->setParameter('name', '%'.$values['value'].'%');
                     }
                 },

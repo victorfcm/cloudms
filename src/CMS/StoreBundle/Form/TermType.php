@@ -13,7 +13,7 @@ class TermType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'Nome'))
             ->add('description', 'textarea', array('label' => 'Descrição'))
-            ->add('taxonomys', 'entity', array('class' => 'CMSStoreBundle:Taxonomy', 'multiple' => false))
+            ->add('taxonomy', 'entity', array('class' => 'CMSStoreBundle:Taxonomy', 'multiple' => false))
             ->add('slug')
         ;
     }

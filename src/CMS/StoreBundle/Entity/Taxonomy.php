@@ -46,9 +46,9 @@ class Taxonomy
     /**
      * @var \CMS\StoreBundle\Entity\PostType
      *
-     * @ORM\ManyToOne(targetEntity="PostType", inversedBy="taxonomy", cascade="persist")
+     * @ORM\OneToOne(targetEntity="PostType", inversedBy="taxonomy", cascade="persist")
      */
-    private $postTypes;
+    private $postType;
 
 	/** 
      * @var string
@@ -189,25 +189,36 @@ class Taxonomy
     }
 
     /**
-     * Set postTypes
+     * Set postType
      *
-     * @param \CMS\StoreBundle\Entity\PostType $postTypes
+     * @param \CMS\StoreBundle\Entity\PostType $postType
      * @return Taxonomy
      */
-    public function setPostTypes(\CMS\StoreBundle\Entity\PostType $postTypes = null)
+    public function setPostType(\CMS\StoreBundle\Entity\PostType $postType = null)
     {
-        $this->postTypes = $postTypes;
+        $this->postType = $postType;
 
         return $this;
     }
 
     /**
-     * Get postTypes
+     * Get postType
      *
      * @return \CMS\StoreBundle\Entity\PostType 
      */
-    public function getPostTypes()
+    public function getPostType()
     {
-        return $this->postTypes;
+        return $this->postType;
     }
+    
+    public function hasTerm($term)
+    {
+		foreach($this->getTerms() as $_term)
+		{
+			if($_term == $term)
+				return true;
+		}
+		
+		return false;
+	}
 }
