@@ -235,6 +235,11 @@ class PostController extends Controller
             'label_attr' => array('style' => 'display:none'),
             'empty_value' => 'escolha'
         ));
+        
+        if(!$post->getPostType()->getTaxonomy())
+        {
+			$form->remove('terms');
+		}
 		
 		$up_entity = new PostAttachment();
         $up_form   = $this->createForm(new PostAttachmentType(), $up_entity);

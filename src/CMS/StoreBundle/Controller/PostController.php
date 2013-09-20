@@ -54,7 +54,8 @@ class PostController extends Controller
         $form->bind($request);
         
         $pt = $entity->getPostType()->getSlug();
-        $form_terms = (isset($request->request->get('cms_storebundle_posttype')['terms']) && !empty($request->request->get('cms_storebundle_posttype')['terms'])) ? $request->request->get('cms_storebundle_posttype')['terms']: array();
+        $t = $request->request->get('cms_storebundle_posttype');
+        $form_terms = ($t['terms']) ? $t['terms']: array();
         $terms = $em->getRepository('CMSStoreBundle:Term')->findById($form_terms);
         $trm = '';
         
@@ -106,7 +107,6 @@ class PostController extends Controller
 				
 			return $this->redirect($this->generateUrl($redirUrl, array('typeId' => $entity->getPostType()->getSlug())));
         }
-        var_dump($form->getErrors());die;
 
         return array(
             'entity' => $entity,
@@ -170,12 +170,13 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CMSStoreBundle:Post')->find($id);
+        $posttype = $em->getRepository('CMSStoreBundle:PostType')->find($entity->getPostType());
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
-        $editForm = $this->createForm(new PostType(array('em' => $entity)), $entity);
+        $editForm = $this->createForm(new PostType(array('postType' => $posttype)), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -198,6 +199,7 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CMSStoreBundle:Post')->find($id);
+		$entity->removeAllTerms();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
@@ -206,7 +208,7 @@ class PostController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new PostType(array('em' => $entity)), $entity);
         $editForm->bind($request);
-        
+
         $pt = $entity->getPostType()->getSlug();
         $trm = '';
         
@@ -242,11 +244,9 @@ class PostController extends Controller
 		## Terms ##
 		foreach($entity->getTerms() as $term)
         {
-			if(!$entity->hasTerm($term))
+			if(!$term->hasPost($entity))
 			{
 				$term->addPost($entity);
-				$entity->addTerm($term);
-				
 				$em->persist($term);
 			}
 		}

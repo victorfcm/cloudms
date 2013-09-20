@@ -1,12 +1,19 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
         <title>Guerreiros do Almirante</title>
         {% block stylesheets %}
             {% stylesheets 'bundles/cmsgda/css/estilo.css' filter='cssrewrite' %}
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
             {% endstylesheets %}
+        {% endblock %}
+        {% block javascripts %}
+            {% javascripts 
+                    '@CMSGDABundle/Resources/public/js/jquery-1.9.1.min.js'
+                    '@CMSGDABundle/Resources/public/js/effects.js' %}
+					<script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
         {% block analytics %}
 			<script>

@@ -40,13 +40,21 @@ class DefaultController extends Controller
      * @Template()
      */
     public function homeAction()
-    {
-		$news;
-		$pics;
-		$movies;
-		$top;
-		
+    {	
 		return array();
+	}
+	
+    /**
+     * @Route("/enviar", name="contact_form")
+     * @Method("POST")
+     */
+    public function enviarAction(Request $request)
+    {			
+		$content = "email enviado por: \n".$request->request->get('nome')."responder para: \n".$request->request->get('email')."texto enviado: \n".$request->request->get('texto');
+		
+		mail('contato@vfreitas.com', 'Contato pelo site GDA', $content);
+		
+		return $this->redirect($this->generateUrl('home'));
 	}
 	
 	/**

@@ -30,6 +30,21 @@ class FrontEndController extends Controller
 	}
 	
 	/**
+	 * @Route("/noticias/destaques")
+	 * @Template
+	 */
+	public function destaquesAction()
+	{
+		$em = $this->getDoctrine()->getManager();
+		$posttype = $em->getRepository('CMSStoreBundle:PostType')->findOneBySlug('noticias');
+		$term = $em->getRepository('CMSStoreBundle:Term')->findOneBySlug('destaque');
+		
+		$noticias = $term->getPosts();
+		
+		return array('noticias' => $noticias);
+	}
+	
+	/**
 	 * @Route("/frontend/vdz")
 	 * @Template()
 	 */

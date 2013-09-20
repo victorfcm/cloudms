@@ -1,0 +1,15 @@
+{# extends "::base.html.twig" #}
+
+{% block body %}
+	{% for noticia in noticias %}
+	<div style="display:none;" id="{{ loop.index }}">
+		{% set content = noticia.content|striptags %}
+		{% set capa = noticia.getFirstAttachment %}
+		<img src="/{{ capa.path }}" width='490' height='330' />
+		<div class="texto">
+			<strong>{{ noticia.title }}</strong> -
+			{{ content|length > 150 ? content|slice(0,150)|raw : content|raw  }} ... <a href="{{ url('site_post', {'slug' : noticia.slug, 'type' : 'noticia'}) }}">continuar lendo</a>
+		</div>
+	</div>
+	{% endfor %}
+{% endblock %}

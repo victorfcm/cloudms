@@ -55,7 +55,7 @@ class Term
     /**
      * @var \CMS\StoreBundle\Entity\Post
      *
-     * @ORM\ManyToMany(targetEntity="Post" , inversedBy="term")
+     * @ORM\ManyToMany(targetEntity="Post" , inversedBy="term", cascade="persist")
      */
     private $posts;
     
@@ -327,4 +327,15 @@ class Term
     {
         return $this->updatedAt;
     }
+    
+    public function hasPost($post)
+    {
+		foreach($this->getPosts() as $_p)
+		{
+			if($post->getId() === $_p->getId())
+				return true;
+		}
+		
+		return false;
+	}
 }

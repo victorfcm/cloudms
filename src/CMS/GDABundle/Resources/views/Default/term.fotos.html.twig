@@ -1,0 +1,19 @@
+{% extends '::base_gda.html.twig' %}
+
+{% block body %}
+	<article class="chefe">
+		<h2><span>{{ postType.name }}</span></h2>
+		<div class="texto">
+			<ul>
+			{% for post in posts %}
+				<li>
+					{% for album in post.terms %}
+						<a href="{{ url('site_term', { 'slug' : 'album', 'term' : album.slug }) }}">{{ album.name }}</a>
+						{% if not loop.last %} / {% endif %}
+					{% endfor %}
+				<li>
+			{% endfor %}
+			</ul>
+		</div>
+	</article>
+{% endblock %}

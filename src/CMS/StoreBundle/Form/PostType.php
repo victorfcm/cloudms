@@ -19,6 +19,27 @@ class PostType extends AbstractType
     {
 		$searchTool = (!empty($this->formOptions)) ? (isset($this->formOptions["em"])) ? $this->formOptions["em"] : $this->formOptions["postType"] : null;
 		
+		if(!empty($this->formOptions))
+		{
+			if(isset($this->formOptions["em"]))
+			{
+				$searchTool = $this->formOptions["em"];
+				if(!$searchTool->getPostType()->getTaxonomy())
+					$searchTool = null;
+			}
+			else
+			{
+				$searchTool = $this->formOptions["postType"];				
+				if(!$searchTool->getTaxonomy())
+					$searchTool = null;
+			}
+			
+		}
+		else
+		{
+			$searchTool = null;
+		}
+		
         $builder
             ->add('title', 'text', array('label' => 'Título'))
             ->add('content', 'textarea', array('label' => 'Conteúdo'))
@@ -31,7 +52,7 @@ class PostType extends AbstractType
             
          if(null !== $searchTool)
          {
-            $builder->add("terms", "entity", array("required" => true,
+            $builder->add("terms", "entity", array("required" => false,
                       "class" => 'CMSStoreBundle:Term',
                       "choices" => $searchTool->getTermsChoice(),
                       'multiple' => true,

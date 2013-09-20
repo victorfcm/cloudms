@@ -1,8 +1,0 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    
-    RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
-    
-    RewriteRule ^(.*)$ web/app_dev.php [QSA,L]
-</IfModule>

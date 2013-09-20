@@ -223,12 +223,12 @@ class TermController extends Controller
             throw $this->createNotFoundException('Unable to find Term entity.');
         }
         
-        $taxonomy = $entity->getTaxonomys();
+        $taxonomy = $entity->getTaxonomy();
 
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy[0]->getTaxonomy()->getSlug())));
+        return $this->redirect($this->generateUrl($redirUrl, array('taxId' => $taxonomy->getSlug())));
     }
 
     /**

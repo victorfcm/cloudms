@@ -1,17 +1,17 @@
 {% extends '::base_gda.html.twig' %}
 
 {% block body %}
-	<!-- article class="chefe">
+	<article class="chefe">
 		<h2><span>Destaques</span></h2>
 		<div class="slider-noticias">
-			<div class="texto"></div>
+			{{ render(controller('CMSGDABundle:FrontEnd:destaques')) }}
 		</div>
 		<div class="seletor">
-			<a href="javascritp:void(0)" class="left"></a>
-			<span class="pagina-atual">1/13</span>
+			<a href="javascript:void(0)" class="left"></a>
+			<span class="pagina-atual"><span id="act">1</span>/<span id="all"></span></span>
 			<a href="javascript:void(0)" class="right"></a>
 		</div>
-	</article --!>
+	</article>
 	<article class="chefe">
 		<h2><span>Notícias</span></h2>
 		{{ render(controller('CMSGDABundle:FrontEnd:noticias')) }}

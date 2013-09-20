@@ -1,6 +1,5 @@
 ##Changelog
 
-
 ### v0.4
   - Database created.
   - CRUD of tables, generated.
@@ -21,13 +20,15 @@
 ### v0.6
   - Fixies and updates in database structure.
   - Entities updated : {"Post", "PostTermRelashionship"}
-
-### v0.7
   - Added 'inMenu' flag in PostType.
   - A lot of fixies in back-end enviroment.
-
-### v0.8
   - Front-end application applyed.
 
-### v0.8.1
+### v0.6.1
+  - Fixies on Terms and Taxonomys.
+  - Added FileAttatchment functions.
+  - Added "Editable" field on PostType entity
+
+### v0.7
   - Was removed every relashionship table.
+  - Code cleaned up

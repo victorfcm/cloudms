@@ -415,12 +415,22 @@ class Post
     {
         $this->terms->removeElement($terms);
     }
+	
+	public function removeAllTerms()
+	{
+		foreach($this->getTerms() as $_t)
+		{
+			$_t->removePost($this);
+		}
+		
+		$this->getTerms()->clear();
+	}
     
     public function hasTerm($term)
     {
 		foreach($this->getTerms() as $_t)
 		{
-			if($term === $_t)
+			if($term->getId() === $_t->getId())
 				return true;
 		}
 		
