@@ -22,9 +22,6 @@ skype: victor_fcm
 
 ###** About the project **###
 
-###** Project Documentation **###
-[StoreBundle/Resources/doc/](src/CMS/StoreBundle/Resources/doc)
-
 ###** Requirements **###
  * PHP 5.3.3+
 	- tested on php 5.4.17
