@@ -26,8 +26,7 @@ class AppKernel extends Kernel
 			new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 			new Elao\Bundle\MceMediaBundle\ElaoMceMediaBundle(),
 			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-			new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
-            new CMS\GDABundle\CMSGDABundle(),
+			new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle()
       );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
