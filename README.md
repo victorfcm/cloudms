@@ -1,27 +1,5 @@
 #** Welcome **#
 
-###** This is the CloudMS WIKI **###
-In this wiki you will see:
-
-* [Table Structure](DATABASE_STRUCTURE.md)
-* [TODO](TODO.md)
-* [Changelog](CHANGELOG.md)
-* Classes document
-* [Walktrought - HowTo Documentation](Walktrought.md)
-
-###** Learn about the project. **###
-This project is an CMS, Content Management System, based in the PHP framework Symfony (version 2.3.0), the objective of this is to put together,admin, content and development in only one place.
-
-The structure of the project was based in the WordPress structure, for the user friendly GUI so easy as possible.
-
-###** About the developer. **###
-My name is Victor Freitas ( vfreitas.com ).
-email: contato@vfreitas.com
-cel: +55 021 9671 6112
-skype: victor_fcm
-
-###** About the project **###
-
 ###** Project Documentation **###
 [StoreBundle/Resources/doc/](src/CMS/StoreBundle/Resources/doc)
 
@@ -50,3 +28,8 @@ skype: victor_fcm
 ###** The Idea **###
 An powered CMS with the core no-hosted on the client, with a administrator area that you can administer how many sites as you want.
 
+###** About the developer. **###
+My name is Victor Freitas ( vfreitas.com ).
+email: contato@vfreitas.com
+cel: +55 021 9671 6112
+skype: victor_fcm
